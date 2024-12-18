@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+  "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  sans-serif;
+  /* background-image: radial-gradient(at 47% 33%, hsl(162deg 77% 40% / 72%) 0, transparent 45%), radial-gradient(at 82% 65%, hsl(218deg 60.88% 40.07%) 0, transparent 55%); */
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+header {
+  min-height: 50px;
+  /* background: rgb(40, 146, 146); */
+}
+
+footer {
+  min-height: 50px;
+  /* background: rgb(233, 206, 164); */
+}
+
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  src: local(""),
+  url("../fonts/nunito-v16-latin-regular.woff2") format("woff2");
+}
+
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes shrink-x {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+::view-transition-old(main-header),
+::view-transition-new(main-header) {
+  height: auto;
+  right: 0;
+  left: auto;
+  transform-origin: right center;
+}
+::view-transition-image-pair(root) {
+  isolation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+  display: block;
+}
+
+.main-header {
+  view-transition-name: main-header;
+}
+
+.nonvisible {
+  display: none;
+}

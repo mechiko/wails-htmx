@@ -1,0 +1,16 @@
+{{- if eq (len $.Blocks) 0 -}}
+  <tr class="m-5 font-bold text-xl">пусто</tr>
+{{- else -}}
+{{- range $j, $row := $.Blocks -}}
+  <tr class="divide-y font-thin text-xs">
+{{- range $i, $col := $.Columns.VisibleColumns }}
+    <td class="p-2 text-left"><b>{{ $row.ByName $col.Name }}</b></td>
+{{- end }}
+  </tr>
+{{ end }}
+{{- if .More }}
+    <tr class="divide-y divide-x" hx-trigger="intersect" hx-swap="outerHTML" hx-get="/blocks?start={{ .Next }}">
+      <td colspan="0"></td>
+    </tr>
+{{- end }}
+{{- end -}}
