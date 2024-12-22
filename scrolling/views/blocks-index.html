@@ -1,19 +1,4 @@
-<html>
-    <head>
-      <title>ТТН</title>
-			<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png"/>
-			<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"/>
-			<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"/>
-			<link rel="manifest" href="/assets/favicon/site.webmanifest"/>
-  <link rel="stylesheet" type="text/css" href="/assets/css/roboto.css">
-  <link rel="stylesheet" type="text/css" href="/assets/css/roboto_condenced.css">
-			<script src="/assets/js/tailwind.js"></script>
-			<script src="/assets/js/htmx.min.js"></script>
-      {{ template "style"}}
-    </head>
-    <body>
-      <div id="main" class="h-full flex flex-col" style="width: {{$.Columns.MaxWidth}}px;">
-        {{ template "select-columns" $.Columns.AllColumns}}
+<div id="blocks" class="flex flex-col" style="height:calc(100vh - 8rem); width: {{$.Columns.MaxWidth}}px;">
         <div class="">
           <table class="table-fixed w-full">
 {{- range $.Columns.VisibleColumns }}
@@ -43,7 +28,7 @@
             </thead>
           </table>
         </div>
-        <div class="overflow-y-auto">
+        <div class="overflow-scroll">
         <table class="table-fixed w-full">
 {{- range $.Columns.VisibleColumns }}
             <col class="{{ .WidthClass }}">
@@ -53,7 +38,5 @@
           </tbody>
         </table>
         </div>
-      </div>
-  </body>
-</html>
+</div>
 

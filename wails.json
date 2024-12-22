@@ -2,6 +2,8 @@
   "$schema": "https://wails.io/schemas/config.v2.json",
   "name": "firstwails",
   "outputfilename": "firstwails",
+  "build:dir": "build",
+  "frontend:dir": "alcogo",
   "frontend:install": "bun install",
   "frontend:build": "bun run build",
   "frontend:dev:watcher": "bun run dev",

@@ -8,14 +8,17 @@ html {
 }
 
 body {
-  font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-  "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-  sans-serif;
-  /* background-image: radial-gradient(at 47% 33%, hsl(162deg 77% 40% / 72%) 0, transparent 45%), radial-gradient(at 82% 65%, hsl(218deg 60.88% 40.07%) 0, transparent 55%); */
-  min-height: 100vh;
   margin: 0;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  padding: 0;
+  /*  font-family: 'Roboto', Helvetica, Arial, sans-serif !important;*/
+  font-family: 'Roboto-Condensed', Helvetica, Arial, sans-serif !important;
+  font-size: 16px;
+  font-weight: 300;
+  /*  font-family: "Inconsolata", "Lucida Console", monospace !important;*/
+  height: 100vh;
+  background-color: white;
+  /*  padding-top: 45px !important;*/
+  /* overflow: auto; */
 }
 
 header {
@@ -78,4 +81,33 @@ footer {
 
 .nonvisible {
   display: none;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(51, 49, 49, 0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.content {
+  position: relative;
+  background: white;
+  padding: 1em 2em;
+  border-radius: 4px;
+}
+.modal:target {
+  display: flex;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.5);
+  border-radius: 20px;
+  border: transparent;
 }
