@@ -7,6 +7,7 @@ import (
 type IApp interface {
 	Logger() *zap.SugaredLogger
 	Config() IConfig
+	Configuration() *Configuration
 	Reductor() Reductor
 	Effects() Effects
 }

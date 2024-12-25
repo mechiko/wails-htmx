@@ -1,16 +1,21 @@
 package main
 
 import (
+	"context"
 	_ "embed"
 	"firstwails/alcogo"
-	"firstwails/dbsrc"
+	"firstwails/domain"
+	"firstwails/repo/dbsrc"
+	"firstwails/utility"
 	"firstwails/webapp"
 	"firstwails/zaplog"
-	"log"
+	"fmt"
 	"net/http"
 	"os"
 	"path/filepath"
 
+	// "github.com/brpaz/echozap"
+	"github.com/karagenc/zap4echo"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/wailsapp/wails/v2"
@@ -18,7 +23,10 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 	"github.com/wailsapp/wails/v2/pkg/options/windows"
+	"golang.org/x/sync/errgroup"
 )
+
+const modError = "main"
 
 // var version = "0.0.0"
 var fileExe string
@@ -27,19 +35,42 @@ func init() {
 	fileExe = os.Args[0]
 	dir, _ := filepath.Abs(filepath.Dir(fileExe))
 	os.Chdir(dir)
-	zaplog.InitializeLogger()
+	utility.PathCreate(domain.ConfigPath)
+	utility.PathCreate(domain.LogPath)
+	utility.PathCreate(domain.DbPath)
+	zaplog.OnStartup()
 }
 
 func main() {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 
-	loger := zaplog.Logger
+	group, groupCtx := errgroup.WithContext(ctx)
+
+	// процесс для выключения логгера
+	group.Go(func() error {
+		go func() {
+			<-groupCtx.Done()
+			zaplog.OnShutdown()
+		}()
+		// возврат произойдет только после прерываения контекста
+		// чтобы отловить завершение программы и сброс буферов логеров
+		return zaplog.Run(groupCtx)
+	})
+
+	loger := zaplog.LoggerShugar
 	loger.Debug("zaplog started")
 
 	db := dbsrc.New(loger)
 	defer db.Close()
 
 	e := echo.New()
-	e.Use(middleware.Logger())
+	// e.Use(middleware.Logger())
+	// e.Use(echozap.ZapLogger(zaplog.EchoSugar))
+	e.Use(
+		zap4echo.Logger(zaplog.EchoSugar),
+		zap4echo.Recover(zaplog.EchoSugar),
+	)
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins:     []string{"*"},
 		AllowHeaders:     []string{"authorization", "Content-Type"},
@@ -47,13 +78,22 @@ func main() {
 		AllowMethods:     []string{echo.OPTIONS, echo.GET, echo.HEAD, echo.PUT, echo.PATCH, echo.POST, echo.DELETE},
 	}))
 
-	webApp := webapp.NewWebApp(zaplog.Logger, e)
+	webApp := webapp.NewWebApp(zaplog.LoggerShugar, e)
 	e.Renderer = webApp
 
-	e.GET("/page", webApp.CurrentPageIndex)
+	group.Go(func() error {
+		go func() {
+			<-groupCtx.Done()
+			webApp.OnShutdown()
+		}()
+		// возврат произойдет когда Run завершится
+		// он так же зависит от прерывания контекста
+		// в Run запускают необходимые фоновые задачи
+		return webApp.Run(groupCtx)
+	})
 
 	// Create application with options
-	err := wails.Run(&options.App{
+	if err := wails.Run(&options.App{
 		Title:     "firstwails",
 		Width:     1040,
 		Height:    768,
@@ -84,7 +124,7 @@ func main() {
 		},
 		Menu:             webApp.ApplicationMenu(),
 		Logger:           nil,
-		LogLevel:         logger.DEBUG,
+		LogLevel:         logger.INFO,
 		OnStartup:        webApp.Startup,
 		OnDomReady:       webApp.DomReady,
 		OnBeforeClose:    webApp.BeforeClose,
@@ -102,9 +142,16 @@ func main() {
 		Debug: options.Debug{
 			OpenInspectorOnStartup: true,
 		},
-	})
-
-	if err != nil {
-		log.Fatal(err)
+	}); err != nil {
+		loger.Errorf("%s wails error %s", modError, err.Error())
+	}
+	// все задачи завершаются сразу после запуска и обрабатывают только контекст
+	// поэтому по закрытию окна приложения завершаем контекст
+	cancel()
+	// ожидание завершения всех в группе
+	if err := group.Wait(); err != nil {
+		panic(err.Error())
+	} else {
+		fmt.Println("game over!")
 	}
 }

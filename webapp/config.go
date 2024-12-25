@@ -9,6 +9,7 @@ import (
 func (a *webapp) initConfig() error {
 	// Configuration
 	config.TomlConfig = domain.TomlConfig
+
 	tt, err := config.New(a.logger, "", a.configuration)
 	if err != nil {
 		return fmt.Errorf("app:init %w", err)

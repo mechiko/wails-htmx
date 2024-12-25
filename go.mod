@@ -3,12 +3,20 @@ module firstwails
 go 1.21
 
 require (
+	github.com/denisenkom/go-mssqldb v0.12.3
+	github.com/friendsofgo/errors v0.9.2
 	github.com/google/uuid v1.6.0
 	github.com/jmoiron/sqlx v1.4.0
+	github.com/karagenc/zap4echo v0.1.1
 	github.com/labstack/echo/v4 v4.13.3
+	github.com/mattn/go-sqlite3 v1.14.22
 	github.com/spf13/viper v1.19.0
+	github.com/volatiletech/null/v8 v8.1.2
+	github.com/volatiletech/sqlboiler/v4 v4.17.1
+	github.com/volatiletech/strmangle v0.0.8
 	github.com/wailsapp/wails/v2 v2.9.2
 	go.uber.org/zap v1.27.0
+	golang.org/x/sync v0.10.0
 	golang.org/x/text v0.21.0
 	modernc.org/sqlite v1.34.4
 )
@@ -19,6 +27,9 @@ require (
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/godbus/dbus/v5 v5.1.0 // indirect
+	github.com/gofrs/uuid v4.2.0+incompatible // indirect
+	github.com/golang-sql/civil v0.0.0-20220223132316-b832511892a9 // indirect
+	github.com/golang-sql/sqlexp v0.1.0 // indirect
 	github.com/hashicorp/golang-lru/v2 v2.0.7 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/jchv/go-winloader v0.0.0-20210711035445-715c2860da7e // indirect
@@ -48,14 +59,17 @@ require (
 	github.com/tkrajina/go-reflector v0.5.6 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.2 // indirect
+	github.com/volatiletech/inflect v0.0.1 // indirect
+	github.com/volatiletech/randomize v0.0.1 // indirect
 	github.com/wailsapp/go-webview2 v1.0.16 // indirect
 	github.com/wailsapp/mimetype v1.4.1 // indirect
-	go.uber.org/multierr v1.10.0 // indirect
+	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/crypto v0.31.0 // indirect
 	golang.org/x/exp v0.0.0-20231108232855-2478ac86f678 // indirect
 	golang.org/x/net v0.33.0 // indirect
 	golang.org/x/sys v0.28.0 // indirect
 	golang.org/x/time v0.8.0 // indirect
+	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	modernc.org/gc/v3 v3.0.0-20240107210532-573471604cb6 // indirect

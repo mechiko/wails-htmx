@@ -22,6 +22,17 @@ func PathOrFileExists(name string) (ret bool) {
 	return true
 }
 
+func PathCreate(path string) error {
+	if path != "" {
+		if !PathOrFileExists(path) {
+			if err := os.Mkdir(path, os.ModePerm); err != nil {
+				os.Exit(1)
+			}
+		}
+	}
+	return nil
+}
+
 func PathOrFileExistsMust(name string) (ret bool) {
 	if _, err := os.Stat(name); err != nil {
 		return false

@@ -9,7 +9,7 @@ import (
 )
 
 // путь к файлам шаблонов модуля для локальной отладки только
-const defaultSrc = `E:\src\goproj\wails\firstwails\pages\home\templates`
+const defaultSrc = `E:\src\goproj\wails\firstwails\webapp\pages\home\templates`
 const defaultTemplateName = "page"
 
 type page struct {
