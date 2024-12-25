@@ -4,15 +4,16 @@ import (
 	"log"
 
 	"github.com/jmoiron/sqlx"
+	"go.uber.org/zap"
 	_ "modernc.org/sqlite"
 )
 
 type dbsrc struct {
 	db     *sqlx.DB
-	logger *log.Logger
+	logger *zap.SugaredLogger
 }
 
-func New(logger *log.Logger) *dbsrc {
+func New(logger *zap.SugaredLogger) *dbsrc {
 	db, err := sqlx.Open("sqlite", `M:\!AlcoSoft\A3 UTSZ\030000527832.db`)
 	// db, err := sqlx.Open("sqlite", `C:\!DB\UTSZ\030000527832.db`)
 	if err != nil {

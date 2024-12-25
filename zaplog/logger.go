@@ -11,14 +11,6 @@ import (
 var onlyOnce sync.Once
 
 var Logger *zap.SugaredLogger
-var EventsLogger *zap.Logger
-var ReductorLogger *zap.Logger
-
-var LicenseSugar *zap.SugaredLogger
-var UtmSugar *zap.SugaredLogger
-var EchoSugar *zap.Logger
-
-var SqlDump *zap.SugaredLogger
 
 func InitializeLogger() {
 	onlyOnce.Do(func() {
