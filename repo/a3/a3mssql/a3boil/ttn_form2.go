@@ -26,7 +26,7 @@ import (
 type TTNForm2 struct {
 	ID                   int         `boil:"id" json:"id" toml:"id" yaml:"id"`
 	IDTTN                null.Int    `boil:"id_ttn" json:"id_ttn,omitempty" toml:"id_ttn" yaml:"id_ttn,omitempty"`
-	DocIdentity          null.String `boil:"doc_identity" json:"doc_identity,omitempty" toml:"doc_identity" yaml:"doc_identity,omitempty"`
+	DocIddomain          null.String `boil:"doc_iddomain" json:"doc_iddomain,omitempty" toml:"doc_iddomain" yaml:"doc_iddomain,omitempty"`
 	DocRegID             null.String `boil:"doc_reg_id" json:"doc_reg_id,omitempty" toml:"doc_reg_id" yaml:"doc_reg_id,omitempty"`
 	DocFixNumber         null.String `boil:"doc_fix_number" json:"doc_fix_number,omitempty" toml:"doc_fix_number" yaml:"doc_fix_number,omitempty"`
 	DocFixDate           null.String `boil:"doc_fix_date" json:"doc_fix_date,omitempty" toml:"doc_fix_date" yaml:"doc_fix_date,omitempty"`
@@ -59,7 +59,7 @@ type TTNForm2 struct {
 var TTNForm2Columns = struct {
 	ID                   string
 	IDTTN                string
-	DocIdentity          string
+	DocIddomain          string
 	DocRegID             string
 	DocFixNumber         string
 	DocFixDate           string
@@ -87,7 +87,7 @@ var TTNForm2Columns = struct {
 }{
 	ID:                   "id",
 	IDTTN:                "id_ttn",
-	DocIdentity:          "doc_identity",
+	DocIddomain:          "doc_iddomain",
 	DocRegID:             "doc_reg_id",
 	DocFixNumber:         "doc_fix_number",
 	DocFixDate:           "doc_fix_date",
@@ -117,7 +117,7 @@ var TTNForm2Columns = struct {
 var TTNForm2TableColumns = struct {
 	ID                   string
 	IDTTN                string
-	DocIdentity          string
+	DocIddomain          string
 	DocRegID             string
 	DocFixNumber         string
 	DocFixDate           string
@@ -145,7 +145,7 @@ var TTNForm2TableColumns = struct {
 }{
 	ID:                   "ttn_form2.id",
 	IDTTN:                "ttn_form2.id_ttn",
-	DocIdentity:          "ttn_form2.doc_identity",
+	DocIddomain:          "ttn_form2.doc_iddomain",
 	DocRegID:             "ttn_form2.doc_reg_id",
 	DocFixNumber:         "ttn_form2.doc_fix_number",
 	DocFixDate:           "ttn_form2.doc_fix_date",
@@ -177,7 +177,7 @@ var TTNForm2TableColumns = struct {
 var TTNForm2Where = struct {
 	ID                   whereHelperint
 	IDTTN                whereHelpernull_Int
-	DocIdentity          whereHelpernull_String
+	DocIddomain          whereHelpernull_String
 	DocRegID             whereHelpernull_String
 	DocFixNumber         whereHelpernull_String
 	DocFixDate           whereHelpernull_String
@@ -205,7 +205,7 @@ var TTNForm2Where = struct {
 }{
 	ID:                   whereHelperint{field: "[dbo].[ttn_form2].[id]"},
 	IDTTN:                whereHelpernull_Int{field: "[dbo].[ttn_form2].[id_ttn]"},
-	DocIdentity:          whereHelpernull_String{field: "[dbo].[ttn_form2].[doc_identity]"},
+	DocIddomain:          whereHelpernull_String{field: "[dbo].[ttn_form2].[doc_iddomain]"},
 	DocRegID:             whereHelpernull_String{field: "[dbo].[ttn_form2].[doc_reg_id]"},
 	DocFixNumber:         whereHelpernull_String{field: "[dbo].[ttn_form2].[doc_fix_number]"},
 	DocFixDate:           whereHelpernull_String{field: "[dbo].[ttn_form2].[doc_fix_date]"},
@@ -249,8 +249,8 @@ func (*ttnForm2R) NewStruct() *ttnForm2R {
 type ttnForm2L struct{}
 
 var (
-	ttnForm2AllColumns            = []string{"id", "id_ttn", "doc_identity", "doc_reg_id", "doc_fix_number", "doc_fix_date", "doc_number", "doc_date", "shipper_type", "shipper_client_reg_id", "shipper_inn", "shipper_kpp", "shipper_full_name", "shipper_short_name", "shipper_country_code", "shipper_region_code", "shipper_description", "consignee_type", "consignee_client_reg_id", "consignee_inn", "consignee_kpp", "consignee_full_name", "consignee_short_name", "consignee_country_code", "consignee_region_code", "consignee_description", "xml"}
-	ttnForm2ColumnsWithoutDefault = []string{"id_ttn", "doc_identity", "doc_reg_id", "doc_fix_number", "doc_fix_date", "doc_number", "doc_date", "shipper_type", "shipper_client_reg_id", "shipper_inn", "shipper_kpp", "shipper_full_name", "shipper_short_name", "shipper_country_code", "shipper_region_code", "shipper_description", "consignee_type", "consignee_client_reg_id", "consignee_inn", "consignee_kpp", "consignee_full_name", "consignee_short_name", "consignee_country_code", "consignee_region_code", "consignee_description", "xml"}
+	ttnForm2AllColumns            = []string{"id", "id_ttn", "doc_iddomain", "doc_reg_id", "doc_fix_number", "doc_fix_date", "doc_number", "doc_date", "shipper_type", "shipper_client_reg_id", "shipper_inn", "shipper_kpp", "shipper_full_name", "shipper_short_name", "shipper_country_code", "shipper_region_code", "shipper_description", "consignee_type", "consignee_client_reg_id", "consignee_inn", "consignee_kpp", "consignee_full_name", "consignee_short_name", "consignee_country_code", "consignee_region_code", "consignee_description", "xml"}
+	ttnForm2ColumnsWithoutDefault = []string{"id_ttn", "doc_iddomain", "doc_reg_id", "doc_fix_number", "doc_fix_date", "doc_number", "doc_date", "shipper_type", "shipper_client_reg_id", "shipper_inn", "shipper_kpp", "shipper_full_name", "shipper_short_name", "shipper_country_code", "shipper_region_code", "shipper_description", "consignee_type", "consignee_client_reg_id", "consignee_inn", "consignee_kpp", "consignee_full_name", "consignee_short_name", "consignee_country_code", "consignee_region_code", "consignee_description", "xml"}
 	ttnForm2ColumnsWithDefault    = []string{"id"}
 	ttnForm2PrimaryKeyColumns     = []string{"id"}
 	ttnForm2GeneratedColumns      = []string{"id"}

@@ -26,7 +26,7 @@ import (
 type ImportReport struct {
 	ID                  int         `boil:"id" json:"id" toml:"id" yaml:"id"`
 	CreateDate          null.String `boil:"create_date" json:"create_date,omitempty" toml:"create_date" yaml:"create_date,omitempty"`
-	DocIdentity         null.String `boil:"doc_identity" json:"doc_identity,omitempty" toml:"doc_identity" yaml:"doc_identity,omitempty"`
+	DocIddomain         null.String `boil:"doc_iddomain" json:"doc_iddomain,omitempty" toml:"doc_iddomain" yaml:"doc_iddomain,omitempty"`
 	DocNumber           null.String `boil:"doc_number" json:"doc_number,omitempty" toml:"doc_number" yaml:"doc_number,omitempty"`
 	DocDate             null.String `boil:"doc_date" json:"doc_date,omitempty" toml:"doc_date" yaml:"doc_date,omitempty"`
 	DocImportedDate     null.String `boil:"doc_imported_date" json:"doc_imported_date,omitempty" toml:"doc_imported_date" yaml:"doc_imported_date,omitempty"`
@@ -67,7 +67,7 @@ type ImportReport struct {
 var ImportReportColumns = struct {
 	ID                  string
 	CreateDate          string
-	DocIdentity         string
+	DocIddomain         string
 	DocNumber           string
 	DocDate             string
 	DocImportedDate     string
@@ -103,7 +103,7 @@ var ImportReportColumns = struct {
 }{
 	ID:                  "id",
 	CreateDate:          "create_date",
-	DocIdentity:         "doc_identity",
+	DocIddomain:         "doc_iddomain",
 	DocNumber:           "doc_number",
 	DocDate:             "doc_date",
 	DocImportedDate:     "doc_imported_date",
@@ -141,7 +141,7 @@ var ImportReportColumns = struct {
 var ImportReportTableColumns = struct {
 	ID                  string
 	CreateDate          string
-	DocIdentity         string
+	DocIddomain         string
 	DocNumber           string
 	DocDate             string
 	DocImportedDate     string
@@ -177,7 +177,7 @@ var ImportReportTableColumns = struct {
 }{
 	ID:                  "import_reports.id",
 	CreateDate:          "import_reports.create_date",
-	DocIdentity:         "import_reports.doc_identity",
+	DocIddomain:         "import_reports.doc_iddomain",
 	DocNumber:           "import_reports.doc_number",
 	DocDate:             "import_reports.doc_date",
 	DocImportedDate:     "import_reports.doc_imported_date",
@@ -217,7 +217,7 @@ var ImportReportTableColumns = struct {
 var ImportReportWhere = struct {
 	ID                  whereHelperint
 	CreateDate          whereHelpernull_String
-	DocIdentity         whereHelpernull_String
+	DocIddomain         whereHelpernull_String
 	DocNumber           whereHelpernull_String
 	DocDate             whereHelpernull_String
 	DocImportedDate     whereHelpernull_String
@@ -253,7 +253,7 @@ var ImportReportWhere = struct {
 }{
 	ID:                  whereHelperint{field: "[dbo].[import_reports].[id]"},
 	CreateDate:          whereHelpernull_String{field: "[dbo].[import_reports].[create_date]"},
-	DocIdentity:         whereHelpernull_String{field: "[dbo].[import_reports].[doc_identity]"},
+	DocIddomain:         whereHelpernull_String{field: "[dbo].[import_reports].[doc_iddomain]"},
 	DocNumber:           whereHelpernull_String{field: "[dbo].[import_reports].[doc_number]"},
 	DocDate:             whereHelpernull_String{field: "[dbo].[import_reports].[doc_date]"},
 	DocImportedDate:     whereHelpernull_String{field: "[dbo].[import_reports].[doc_imported_date]"},
@@ -305,8 +305,8 @@ func (*importReportR) NewStruct() *importReportR {
 type importReportL struct{}
 
 var (
-	importReportAllColumns            = []string{"id", "create_date", "doc_identity", "doc_number", "doc_date", "doc_imported_date", "contract_number", "contract_date", "gtd_number", "gtd_date", "doc_comment", "importer_type", "importer_client_reg_id", "importer_inn", "importer_kpp", "importer_full_name", "importer_short_name", "importer_country_code", "importer_region_code", "importer_description", "supplier_type", "supplier_client_reg_id", "supplier_inn", "supplier_kpp", "supplier_full_name", "supplier_short_name", "supplier_country_code", "supplier_region_code", "supplier_description", "version", "state", "status", "reply_id", "archive", "xml"}
-	importReportColumnsWithoutDefault = []string{"create_date", "doc_identity", "doc_number", "doc_date", "doc_imported_date", "contract_number", "contract_date", "gtd_number", "gtd_date", "doc_comment", "importer_type", "importer_client_reg_id", "importer_inn", "importer_kpp", "importer_full_name", "importer_short_name", "importer_country_code", "importer_region_code", "importer_description", "supplier_type", "supplier_client_reg_id", "supplier_inn", "supplier_kpp", "supplier_full_name", "supplier_short_name", "supplier_country_code", "supplier_region_code", "supplier_description", "version", "state", "status", "reply_id", "archive", "xml"}
+	importReportAllColumns            = []string{"id", "create_date", "doc_iddomain", "doc_number", "doc_date", "doc_imported_date", "contract_number", "contract_date", "gtd_number", "gtd_date", "doc_comment", "importer_type", "importer_client_reg_id", "importer_inn", "importer_kpp", "importer_full_name", "importer_short_name", "importer_country_code", "importer_region_code", "importer_description", "supplier_type", "supplier_client_reg_id", "supplier_inn", "supplier_kpp", "supplier_full_name", "supplier_short_name", "supplier_country_code", "supplier_region_code", "supplier_description", "version", "state", "status", "reply_id", "archive", "xml"}
+	importReportColumnsWithoutDefault = []string{"create_date", "doc_iddomain", "doc_number", "doc_date", "doc_imported_date", "contract_number", "contract_date", "gtd_number", "gtd_date", "doc_comment", "importer_type", "importer_client_reg_id", "importer_inn", "importer_kpp", "importer_full_name", "importer_short_name", "importer_country_code", "importer_region_code", "importer_description", "supplier_type", "supplier_client_reg_id", "supplier_inn", "supplier_kpp", "supplier_full_name", "supplier_short_name", "supplier_country_code", "supplier_region_code", "supplier_description", "version", "state", "status", "reply_id", "archive", "xml"}
 	importReportColumnsWithDefault    = []string{"id"}
 	importReportPrimaryKeyColumns     = []string{"id"}
 	importReportGeneratedColumns      = []string{"id"}

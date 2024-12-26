@@ -26,7 +26,7 @@ import (
 type ChargeOnAct struct {
 	ID               int         `boil:"id" json:"id" toml:"id" yaml:"id"`
 	CreateDate       null.String `boil:"create_date" json:"create_date,omitempty" toml:"create_date" yaml:"create_date,omitempty"`
-	DocIdentity      null.String `boil:"doc_identity" json:"doc_identity,omitempty" toml:"doc_identity" yaml:"doc_identity,omitempty"`
+	DocIddomain      null.String `boil:"doc_iddomain" json:"doc_iddomain,omitempty" toml:"doc_iddomain" yaml:"doc_iddomain,omitempty"`
 	DocType          null.String `boil:"doc_type" json:"doc_type,omitempty" toml:"doc_type" yaml:"doc_type,omitempty"`
 	DocNumber        null.String `boil:"doc_number" json:"doc_number,omitempty" toml:"doc_number" yaml:"doc_number,omitempty"`
 	DocDate          null.String `boil:"doc_date" json:"doc_date,omitempty" toml:"doc_date" yaml:"doc_date,omitempty"`
@@ -46,7 +46,7 @@ type ChargeOnAct struct {
 var ChargeOnActColumns = struct {
 	ID               string
 	CreateDate       string
-	DocIdentity      string
+	DocIddomain      string
 	DocType          string
 	DocNumber        string
 	DocDate          string
@@ -61,7 +61,7 @@ var ChargeOnActColumns = struct {
 }{
 	ID:               "id",
 	CreateDate:       "create_date",
-	DocIdentity:      "doc_identity",
+	DocIddomain:      "doc_iddomain",
 	DocType:          "doc_type",
 	DocNumber:        "doc_number",
 	DocDate:          "doc_date",
@@ -78,7 +78,7 @@ var ChargeOnActColumns = struct {
 var ChargeOnActTableColumns = struct {
 	ID               string
 	CreateDate       string
-	DocIdentity      string
+	DocIddomain      string
 	DocType          string
 	DocNumber        string
 	DocDate          string
@@ -93,7 +93,7 @@ var ChargeOnActTableColumns = struct {
 }{
 	ID:               "charge_on_acts.id",
 	CreateDate:       "charge_on_acts.create_date",
-	DocIdentity:      "charge_on_acts.doc_identity",
+	DocIddomain:      "charge_on_acts.doc_iddomain",
 	DocType:          "charge_on_acts.doc_type",
 	DocNumber:        "charge_on_acts.doc_number",
 	DocDate:          "charge_on_acts.doc_date",
@@ -112,7 +112,7 @@ var ChargeOnActTableColumns = struct {
 var ChargeOnActWhere = struct {
 	ID               whereHelperint
 	CreateDate       whereHelpernull_String
-	DocIdentity      whereHelpernull_String
+	DocIddomain      whereHelpernull_String
 	DocType          whereHelpernull_String
 	DocNumber        whereHelpernull_String
 	DocDate          whereHelpernull_String
@@ -127,7 +127,7 @@ var ChargeOnActWhere = struct {
 }{
 	ID:               whereHelperint{field: "[dbo].[charge_on_acts].[id]"},
 	CreateDate:       whereHelpernull_String{field: "[dbo].[charge_on_acts].[create_date]"},
-	DocIdentity:      whereHelpernull_String{field: "[dbo].[charge_on_acts].[doc_identity]"},
+	DocIddomain:      whereHelpernull_String{field: "[dbo].[charge_on_acts].[doc_iddomain]"},
 	DocType:          whereHelpernull_String{field: "[dbo].[charge_on_acts].[doc_type]"},
 	DocNumber:        whereHelpernull_String{field: "[dbo].[charge_on_acts].[doc_number]"},
 	DocDate:          whereHelpernull_String{field: "[dbo].[charge_on_acts].[doc_date]"},
@@ -158,8 +158,8 @@ func (*chargeOnActR) NewStruct() *chargeOnActR {
 type chargeOnActL struct{}
 
 var (
-	chargeOnActAllColumns            = []string{"id", "create_date", "doc_identity", "doc_type", "doc_number", "doc_date", "doc_comment", "write_off_act_reg_id", "version", "state", "status", "reply_id", "archive", "xml"}
-	chargeOnActColumnsWithoutDefault = []string{"create_date", "doc_identity", "doc_type", "doc_number", "doc_date", "doc_comment", "write_off_act_reg_id", "version", "state", "status", "reply_id", "archive", "xml"}
+	chargeOnActAllColumns            = []string{"id", "create_date", "doc_iddomain", "doc_type", "doc_number", "doc_date", "doc_comment", "write_off_act_reg_id", "version", "state", "status", "reply_id", "archive", "xml"}
+	chargeOnActColumnsWithoutDefault = []string{"create_date", "doc_iddomain", "doc_type", "doc_number", "doc_date", "doc_comment", "write_off_act_reg_id", "version", "state", "status", "reply_id", "archive", "xml"}
 	chargeOnActColumnsWithDefault    = []string{"id"}
 	chargeOnActPrimaryKeyColumns     = []string{"id"}
 	chargeOnActGeneratedColumns      = []string{"id"}

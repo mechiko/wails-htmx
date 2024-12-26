@@ -26,7 +26,7 @@ import (
 type ChargeOnForm1 struct {
 	ID             int         `boil:"id" json:"id" toml:"id" yaml:"id"`
 	IDChargeOnActs null.Int    `boil:"id_charge_on_acts" json:"id_charge_on_acts,omitempty" toml:"id_charge_on_acts" yaml:"id_charge_on_acts,omitempty"`
-	DocIdentity    null.String `boil:"doc_identity" json:"doc_identity,omitempty" toml:"doc_identity" yaml:"doc_identity,omitempty"`
+	DocIddomain    null.String `boil:"doc_iddomain" json:"doc_iddomain,omitempty" toml:"doc_iddomain" yaml:"doc_iddomain,omitempty"`
 	DocRegID       null.String `boil:"doc_reg_id" json:"doc_reg_id,omitempty" toml:"doc_reg_id" yaml:"doc_reg_id,omitempty"`
 	DocNumber      null.String `boil:"doc_number" json:"doc_number,omitempty" toml:"doc_number" yaml:"doc_number,omitempty"`
 	XML            null.String `boil:"xml" json:"xml,omitempty" toml:"xml" yaml:"xml,omitempty"`
@@ -38,14 +38,14 @@ type ChargeOnForm1 struct {
 var ChargeOnForm1Columns = struct {
 	ID             string
 	IDChargeOnActs string
-	DocIdentity    string
+	DocIddomain    string
 	DocRegID       string
 	DocNumber      string
 	XML            string
 }{
 	ID:             "id",
 	IDChargeOnActs: "id_charge_on_acts",
-	DocIdentity:    "doc_identity",
+	DocIddomain:    "doc_iddomain",
 	DocRegID:       "doc_reg_id",
 	DocNumber:      "doc_number",
 	XML:            "xml",
@@ -54,14 +54,14 @@ var ChargeOnForm1Columns = struct {
 var ChargeOnForm1TableColumns = struct {
 	ID             string
 	IDChargeOnActs string
-	DocIdentity    string
+	DocIddomain    string
 	DocRegID       string
 	DocNumber      string
 	XML            string
 }{
 	ID:             "charge_on_form1.id",
 	IDChargeOnActs: "charge_on_form1.id_charge_on_acts",
-	DocIdentity:    "charge_on_form1.doc_identity",
+	DocIddomain:    "charge_on_form1.doc_iddomain",
 	DocRegID:       "charge_on_form1.doc_reg_id",
 	DocNumber:      "charge_on_form1.doc_number",
 	XML:            "charge_on_form1.xml",
@@ -72,14 +72,14 @@ var ChargeOnForm1TableColumns = struct {
 var ChargeOnForm1Where = struct {
 	ID             whereHelperint
 	IDChargeOnActs whereHelpernull_Int
-	DocIdentity    whereHelpernull_String
+	DocIddomain    whereHelpernull_String
 	DocRegID       whereHelpernull_String
 	DocNumber      whereHelpernull_String
 	XML            whereHelpernull_String
 }{
 	ID:             whereHelperint{field: "[dbo].[charge_on_form1].[id]"},
 	IDChargeOnActs: whereHelpernull_Int{field: "[dbo].[charge_on_form1].[id_charge_on_acts]"},
-	DocIdentity:    whereHelpernull_String{field: "[dbo].[charge_on_form1].[doc_identity]"},
+	DocIddomain:    whereHelpernull_String{field: "[dbo].[charge_on_form1].[doc_iddomain]"},
 	DocRegID:       whereHelpernull_String{field: "[dbo].[charge_on_form1].[doc_reg_id]"},
 	DocNumber:      whereHelpernull_String{field: "[dbo].[charge_on_form1].[doc_number]"},
 	XML:            whereHelpernull_String{field: "[dbo].[charge_on_form1].[xml]"},
@@ -102,8 +102,8 @@ func (*chargeOnForm1R) NewStruct() *chargeOnForm1R {
 type chargeOnForm1L struct{}
 
 var (
-	chargeOnForm1AllColumns            = []string{"id", "id_charge_on_acts", "doc_identity", "doc_reg_id", "doc_number", "xml"}
-	chargeOnForm1ColumnsWithoutDefault = []string{"id_charge_on_acts", "doc_identity", "doc_reg_id", "doc_number", "xml"}
+	chargeOnForm1AllColumns            = []string{"id", "id_charge_on_acts", "doc_iddomain", "doc_reg_id", "doc_number", "xml"}
+	chargeOnForm1ColumnsWithoutDefault = []string{"id_charge_on_acts", "doc_iddomain", "doc_reg_id", "doc_number", "xml"}
 	chargeOnForm1ColumnsWithDefault    = []string{"id"}
 	chargeOnForm1PrimaryKeyColumns     = []string{"id"}
 	chargeOnForm1GeneratedColumns      = []string{"id"}

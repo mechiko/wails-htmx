@@ -26,7 +26,7 @@ import (
 type ChargeOnForm1Content struct {
 	ID                   int64       `boil:"id" json:"id" toml:"id" yaml:"id"`
 	IDChargeOnForm1      null.Int64  `boil:"id_charge_on_form1" json:"id_charge_on_form1,omitempty" toml:"id_charge_on_form1" yaml:"id_charge_on_form1,omitempty"`
-	ProductIdentity      null.String `boil:"product_identity" json:"product_identity,omitempty" toml:"product_identity" yaml:"product_identity,omitempty"`
+	ProductIddomain      null.String `boil:"product_iddomain" json:"product_iddomain,omitempty" toml:"product_iddomain" yaml:"product_iddomain,omitempty"`
 	ProductInformF1RegID null.String `boil:"product_inform_f1_reg_id" json:"product_inform_f1_reg_id,omitempty" toml:"product_inform_f1_reg_id" yaml:"product_inform_f1_reg_id,omitempty"`
 	ProductInformF2RegID null.String `boil:"product_inform_f2_reg_id" json:"product_inform_f2_reg_id,omitempty" toml:"product_inform_f2_reg_id" yaml:"product_inform_f2_reg_id,omitempty"`
 
@@ -37,13 +37,13 @@ type ChargeOnForm1Content struct {
 var ChargeOnForm1ContentColumns = struct {
 	ID                   string
 	IDChargeOnForm1      string
-	ProductIdentity      string
+	ProductIddomain      string
 	ProductInformF1RegID string
 	ProductInformF2RegID string
 }{
 	ID:                   "id",
 	IDChargeOnForm1:      "id_charge_on_form1",
-	ProductIdentity:      "product_identity",
+	ProductIddomain:      "product_iddomain",
 	ProductInformF1RegID: "product_inform_f1_reg_id",
 	ProductInformF2RegID: "product_inform_f2_reg_id",
 }
@@ -51,13 +51,13 @@ var ChargeOnForm1ContentColumns = struct {
 var ChargeOnForm1ContentTableColumns = struct {
 	ID                   string
 	IDChargeOnForm1      string
-	ProductIdentity      string
+	ProductIddomain      string
 	ProductInformF1RegID string
 	ProductInformF2RegID string
 }{
 	ID:                   "charge_on_form1_content.id",
 	IDChargeOnForm1:      "charge_on_form1_content.id_charge_on_form1",
-	ProductIdentity:      "charge_on_form1_content.product_identity",
+	ProductIddomain:      "charge_on_form1_content.product_iddomain",
 	ProductInformF1RegID: "charge_on_form1_content.product_inform_f1_reg_id",
 	ProductInformF2RegID: "charge_on_form1_content.product_inform_f2_reg_id",
 }
@@ -67,13 +67,13 @@ var ChargeOnForm1ContentTableColumns = struct {
 var ChargeOnForm1ContentWhere = struct {
 	ID                   whereHelperint64
 	IDChargeOnForm1      whereHelpernull_Int64
-	ProductIdentity      whereHelpernull_String
+	ProductIddomain      whereHelpernull_String
 	ProductInformF1RegID whereHelpernull_String
 	ProductInformF2RegID whereHelpernull_String
 }{
 	ID:                   whereHelperint64{field: "\"charge_on_form1_content\".\"id\""},
 	IDChargeOnForm1:      whereHelpernull_Int64{field: "\"charge_on_form1_content\".\"id_charge_on_form1\""},
-	ProductIdentity:      whereHelpernull_String{field: "\"charge_on_form1_content\".\"product_identity\""},
+	ProductIddomain:      whereHelpernull_String{field: "\"charge_on_form1_content\".\"product_iddomain\""},
 	ProductInformF1RegID: whereHelpernull_String{field: "\"charge_on_form1_content\".\"product_inform_f1_reg_id\""},
 	ProductInformF2RegID: whereHelpernull_String{field: "\"charge_on_form1_content\".\"product_inform_f2_reg_id\""},
 }
@@ -95,9 +95,9 @@ func (*chargeOnForm1ContentR) NewStruct() *chargeOnForm1ContentR {
 type chargeOnForm1ContentL struct{}
 
 var (
-	chargeOnForm1ContentAllColumns            = []string{"id", "id_charge_on_form1", "product_identity", "product_inform_f1_reg_id", "product_inform_f2_reg_id"}
+	chargeOnForm1ContentAllColumns            = []string{"id", "id_charge_on_form1", "product_iddomain", "product_inform_f1_reg_id", "product_inform_f2_reg_id"}
 	chargeOnForm1ContentColumnsWithoutDefault = []string{}
-	chargeOnForm1ContentColumnsWithDefault    = []string{"id", "id_charge_on_form1", "product_identity", "product_inform_f1_reg_id", "product_inform_f2_reg_id"}
+	chargeOnForm1ContentColumnsWithDefault    = []string{"id", "id_charge_on_form1", "product_iddomain", "product_inform_f1_reg_id", "product_inform_f2_reg_id"}
 	chargeOnForm1ContentPrimaryKeyColumns     = []string{"id"}
 	chargeOnForm1ContentGeneratedColumns      = []string{"id"}
 )

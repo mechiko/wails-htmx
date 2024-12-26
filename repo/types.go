@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"firstwails/entity"
+	"firstwails/domain"
 	"firstwails/repo/a3/a3mssql"
 	"firstwails/repo/a3/a3sqlite"
 	"firstwails/repo/dbs"
@@ -19,36 +19,31 @@ import (
 const modError = "pkg:repo"
 
 // в каждом пакете этого модуля (dbconfig, dvreport ...)
-// создается структура с интерфейсом entity для выполнения операция по БД
+// создается структура с интерфейсом domain для выполнения операция по БД
 // чтобы управлять блокировками для операция в БД создаем в каждом модуле
 // метод CloseDB() для закрытия ресурса и его надо выполнять defer в каждой функции вызова метода
 // всем методы должны быть разовыми при вызове создает объект интерфейс и открывается БД
 
 type repository struct {
 	IApp
-	dbs entity.Dbs
+	dbs domain.Dbs
 }
 
 // для создания репозитория требуется объект с интерфейсом IApp
-// в программе везде есть такой интерфейс у entity.App
-// этот интерфейс наследуется в объекте IRepo вызовы транслируются в IApp
-// поля структуры repository
 type IApp interface {
-	Configuration() *entity.Configuration
+	Configuration() *domain.Configuration
 	Logger() *zap.SugaredLogger
-	Config() entity.IConfig
+	Config() domain.IConfig
 	Pwd() string
 	FsrarID() string
-	// SetDBEngine(string)
 	StartDateString() string
 	EndDateString() string
 	SetFsrarID(string)
 }
 
-var _ entity.Repo = &repository{}
+var _ domain.Repo = &repository{}
 
-// здесь мы инициализируем БД в приложении через модуль pkg\sqlite3
-func New(a IApp) (rr entity.Repo, err error) {
+func New(a IApp) (rr domain.Repo, err error) {
 	defer func() {
 		if r := recover(); r != nil {
 			err = fmt.Errorf("%v", r)
@@ -57,6 +52,8 @@ func New(a IApp) (rr entity.Repo, err error) {
 	rp := &repository{
 		IApp: a,
 	}
+	// создаем объект описателей БД
+	// имя БД конфигурации А3 и с признаком сканирования других БД
 	rp.dbs = dbs.New(a.Configuration(), "config.db", true)
 	if strings.ToLower(rp.dbs.Lite().Driver()) != "sqlite" {
 		panic("программа поддерживает только SQLITE базу данных")
@@ -64,7 +61,7 @@ func New(a IApp) (rr entity.Repo, err error) {
 
 	if rp.dbs.A3().Absent() {
 		// return nil, fmt.Errorf("%s отсутствует БД А3 драйвер %s", modError, rp.dbs.A3().Driver())
-		rp.Logger().Infof("%s отсутствует БД А3 драйвер %s", modError, rp.dbs.A3().Driver())
+		rp.Logger().Infof("%s отсутствует БД А3 [драйвер %s]", modError, rp.dbs.A3().Driver())
 	} else {
 		// если драйвер mssql то конфиг фсрар ид устанавливаем по имени БД
 		if strings.ToLower(rp.dbs.A3().Driver()) == "mssql" {
@@ -113,31 +110,31 @@ func New(a IApp) (rr entity.Repo, err error) {
 }
 
 // метод возвращает из dbs.Znak описатель доступа к БД
-// используется в конструкторе модуля repo/sqlite/znak типа entity.DbZnak
+// используется в конструкторе модуля repo/sqlite/znak типа domain.DbZnak
 // в конструкторе вызывается открытие БД и по завершению использования надо по
 // defer вызывать метод closeDB()
-func (r *repository) ZnakDbService() entity.DbService {
+func (r *repository) ZnakDbService() domain.IDbService {
 	return r.dbs.ZnakSvc()
 }
 
 // метод возвращает из dbs.Znak описатель доступа к БД
-// используется в конструкторе модуля repo/sqlite/lite типа entity.DbLite
-func (r *repository) LiteDbService() entity.DbService {
+// используется в конструкторе модуля repo/sqlite/lite типа domain.DbLite
+func (r *repository) LiteDbService() domain.IDbService {
 	return r.dbs.LiteSvc()
 }
 
-func (r *repository) A3DbService() entity.DbService {
+func (r *repository) A3DbService() domain.IDbService {
 	return r.dbs.A3Svc()
 }
 
-func (r *repository) DbLite() entity.DbLite {
+func (r *repository) DbLite() domain.DbLite {
 	if r.dbs.Lite().Absent() {
 		panic("отсутствует БД lite")
 	}
 	return lite.New(r)
 }
 
-func (r *repository) DbZnak() entity.DbZnak {
+func (r *repository) DbZnak() domain.DbZnak {
 	if r.dbs.Znak().Absent() {
 		panic("отсутствует БД 4z")
 	}
@@ -151,7 +148,7 @@ func (r *repository) DbZnak() entity.DbZnak {
 	return nil
 }
 
-func (r *repository) DbA3() entity.DbAlcohelp3 {
+func (r *repository) DbA3() domain.DbAlcohelp3 {
 	if r.dbs.A3().Absent() {
 		panic("отсутствует БД A3")
 	}
@@ -165,6 +162,6 @@ func (r *repository) DbA3() entity.DbAlcohelp3 {
 	return nil
 }
 
-func (r *repository) Dbs() entity.Dbs {
+func (r *repository) Dbs() domain.Dbs {
 	return r.dbs
 }

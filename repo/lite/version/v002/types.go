@@ -4,7 +4,7 @@ import (
 	_ "embed"
 	"fmt"
 
-	"firstwails/entity"
+	"firstwails/domain"
 
 	"github.com/jmoiron/sqlx"
 	"go.uber.org/zap"
@@ -26,13 +26,13 @@ type versionDb struct {
 	version string
 }
 type IRepo interface {
-	Configuration() *entity.Configuration
+	Configuration() *domain.Configuration
 	Logger() *zap.SugaredLogger
 	// BackupFile(string) error
-	LiteDbService() entity.DbService
+	LiteDbService() domain.IDbService
 }
 
-var _ entity.VersionDB = (*versionDb)(nil)
+var _ domain.VersionDB = (*versionDb)(nil)
 
 // создаем структуру с номером версии и методами для создания
 func New(app IRepo) *versionDb {

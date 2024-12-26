@@ -12,15 +12,24 @@ import (
 
 const modError = "pages"
 
+type IApp interface {
+	Logger() *zap.SugaredLogger
+	Config() domain.IConfig
+	Configuration() *domain.Configuration
+	Reductor() domain.Reductor
+	Effects() domain.Effects
+	Repo() domain.Repo
+}
+
 type Pages struct {
+	IApp
 	registered map[string]domain.RenderHandler
-	logger     *zap.SugaredLogger
 	echo       *echo.Echo
 }
 
-func New(logger *zap.SugaredLogger, e *echo.Echo) *Pages {
+func New(app IApp, e *echo.Echo) *Pages {
 	return &Pages{
-		logger:     logger,
+		IApp:       app,
 		registered: make(map[string]domain.RenderHandler),
 		echo:       e,
 	}
@@ -34,7 +43,8 @@ func (pgs *Pages) AddPage(name string, f domain.RenderHandler) {
 func (pgs *Pages) RenderPage(w io.Writer, name string, data interface{}, c echo.Context) error {
 	if _, ok := pgs.registered[name]; ok {
 		// передаем templateName пустой для отображения дефолтового шаблона страницы
-		return pgs.registered[name](w, "", data, c)
+		model := pgs.Reductor().Model()
+		return pgs.registered[name](w, "", &model, c)
 	}
 	return fmt.Errorf("%s not registered", name)
 }
@@ -43,7 +53,7 @@ func (pgs *Pages) InitPages() error {
 	// шаблон парсится при запуске
 	// homePage := home.NewPage(pgs.logger, "", "")
 	// шаблон парсится каждый раз при обращении
-	homePage := home.NewOnDemand(pgs.logger, "", "")
+	homePage := home.NewOnDemand(pgs, "", "")
 	if err := homePage.Route(pgs.echo); err != nil {
 		return fmt.Errorf("%s InitPages %w", modError, err)
 	}

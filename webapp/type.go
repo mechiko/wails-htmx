@@ -9,9 +9,11 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"time"
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"go.uber.org/zap"
 )
 
@@ -26,20 +28,27 @@ type webapp struct {
 	configuration *domain.Configuration
 	reductor      domain.Reductor
 	effects       domain.Effects
+	pwd           string
+	startTime     time.Time
+	endTime       time.Time
+	repo          domain.Repo
+	readyDOM      bool
 }
 
 const modError = "webapp"
 
-func NewWebApp(logger *zap.SugaredLogger, e *echo.Echo) *webapp {
+var _ domain.IApp = &webapp{}
+
+func NewWebApp(logger *zap.SugaredLogger, e *echo.Echo, pwd string) *webapp {
 	sc := &webapp{}
+	sc.pwd = pwd
 	sc.logger = logger
 	sc.uuid = uuid.New().String()
 	sc.configuration = &domain.Configuration{}
 	if err := sc.initConfig(); err != nil {
 		panic(fmt.Sprintf("%s NewWebApp() %s", modError, err.Error()))
 	}
-
-	sc.pages = pages.New(logger, e)
+	sc.pages = pages.New(sc, e)
 	sc.activePage = "home"
 	sc.echo = e
 	if err := sc.pages.InitPages(); err != nil {
@@ -49,6 +58,7 @@ func NewWebApp(logger *zap.SugaredLogger, e *echo.Echo) *webapp {
 	sc.effects = effects.New(sc)
 	sc.reductor = reductor.New(sc, sc.effects)
 	sc.Route()
+	sc.initDateMn()
 	return sc
 }
 
@@ -84,6 +94,7 @@ func (a *webapp) Startup(ctx context.Context) {
 func (a webapp) DomReady(ctx context.Context) {
 	// Add your action here
 	a.logger.Debug("DomReady!")
+	a.readyDOM = true
 }
 
 // beforeClose is called when the application is about to quit,
@@ -117,4 +128,77 @@ func (a *webapp) Effects() domain.Effects {
 
 func (a *webapp) Route() {
 	a.echo.GET("/page", a.CurrentPageIndex)
+}
+
+func (a *webapp) initDateMn() {
+	loc, _ := time.LoadLocation("Europe/Moscow")
+	t := time.Now().In(loc)
+	_, m, _ := t.Date()
+	a.startTime = time.Date(t.Year(), m, 1, 1, 0, 0, 0, loc)
+	a.endTime = a.startTime.AddDate(0, 1, -1)
+}
+
+func (a *webapp) NowDateString() string {
+	n := time.Now()
+	return fmt.Sprintf("%4d.%02d.%02d %02d:%02d:%02d", n.Local().Year(), n.Local().Month(), n.Local().Day(), n.Local().Hour(), n.Local().Minute(), n.Local().Second())
+}
+
+func (a *webapp) StartDateString() string {
+	return fmt.Sprintf("%4d.%02d.%02d", a.startTime.Local().Year(), a.startTime.Local().Month(), a.startTime.Local().Day())
+}
+
+func (a *webapp) EndDateString() string {
+	return fmt.Sprintf("%4d.%02d.%02d", a.endTime.Local().Year(), a.endTime.Local().Month(), a.endTime.Local().Day())
+}
+
+func (a *webapp) SetStartDate(d time.Time) {
+	a.startTime = d
+}
+
+func (a *webapp) SetEndDate(d time.Time) {
+	a.endTime = d
+}
+
+func (a *webapp) StartDate() time.Time {
+	return a.startTime
+}
+
+func (a *webapp) EndDate() time.Time {
+	return a.endTime
+}
+
+func (a *webapp) SetRepo(repo domain.Repo) {
+	a.repo = repo
+}
+
+func (a *webapp) FsrarID() string {
+	return a.configuration.Application.Fsrarid
+}
+
+func (a *webapp) SetFsrarID(id string) {
+	a.Config().Set("application.fsrarid", id, true)
+}
+
+func (a *webapp) Logger() *zap.SugaredLogger {
+	return a.logger
+}
+
+func (a *webapp) Pwd() string {
+	return a.pwd
+}
+
+func (a *webapp) Repo() domain.Repo {
+	return a.repo
+}
+
+func (a *webapp) ReductorUpdater(cmd string, model domain.Model) (string, domain.Model) {
+	// пока не будет сигнала DomReady(ctx context.Context)
+	// при перезагрузке окна он еще раз прилетает
+	if !a.readyDOM {
+		return "", model
+	}
+	a.logger.Debug("webapp ReductorUpdater")
+	a.readyDOM = false
+	runtime.WindowReload(a.ctx)
+	return "", model
 }

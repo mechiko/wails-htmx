@@ -27,7 +27,7 @@ type TTN struct {
 	ID                   int64       `boil:"id" json:"id" toml:"id" yaml:"id"`
 	CreateDate           null.String `boil:"create_date" json:"create_date,omitempty" toml:"create_date" yaml:"create_date,omitempty"`
 	TTNType              null.String `boil:"ttn_type" json:"ttn_type,omitempty" toml:"ttn_type" yaml:"ttn_type,omitempty"`
-	DocIdentity          null.String `boil:"doc_identity" json:"doc_identity,omitempty" toml:"doc_identity" yaml:"doc_identity,omitempty"`
+	DocIddomain          null.String `boil:"doc_iddomain" json:"doc_iddomain,omitempty" toml:"doc_iddomain" yaml:"doc_iddomain,omitempty"`
 	DocType              null.String `boil:"doc_type" json:"doc_type,omitempty" toml:"doc_type" yaml:"doc_type,omitempty"`
 	DocNumber            null.String `boil:"doc_number" json:"doc_number,omitempty" toml:"doc_number" yaml:"doc_number,omitempty"`
 	DocDate              null.String `boil:"doc_date" json:"doc_date,omitempty" toml:"doc_date" yaml:"doc_date,omitempty"`
@@ -79,7 +79,7 @@ var TTNColumns = struct {
 	ID                   string
 	CreateDate           string
 	TTNType              string
-	DocIdentity          string
+	DocIddomain          string
 	DocType              string
 	DocNumber            string
 	DocDate              string
@@ -126,7 +126,7 @@ var TTNColumns = struct {
 	ID:                   "id",
 	CreateDate:           "create_date",
 	TTNType:              "ttn_type",
-	DocIdentity:          "doc_identity",
+	DocIddomain:          "doc_iddomain",
 	DocType:              "doc_type",
 	DocNumber:            "doc_number",
 	DocDate:              "doc_date",
@@ -175,7 +175,7 @@ var TTNTableColumns = struct {
 	ID                   string
 	CreateDate           string
 	TTNType              string
-	DocIdentity          string
+	DocIddomain          string
 	DocType              string
 	DocNumber            string
 	DocDate              string
@@ -222,7 +222,7 @@ var TTNTableColumns = struct {
 	ID:                   "ttn.id",
 	CreateDate:           "ttn.create_date",
 	TTNType:              "ttn.ttn_type",
-	DocIdentity:          "ttn.doc_identity",
+	DocIddomain:          "ttn.doc_iddomain",
 	DocType:              "ttn.doc_type",
 	DocNumber:            "ttn.doc_number",
 	DocDate:              "ttn.doc_date",
@@ -273,7 +273,7 @@ var TTNWhere = struct {
 	ID                   whereHelperint64
 	CreateDate           whereHelpernull_String
 	TTNType              whereHelpernull_String
-	DocIdentity          whereHelpernull_String
+	DocIddomain          whereHelpernull_String
 	DocType              whereHelpernull_String
 	DocNumber            whereHelpernull_String
 	DocDate              whereHelpernull_String
@@ -320,7 +320,7 @@ var TTNWhere = struct {
 	ID:                   whereHelperint64{field: "\"ttn\".\"id\""},
 	CreateDate:           whereHelpernull_String{field: "\"ttn\".\"create_date\""},
 	TTNType:              whereHelpernull_String{field: "\"ttn\".\"ttn_type\""},
-	DocIdentity:          whereHelpernull_String{field: "\"ttn\".\"doc_identity\""},
+	DocIddomain:          whereHelpernull_String{field: "\"ttn\".\"doc_iddomain\""},
 	DocType:              whereHelpernull_String{field: "\"ttn\".\"doc_type\""},
 	DocNumber:            whereHelpernull_String{field: "\"ttn\".\"doc_number\""},
 	DocDate:              whereHelpernull_String{field: "\"ttn\".\"doc_date\""},
@@ -382,9 +382,9 @@ func (*ttnR) NewStruct() *ttnR {
 type ttnL struct{}
 
 var (
-	ttnAllColumns            = []string{"id", "create_date", "ttn_type", "doc_identity", "doc_type", "doc_number", "doc_date", "doc_shipping_date", "doc_base", "doc_comment", "shipper_type", "shipper_client_reg_id", "shipper_inn", "shipper_kpp", "shipper_full_name", "shipper_short_name", "shipper_country_code", "shipper_region_code", "shipper_description", "consignee_type", "consignee_client_reg_id", "consignee_inn", "consignee_kpp", "consignee_full_name", "consignee_short_name", "consignee_country_code", "consignee_region_code", "consignee_description", "tran_type", "transport_company", "transport_customer", "transport_ownership", "transport_type", "transport_driver", "transport_trailer", "transport_reg_number", "transport_forwarder", "transport_load_point", "transport_unload_point", "transport_redirect", "version", "state", "status", "reply_id", "archive", "xml"}
+	ttnAllColumns            = []string{"id", "create_date", "ttn_type", "doc_iddomain", "doc_type", "doc_number", "doc_date", "doc_shipping_date", "doc_base", "doc_comment", "shipper_type", "shipper_client_reg_id", "shipper_inn", "shipper_kpp", "shipper_full_name", "shipper_short_name", "shipper_country_code", "shipper_region_code", "shipper_description", "consignee_type", "consignee_client_reg_id", "consignee_inn", "consignee_kpp", "consignee_full_name", "consignee_short_name", "consignee_country_code", "consignee_region_code", "consignee_description", "tran_type", "transport_company", "transport_customer", "transport_ownership", "transport_type", "transport_driver", "transport_trailer", "transport_reg_number", "transport_forwarder", "transport_load_point", "transport_unload_point", "transport_redirect", "version", "state", "status", "reply_id", "archive", "xml"}
 	ttnColumnsWithoutDefault = []string{}
-	ttnColumnsWithDefault    = []string{"id", "create_date", "ttn_type", "doc_identity", "doc_type", "doc_number", "doc_date", "doc_shipping_date", "doc_base", "doc_comment", "shipper_type", "shipper_client_reg_id", "shipper_inn", "shipper_kpp", "shipper_full_name", "shipper_short_name", "shipper_country_code", "shipper_region_code", "shipper_description", "consignee_type", "consignee_client_reg_id", "consignee_inn", "consignee_kpp", "consignee_full_name", "consignee_short_name", "consignee_country_code", "consignee_region_code", "consignee_description", "tran_type", "transport_company", "transport_customer", "transport_ownership", "transport_type", "transport_driver", "transport_trailer", "transport_reg_number", "transport_forwarder", "transport_load_point", "transport_unload_point", "transport_redirect", "version", "state", "status", "reply_id", "archive", "xml"}
+	ttnColumnsWithDefault    = []string{"id", "create_date", "ttn_type", "doc_iddomain", "doc_type", "doc_number", "doc_date", "doc_shipping_date", "doc_base", "doc_comment", "shipper_type", "shipper_client_reg_id", "shipper_inn", "shipper_kpp", "shipper_full_name", "shipper_short_name", "shipper_country_code", "shipper_region_code", "shipper_description", "consignee_type", "consignee_client_reg_id", "consignee_inn", "consignee_kpp", "consignee_full_name", "consignee_short_name", "consignee_country_code", "consignee_region_code", "consignee_description", "tran_type", "transport_company", "transport_customer", "transport_ownership", "transport_type", "transport_driver", "transport_trailer", "transport_reg_number", "transport_forwarder", "transport_load_point", "transport_unload_point", "transport_redirect", "version", "state", "status", "reply_id", "archive", "xml"}
 	ttnPrimaryKeyColumns     = []string{"id"}
 	ttnGeneratedColumns      = []string{"id"}
 )

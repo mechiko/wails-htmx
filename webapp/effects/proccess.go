@@ -1,6 +1,9 @@
 package effects
 
-import "firstwails/domain"
+import (
+	"firstwails/domain"
+	"firstwails/usecase"
+)
 
 func (rdc *effects) proccessMessage(msg domain.Message) {
 	rdc.mutex.Lock()
@@ -9,9 +12,12 @@ func (rdc *effects) proccessMessage(msg domain.Message) {
 	rdc.logger.Debugf("%s proccess %s from %s len chain %d", modError, msg.Cmd, msg.Sender, len(rdc.in))
 	switch msg.Cmd {
 	case "home":
-		// отправим состояние в активную страницу если не будет ее то проигнорируется
+		msg.Cmd = "home"
+		msg.Sender = "effects.hom"
+		mm := usecase.New(rdc).HomeModel(rdc.Reductor().Model())
+		msg.Model = &mm
+		rdc.Reductor().ChanIn() <- msg
 	case "startup":
-		// отправим состояние в активную страницу если не будет ее то проигнорируется
 		msg.Cmd = "startup"
 		msg.Sender = "effects.startup"
 		mm := rdc.Reductor().Model()

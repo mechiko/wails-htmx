@@ -3,9 +3,7 @@ package domain
 var InitModel Model = Model{
 	Gui: gui{
 		MainWindow: MainWindow{
-			Width:  800,
-			Height: 500,
-			Title:  "Инструменты АлкоХелп 3",
+			Title: "",
 			StatusBar: StatusBar{
 				Utm:     false,
 				License: false,
@@ -14,10 +12,9 @@ var InitModel Model = Model{
 			},
 		},
 	},
-	Home: app{
-		Export:      "export",
-		Browser:     "",
-		Output:      "output",
-		BrowserList: []string{"", "Chrome", "Firefox", "Yandex", "MSEdge"},
+	Home: home{
+		Export:  "export",
+		Browser: "",
+		Output:  "output",
 	},
 }

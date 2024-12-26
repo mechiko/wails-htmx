@@ -19,10 +19,12 @@ func NewDbInfoA3(cfg *domain.Configuration, dbType string) (di *dbInfo) {
 		}
 	}()
 	di = &dbInfo{
-		driver: cfg.Alcohelp3.Driver,
-		uri:    "",
-		file:   cfg.Alcohelp3.File,
-		name:   cfg.Alcohelp3.DbName,
+		connection: "",
+		mode:       domain.RwMode, // возможна запись в базу УТМ
+		checkMode:  domain.NoMatter,
+		driver:     cfg.Alcohelp3.Driver,
+		file:       cfg.Alcohelp3.File,
+		name:       cfg.Alcohelp3.DbName,
 	}
 	if di.driver == "" {
 		if di.driver = dbType; di.driver == "" {
@@ -32,8 +34,8 @@ func NewDbInfoA3(cfg *domain.Configuration, dbType string) (di *dbInfo) {
 	switch di.driver {
 	case "mssql":
 		di.file = ""
-		if di.uri == "" {
-			di.uri = cfg.Mssql.ConnectionUri
+		if di.connection == "" {
+			di.connection = cfg.Mssql.Connection
 		}
 		if di.name == "" {
 			if di.name = cfg.Application.Fsrarid; di.name == "" {
@@ -41,7 +43,7 @@ func NewDbInfoA3(cfg *domain.Configuration, dbType string) (di *dbInfo) {
 				return di
 			}
 		}
-		dbs, err := mssql.New(di.name, di.uri)
+		dbs, err := mssql.New(di)
 		if err != nil {
 			panic(fmt.Errorf("%s %w", modError, err))
 		}
@@ -49,9 +51,6 @@ func NewDbInfoA3(cfg *domain.Configuration, dbType string) (di *dbInfo) {
 		return di
 	case "sqlite":
 		di.name = ""
-		if di.uri == "" {
-			di.uri = cfg.Sqlite.ConnectionUri
-		}
 		if di.file == "" {
 			if di.file = cfg.Application.Fsrarid; di.file == "" {
 				if di.file = di.findA3Name(); di.file == "" {
@@ -66,7 +65,7 @@ func NewDbInfoA3(cfg *domain.Configuration, dbType string) (di *dbInfo) {
 			}
 		}
 		if utility.PathOrFileExistsMust(di.file) {
-			dbs, err := sqlite.NewFromUri(di.file, di.uri, sqlite.NoMatter)
+			dbs, err := sqlite.New(di)
 			if err != nil {
 				panic(fmt.Errorf("%s %w", modError, err))
 			}

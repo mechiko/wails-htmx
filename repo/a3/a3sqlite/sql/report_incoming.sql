@@ -1,5 +1,5 @@
 -- ТТН приход кроме возврата и самому себе
-WITH act_last_diff AS (select ta1.product_identity, ta1.product_quantity, ta2.id_ttn, ta2.act_type, ta2.act_date, ta2.id 
+WITH act_last_diff AS (select ta1.product_iddomain, ta1.product_quantity, ta2.id_ttn, ta2.act_type, ta2.act_date, ta2.id 
 from ttn_acts_content ta1 JOIN ttn_acts ta2 ON ta1.id_ttn_acts = ta2.id 
 where ta2.id in (select max(ID) from ttn_acts where act_date >= '{{.Start}}' and act_date <= '{{.End}}' group by id_ttn)),
 act_last AS (select DISTINCT id_ttn, act_type, act_date, LAST_VALUE(id) over (PARTITION BY id_ttn order by act_date ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING) AS 'id'
@@ -15,7 +15,7 @@ select
   round(sum(case tp.product_unit_type when 'Unpacked' then COALESCE(cast(tac.product_quantity as float),cast(tp.product_quantity as float),0) else  COALESCE(cast(tac.product_quantity as float),cast(tp.product_quantity as float),0) * cast(tp.product_capacity as float) * 0.1 end),4) as 'volume'
 FROM ttn tt join ttn_products tp on tp.id_ttn = tt.id
   join ttn_form2 tf on tf.id_ttn = tt.id
-  left join act_last_diff tac on tac.id_ttn = tt.id AND  tac.product_identity = tp.product_identity
+  left join act_last_diff tac on tac.id_ttn = tt.id AND  tac.product_iddomain = tp.product_iddomain
   left join act_last takt on takt.id_ttn = tt.id
   left join ttn_acts_tickets tat on tat.id_ttn_acts = tac.id
 where tt.ttn_type = 'Входящий'

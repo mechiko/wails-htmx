@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"firstwails/entity"
+	"firstwails/domain"
 	"firstwails/repo/lite/version/create"
 	v002 "firstwails/repo/lite/version/v002"
 
@@ -14,13 +14,14 @@ import (
 )
 
 type IRepo interface {
-	Configuration() *entity.Configuration
+	Configuration() *domain.Configuration
 	Logger() *zap.SugaredLogger
-	Config() entity.IConfig
-	LiteDbService() entity.DbService
+	Config() domain.IConfig
+	LiteDbService() domain.IDbService
 }
 
 const modError = "repo:newrequest:version"
+const driver = "sqlite"
 
 // const setVersion string = `INSERT OR REPLACE INTO dboptions (name, value) VALUES ('version',?)`
 const getVersionSql string = `select value from dboptions where name = 'version' limit 1;`
@@ -39,7 +40,7 @@ func CheckVersionDb(app IRepo) (err error) {
 		// файл БД только что создан и требуется инициализация полной структуры БД
 		if err := create.New(app).Upgrade(); err != nil {
 			// надо удалить плохо созданный БД
-			name := dbSvc.GetName()
+			name := dbSvc.DbInfo().File()
 			os.Remove(name)
 			return fmt.Errorf("repo:version новая БД %s удалена из за ошибки создания %v", name, err)
 		}
@@ -58,7 +59,7 @@ func CheckVersionDb(app IRepo) (err error) {
 			} else {
 				switch versionInFile {
 				case "0.0.1":
-					// бэкап БД в каталог entity.BackUpPath
+					// бэкап БД в каталог domain.BackUpPath
 					// предыдущая версия, тут будут все версии что выходят
 					if err := v002.New(app).Upgrade(); err != nil {
 						return fmt.Errorf("v002 ошибка обновления %w", err)
@@ -72,13 +73,14 @@ func CheckVersionDb(app IRepo) (err error) {
 	}
 	return nil
 }
+
 func getStringVersionDb(r IRepo) (out string, err error) {
 	var dbFunc *sqlx.DB
 	if db, err := r.LiteDbService().Db(); err != nil {
 		r.Logger().Errorf("repo:config error %s", err.Error())
 		return "", fmt.Errorf("%w", err)
 	} else {
-		dbFunc = sqlx.NewDb(db, "sqlite3")
+		dbFunc = sqlx.NewDb(db, driver)
 	}
 	defer func() {
 		dbFunc.Close()
@@ -95,6 +97,6 @@ func getStringVersionDb(r IRepo) (out string, err error) {
 	return ver, nil
 }
 
-// func getVersion(app entity.App) entity.VersionDB {
+// func getVersion(app domain.App) domain.VersionDB {
 // 	return nil
 // }

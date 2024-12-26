@@ -24,7 +24,7 @@ FROM ttn tt join ttn_products tp on tp.id_ttn = tt.id
   join ttn_form2 tf on tf.id_ttn = tt.id
   left join (select id, id_ttn, act_type, act_date from ttn_acts where id in (select max(ID) from ttn_acts group by id_ttn)) takt on takt.id_ttn = tt.id
   left join (select id, id_ttn, act_type from ttn_acts where id in (select max(ID) from ttn_acts group by id_ttn)) ta on ta.id_ttn = tt.id and ta.act_type = 'Расхождение'
-  left join ttn_acts_content tac on tac.id_ttn_acts = ta.id and tac.product_identity = tp.product_identity
+  left join ttn_acts_content tac on tac.id_ttn_acts = ta.id and tac.product_iddomain = tp.product_iddomain
   left join ttn_acts_tickets tat on tat.id_ttn_acts = ta.id
   left join form1_egais fe on fe.product_inform_f1_reg_id = tp.product_inform_f1_reg_id 
 where tt.ttn_type in ('Исходящий', 'Импорт')

@@ -26,7 +26,7 @@ import (
 type Ticket struct {
 	ID                int         `boil:"id" json:"id" toml:"id" yaml:"id"`
 	TicketDate        null.String `boil:"ticket_date" json:"ticket_date,omitempty" toml:"ticket_date" yaml:"ticket_date,omitempty"`
-	Identity          null.String `boil:"identity" json:"identity,omitempty" toml:"identity" yaml:"identity,omitempty"`
+	Iddomain          null.String `boil:"iddomain" json:"iddomain,omitempty" toml:"iddomain" yaml:"iddomain,omitempty"`
 	DocID             null.String `boil:"doc_id" json:"doc_id,omitempty" toml:"doc_id" yaml:"doc_id,omitempty"`
 	TransportID       null.String `boil:"transport_id" json:"transport_id,omitempty" toml:"transport_id" yaml:"transport_id,omitempty"`
 	RegID             null.String `boil:"reg_id" json:"reg_id,omitempty" toml:"reg_id" yaml:"reg_id,omitempty"`
@@ -48,7 +48,7 @@ type Ticket struct {
 var TicketColumns = struct {
 	ID                string
 	TicketDate        string
-	Identity          string
+	Iddomain          string
 	DocID             string
 	TransportID       string
 	RegID             string
@@ -65,7 +65,7 @@ var TicketColumns = struct {
 }{
 	ID:                "id",
 	TicketDate:        "ticket_date",
-	Identity:          "identity",
+	Iddomain:          "iddomain",
 	DocID:             "doc_id",
 	TransportID:       "transport_id",
 	RegID:             "reg_id",
@@ -84,7 +84,7 @@ var TicketColumns = struct {
 var TicketTableColumns = struct {
 	ID                string
 	TicketDate        string
-	Identity          string
+	Iddomain          string
 	DocID             string
 	TransportID       string
 	RegID             string
@@ -101,7 +101,7 @@ var TicketTableColumns = struct {
 }{
 	ID:                "tickets.id",
 	TicketDate:        "tickets.ticket_date",
-	Identity:          "tickets.identity",
+	Iddomain:          "tickets.iddomain",
 	DocID:             "tickets.doc_id",
 	TransportID:       "tickets.transport_id",
 	RegID:             "tickets.reg_id",
@@ -122,7 +122,7 @@ var TicketTableColumns = struct {
 var TicketWhere = struct {
 	ID                whereHelperint
 	TicketDate        whereHelpernull_String
-	Identity          whereHelpernull_String
+	Iddomain          whereHelpernull_String
 	DocID             whereHelpernull_String
 	TransportID       whereHelpernull_String
 	RegID             whereHelpernull_String
@@ -139,7 +139,7 @@ var TicketWhere = struct {
 }{
 	ID:                whereHelperint{field: "[dbo].[tickets].[id]"},
 	TicketDate:        whereHelpernull_String{field: "[dbo].[tickets].[ticket_date]"},
-	Identity:          whereHelpernull_String{field: "[dbo].[tickets].[identity]"},
+	Iddomain:          whereHelpernull_String{field: "[dbo].[tickets].[iddomain]"},
 	DocID:             whereHelpernull_String{field: "[dbo].[tickets].[doc_id]"},
 	TransportID:       whereHelpernull_String{field: "[dbo].[tickets].[transport_id]"},
 	RegID:             whereHelpernull_String{field: "[dbo].[tickets].[reg_id]"},
@@ -172,8 +172,8 @@ func (*ticketR) NewStruct() *ticketR {
 type ticketL struct{}
 
 var (
-	ticketAllColumns            = []string{"id", "ticket_date", "identity", "doc_id", "transport_id", "reg_id", "doc_hash", "doc_type", "conclusion", "conclusion_date", "conclusion_comment", "operation_name", "operation_result", "operation_date", "operation_comment", "xml_reply"}
-	ticketColumnsWithoutDefault = []string{"ticket_date", "identity", "doc_id", "transport_id", "reg_id", "doc_hash", "doc_type", "conclusion", "conclusion_date", "conclusion_comment", "operation_name", "operation_result", "operation_date", "operation_comment", "xml_reply"}
+	ticketAllColumns            = []string{"id", "ticket_date", "iddomain", "doc_id", "transport_id", "reg_id", "doc_hash", "doc_type", "conclusion", "conclusion_date", "conclusion_comment", "operation_name", "operation_result", "operation_date", "operation_comment", "xml_reply"}
+	ticketColumnsWithoutDefault = []string{"ticket_date", "iddomain", "doc_id", "transport_id", "reg_id", "doc_hash", "doc_type", "conclusion", "conclusion_date", "conclusion_comment", "operation_name", "operation_result", "operation_date", "operation_comment", "xml_reply"}
 	ticketColumnsWithDefault    = []string{"id"}
 	ticketPrimaryKeyColumns     = []string{"id"}
 	ticketGeneratedColumns      = []string{"id"}

@@ -4,7 +4,7 @@ package domain
 // интерфейс Reader для доступа только чтения
 type Model struct {
 	Gui  gui
-	Home app
+	Home home
 }
 
 // формат сообщения

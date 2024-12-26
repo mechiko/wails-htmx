@@ -5,7 +5,7 @@ import (
 	_ "embed"
 	"fmt"
 
-	"firstwails/entity"
+	"firstwails/domain"
 
 	"go.uber.org/zap"
 )
@@ -18,15 +18,15 @@ type dbZnak struct {
 }
 
 type IRepo interface {
-	Configuration() *entity.Configuration
+	Configuration() *domain.Configuration
 	Logger() *zap.SugaredLogger
-	Config() entity.IConfig
+	Config() domain.IConfig
 
-	ZnakDbService() entity.DbService
+	ZnakDbService() domain.IDbService
 }
 
 // вызывается каждый раз когда требуется доступ к БД конфиг
-func New(r IRepo) entity.DbZnak {
+func New(r IRepo) domain.DbZnak {
 	rc := &dbZnak{
 		IRepo: r,
 	}

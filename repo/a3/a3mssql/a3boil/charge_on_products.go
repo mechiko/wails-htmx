@@ -32,7 +32,7 @@ type ChargeOnProduct struct {
 	ProductAlcCode      null.String `boil:"product_alc_code" json:"product_alc_code,omitempty" toml:"product_alc_code" yaml:"product_alc_code,omitempty"`
 	ProductCode         null.String `boil:"product_code" json:"product_code,omitempty" toml:"product_code" yaml:"product_code,omitempty"`
 	ProductUnitType     null.String `boil:"product_unit_type" json:"product_unit_type,omitempty" toml:"product_unit_type" yaml:"product_unit_type,omitempty"`
-	ProductIdentity     null.String `boil:"product_identity" json:"product_identity,omitempty" toml:"product_identity" yaml:"product_identity,omitempty"`
+	ProductIddomain     null.String `boil:"product_iddomain" json:"product_iddomain,omitempty" toml:"product_iddomain" yaml:"product_iddomain,omitempty"`
 	ProductQuantity     null.String `boil:"product_quantity" json:"product_quantity,omitempty" toml:"product_quantity" yaml:"product_quantity,omitempty"`
 	ProducerType        null.String `boil:"producer_type" json:"producer_type,omitempty" toml:"producer_type" yaml:"producer_type,omitempty"`
 	ProducerClientRegID null.String `boil:"producer_client_reg_id" json:"producer_client_reg_id,omitempty" toml:"producer_client_reg_id" yaml:"producer_client_reg_id,omitempty"`
@@ -63,7 +63,7 @@ var ChargeOnProductColumns = struct {
 	ProductAlcCode      string
 	ProductCode         string
 	ProductUnitType     string
-	ProductIdentity     string
+	ProductIddomain     string
 	ProductQuantity     string
 	ProducerType        string
 	ProducerClientRegID string
@@ -89,7 +89,7 @@ var ChargeOnProductColumns = struct {
 	ProductAlcCode:      "product_alc_code",
 	ProductCode:         "product_code",
 	ProductUnitType:     "product_unit_type",
-	ProductIdentity:     "product_identity",
+	ProductIddomain:     "product_iddomain",
 	ProductQuantity:     "product_quantity",
 	ProducerType:        "producer_type",
 	ProducerClientRegID: "producer_client_reg_id",
@@ -117,7 +117,7 @@ var ChargeOnProductTableColumns = struct {
 	ProductAlcCode      string
 	ProductCode         string
 	ProductUnitType     string
-	ProductIdentity     string
+	ProductIddomain     string
 	ProductQuantity     string
 	ProducerType        string
 	ProducerClientRegID string
@@ -143,7 +143,7 @@ var ChargeOnProductTableColumns = struct {
 	ProductAlcCode:      "charge_on_products.product_alc_code",
 	ProductCode:         "charge_on_products.product_code",
 	ProductUnitType:     "charge_on_products.product_unit_type",
-	ProductIdentity:     "charge_on_products.product_identity",
+	ProductIddomain:     "charge_on_products.product_iddomain",
 	ProductQuantity:     "charge_on_products.product_quantity",
 	ProducerType:        "charge_on_products.producer_type",
 	ProducerClientRegID: "charge_on_products.producer_client_reg_id",
@@ -173,7 +173,7 @@ var ChargeOnProductWhere = struct {
 	ProductAlcCode      whereHelpernull_String
 	ProductCode         whereHelpernull_String
 	ProductUnitType     whereHelpernull_String
-	ProductIdentity     whereHelpernull_String
+	ProductIddomain     whereHelpernull_String
 	ProductQuantity     whereHelpernull_String
 	ProducerType        whereHelpernull_String
 	ProducerClientRegID whereHelpernull_String
@@ -199,7 +199,7 @@ var ChargeOnProductWhere = struct {
 	ProductAlcCode:      whereHelpernull_String{field: "[dbo].[charge_on_products].[product_alc_code]"},
 	ProductCode:         whereHelpernull_String{field: "[dbo].[charge_on_products].[product_code]"},
 	ProductUnitType:     whereHelpernull_String{field: "[dbo].[charge_on_products].[product_unit_type]"},
-	ProductIdentity:     whereHelpernull_String{field: "[dbo].[charge_on_products].[product_identity]"},
+	ProductIddomain:     whereHelpernull_String{field: "[dbo].[charge_on_products].[product_iddomain]"},
 	ProductQuantity:     whereHelpernull_String{field: "[dbo].[charge_on_products].[product_quantity]"},
 	ProducerType:        whereHelpernull_String{field: "[dbo].[charge_on_products].[producer_type]"},
 	ProducerClientRegID: whereHelpernull_String{field: "[dbo].[charge_on_products].[producer_client_reg_id]"},
@@ -235,8 +235,8 @@ func (*chargeOnProductR) NewStruct() *chargeOnProductR {
 type chargeOnProductL struct{}
 
 var (
-	chargeOnProductAllColumns            = []string{"id", "id_charge_on_acts", "product_full_name", "product_capacity", "product_alc_volume", "product_alc_code", "product_code", "product_unit_type", "product_identity", "product_quantity", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description", "form1_quantity", "form1_bottling_date", "form1_ttn_number", "form1_ttn_date", "form1_egais_fix_number", "form1_egais_fix_date"}
-	chargeOnProductColumnsWithoutDefault = []string{"id_charge_on_acts", "product_full_name", "product_capacity", "product_alc_volume", "product_alc_code", "product_code", "product_unit_type", "product_identity", "product_quantity", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description", "form1_quantity", "form1_bottling_date", "form1_ttn_number", "form1_ttn_date", "form1_egais_fix_number", "form1_egais_fix_date"}
+	chargeOnProductAllColumns            = []string{"id", "id_charge_on_acts", "product_full_name", "product_capacity", "product_alc_volume", "product_alc_code", "product_code", "product_unit_type", "product_iddomain", "product_quantity", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description", "form1_quantity", "form1_bottling_date", "form1_ttn_number", "form1_ttn_date", "form1_egais_fix_number", "form1_egais_fix_date"}
+	chargeOnProductColumnsWithoutDefault = []string{"id_charge_on_acts", "product_full_name", "product_capacity", "product_alc_volume", "product_alc_code", "product_code", "product_unit_type", "product_iddomain", "product_quantity", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description", "form1_quantity", "form1_bottling_date", "form1_ttn_number", "form1_ttn_date", "form1_egais_fix_number", "form1_egais_fix_date"}
 	chargeOnProductColumnsWithDefault    = []string{"id"}
 	chargeOnProductPrimaryKeyColumns     = []string{"id"}
 	chargeOnProductGeneratedColumns      = []string{"id"}

@@ -4,7 +4,7 @@ import (
 	_ "embed"
 	"fmt"
 
-	"firstwails/entity"
+	"firstwails/domain"
 
 	"github.com/jmoiron/sqlx"
 	"go.uber.org/zap"
@@ -18,15 +18,15 @@ type dbLite struct {
 }
 
 type IRepo interface {
-	Configuration() *entity.Configuration
+	Configuration() *domain.Configuration
 	Logger() *zap.SugaredLogger
-	Config() entity.IConfig
+	Config() domain.IConfig
 
-	LiteDbService() entity.DbService
+	LiteDbService() domain.IDbService
 }
 
 // вызывается каждый раз когда требуется доступ к БД конфиг
-func New(r IRepo) entity.DbLite {
+func New(r IRepo) domain.DbLite {
 	rc := &dbLite{
 		IRepo: r,
 	}

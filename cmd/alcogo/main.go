@@ -4,8 +4,9 @@ import (
 	"context"
 	_ "embed"
 	"firstwails/alcogo"
+	"firstwails/checkdbg"
 	"firstwails/domain"
-	"firstwails/repo/dbsrc"
+	"firstwails/repo"
 	"firstwails/utility"
 	"firstwails/webapp"
 	"firstwails/zaplog"
@@ -30,10 +31,11 @@ const modError = "main"
 
 // var version = "0.0.0"
 var fileExe string
+var dir string
 
 func init() {
 	fileExe = os.Args[0]
-	dir, _ := filepath.Abs(filepath.Dir(fileExe))
+	dir, _ = filepath.Abs(filepath.Dir(fileExe))
 	os.Chdir(dir)
 	utility.PathCreate(domain.ConfigPath)
 	utility.PathCreate(domain.LogPath)
@@ -61,9 +63,6 @@ func main() {
 	loger := zaplog.LoggerShugar
 	loger.Debug("zaplog started")
 
-	db := dbsrc.New(loger)
-	defer db.Close()
-
 	e := echo.New()
 	// e.Use(middleware.Logger())
 	// e.Use(echozap.ZapLogger(zaplog.EchoSugar))
@@ -78,8 +77,29 @@ func main() {
 		AllowMethods:     []string{echo.OPTIONS, echo.GET, echo.HEAD, echo.PUT, echo.PATCH, echo.POST, echo.DELETE},
 	}))
 
-	webApp := webapp.NewWebApp(zaplog.LoggerShugar, e)
+	webApp := webapp.NewWebApp(zaplog.LoggerShugar, e, dir)
 	e.Renderer = webApp
+
+	// инициализируем REPO
+	if repo, err := repo.New(webApp); err != nil {
+		loger.Errorf("%s %s", modError, err.Error())
+		panic(err.Error())
+	} else {
+		webApp.SetRepo(repo)
+		group.Go(func() error {
+			go func() {
+				<-groupCtx.Done()
+				repo.Shutdown()
+			}()
+			return repo.Start(groupCtx)
+		})
+	}
+	// тесты
+	if err := checkdbg.NewChecks(webApp).Run(); err != nil {
+		loger.Errorf("check error %v", err)
+		// app.MessageBox("Ошибка Checks", err.Error())
+		cancel()
+	}
 
 	group.Go(func() error {
 		go func() {

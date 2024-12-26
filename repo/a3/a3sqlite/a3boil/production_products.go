@@ -34,7 +34,7 @@ type ProductionProduct struct {
 	ProductAlcCode      null.String `boil:"product_alc_code" json:"product_alc_code,omitempty" toml:"product_alc_code" yaml:"product_alc_code,omitempty"`
 	ProductCode         null.String `boil:"product_code" json:"product_code,omitempty" toml:"product_code" yaml:"product_code,omitempty"`
 	ProductUnitType     null.String `boil:"product_unit_type" json:"product_unit_type,omitempty" toml:"product_unit_type" yaml:"product_unit_type,omitempty"`
-	ProductIdentity     null.String `boil:"product_identity" json:"product_identity,omitempty" toml:"product_identity" yaml:"product_identity,omitempty"`
+	ProductIddomain     null.String `boil:"product_iddomain" json:"product_iddomain,omitempty" toml:"product_iddomain" yaml:"product_iddomain,omitempty"`
 	ProductQuantity     null.String `boil:"product_quantity" json:"product_quantity,omitempty" toml:"product_quantity" yaml:"product_quantity,omitempty"`
 	ProductParty        null.String `boil:"product_party" json:"product_party,omitempty" toml:"product_party" yaml:"product_party,omitempty"`
 	ProductComment      null.String `boil:"product_comment" json:"product_comment,omitempty" toml:"product_comment" yaml:"product_comment,omitempty"`
@@ -63,7 +63,7 @@ var ProductionProductColumns = struct {
 	ProductAlcCode      string
 	ProductCode         string
 	ProductUnitType     string
-	ProductIdentity     string
+	ProductIddomain     string
 	ProductQuantity     string
 	ProductParty        string
 	ProductComment      string
@@ -87,7 +87,7 @@ var ProductionProductColumns = struct {
 	ProductAlcCode:      "product_alc_code",
 	ProductCode:         "product_code",
 	ProductUnitType:     "product_unit_type",
-	ProductIdentity:     "product_identity",
+	ProductIddomain:     "product_iddomain",
 	ProductQuantity:     "product_quantity",
 	ProductParty:        "product_party",
 	ProductComment:      "product_comment",
@@ -113,7 +113,7 @@ var ProductionProductTableColumns = struct {
 	ProductAlcCode      string
 	ProductCode         string
 	ProductUnitType     string
-	ProductIdentity     string
+	ProductIddomain     string
 	ProductQuantity     string
 	ProductParty        string
 	ProductComment      string
@@ -137,7 +137,7 @@ var ProductionProductTableColumns = struct {
 	ProductAlcCode:      "production_products.product_alc_code",
 	ProductCode:         "production_products.product_code",
 	ProductUnitType:     "production_products.product_unit_type",
-	ProductIdentity:     "production_products.product_identity",
+	ProductIddomain:     "production_products.product_iddomain",
 	ProductQuantity:     "production_products.product_quantity",
 	ProductParty:        "production_products.product_party",
 	ProductComment:      "production_products.product_comment",
@@ -165,7 +165,7 @@ var ProductionProductWhere = struct {
 	ProductAlcCode      whereHelpernull_String
 	ProductCode         whereHelpernull_String
 	ProductUnitType     whereHelpernull_String
-	ProductIdentity     whereHelpernull_String
+	ProductIddomain     whereHelpernull_String
 	ProductQuantity     whereHelpernull_String
 	ProductParty        whereHelpernull_String
 	ProductComment      whereHelpernull_String
@@ -189,7 +189,7 @@ var ProductionProductWhere = struct {
 	ProductAlcCode:      whereHelpernull_String{field: "\"production_products\".\"product_alc_code\""},
 	ProductCode:         whereHelpernull_String{field: "\"production_products\".\"product_code\""},
 	ProductUnitType:     whereHelpernull_String{field: "\"production_products\".\"product_unit_type\""},
-	ProductIdentity:     whereHelpernull_String{field: "\"production_products\".\"product_identity\""},
+	ProductIddomain:     whereHelpernull_String{field: "\"production_products\".\"product_iddomain\""},
 	ProductQuantity:     whereHelpernull_String{field: "\"production_products\".\"product_quantity\""},
 	ProductParty:        whereHelpernull_String{field: "\"production_products\".\"product_party\""},
 	ProductComment:      whereHelpernull_String{field: "\"production_products\".\"product_comment\""},
@@ -221,9 +221,9 @@ func (*productionProductR) NewStruct() *productionProductR {
 type productionProductL struct{}
 
 var (
-	productionProductAllColumns            = []string{"id", "id_production_reports", "product_full_name", "product_capacity", "product_alc_volume", "product_alc_volume_min", "product_alc_volume_max", "product_alc_code", "product_code", "product_unit_type", "product_identity", "product_quantity", "product_party", "product_comment", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description"}
+	productionProductAllColumns            = []string{"id", "id_production_reports", "product_full_name", "product_capacity", "product_alc_volume", "product_alc_volume_min", "product_alc_volume_max", "product_alc_code", "product_code", "product_unit_type", "product_iddomain", "product_quantity", "product_party", "product_comment", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description"}
 	productionProductColumnsWithoutDefault = []string{}
-	productionProductColumnsWithDefault    = []string{"id", "id_production_reports", "product_full_name", "product_capacity", "product_alc_volume", "product_alc_volume_min", "product_alc_volume_max", "product_alc_code", "product_code", "product_unit_type", "product_identity", "product_quantity", "product_party", "product_comment", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description"}
+	productionProductColumnsWithDefault    = []string{"id", "id_production_reports", "product_full_name", "product_capacity", "product_alc_volume", "product_alc_volume_min", "product_alc_volume_max", "product_alc_code", "product_code", "product_unit_type", "product_iddomain", "product_quantity", "product_party", "product_comment", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description"}
 	productionProductPrimaryKeyColumns     = []string{"id"}
 	productionProductGeneratedColumns      = []string{"id"}
 )

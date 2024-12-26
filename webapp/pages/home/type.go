@@ -1,6 +1,7 @@
 package home
 
 import (
+	"firstwails/domain"
 	"html/template"
 	"io"
 
@@ -10,21 +11,30 @@ import (
 
 // путь к файлам шаблонов модуля для локальной отладки только
 const defaultSrc = `E:\src\goproj\wails\firstwails\webapp\pages\home\templates`
-const defaultTemplateName = "page"
+const defaultTemplateName = "index"
+
+type IApp interface {
+	Logger() *zap.SugaredLogger
+	Config() domain.IConfig
+	Configuration() *domain.Configuration
+	Reductor() domain.Reductor
+	Effects() domain.Effects
+	Repo() domain.Repo
+}
 
 type page struct {
+	IApp
 	src          string
 	template     *template.Template
-	logger       *zap.SugaredLogger
 	templateName string
 }
 
 // шаблоны парсятся однажды
 // index имя шаблона для страницы по умолчанию (обычно это 'page')
 // src путь до файлов шаблона
-func NewPage(logger *zap.SugaredLogger, templ string, src string) *page {
+func NewPage(app IApp, templ string, src string) *page {
 	t := &page{
-		logger:       logger,
+		IApp:         app,
 		src:          src,
 		templateName: templ,
 	}
@@ -33,17 +43,20 @@ func NewPage(logger *zap.SugaredLogger, templ string, src string) *page {
 	}
 	tt := template.New("")
 	template.Must(tt.New("style").Parse(styleTmpl))
-	template.Must(tt.New("page").Funcs(funcMapHtml).Parse(indexTmpl))
+	template.Must(tt.New("index").Funcs(funcMapHtml).Parse(indexTmpl))
+	template.Must(tt.New("navbar").Funcs(funcMapHtml).Parse(navbarTmpl))
+	template.Must(tt.New("page").Funcs(funcMapHtml).Parse(pageTmpl))
+	template.Must(tt.New("footer").Funcs(funcMapHtml).Parse(footerTmpl))
 	t.template = tt
 	return t
 }
 
 // шаблоны парсятся каждый раз
 // index имя шаблона по умолчанию
-// src путь до файлов шаблона
-func NewOnDemand(logger *zap.SugaredLogger, index string, src string) *page {
+// src путь до файлов шаблна
+func NewOnDemand(app IApp, index string, src string) *page {
 	t := &page{
-		logger:       logger,
+		IApp:         app,
 		src:          src,
 		templateName: index,
 	}
@@ -71,10 +84,23 @@ func (t *page) DoRender(w io.Writer, templateName string, data interface{}, c ec
 	}
 	tt := template.New("")
 	if _, err := tt.New("style").Parse(fileGetContents(t.src + "\\style.html")); err != nil {
-		t.logger.Error(err)
+		t.Logger().Error(err)
 	}
-	if _, err := tt.New("page").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\index.html")); err != nil {
-		t.logger.Error(err)
+	if _, err := tt.New("index").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\index.html")); err != nil {
+		t.Logger().Error(err)
+	}
+	if _, err := tt.New("navbar").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\navbar.html")); err != nil {
+		t.Logger().Error(err)
+	}
+	if _, err := tt.New("page").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\page.html")); err != nil {
+		t.Logger().Error(err)
+	}
+	if _, err := tt.New("footer").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\footer.html")); err != nil {
+		t.Logger().Error(err)
 	}
 	return tt.ExecuteTemplate(w, templateName, data)
+}
+
+func (t *page) Model(model domain.Model) domain.Model {
+	return model
 }

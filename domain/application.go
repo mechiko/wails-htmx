@@ -10,4 +10,5 @@ type IApp interface {
 	Configuration() *Configuration
 	Reductor() Reductor
 	Effects() Effects
+	Repo() Repo
 }

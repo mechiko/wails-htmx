@@ -32,7 +32,7 @@ type ProductionGrape struct {
 	GrapeWeight          null.String `boil:"grape_weight" json:"grape_weight,omitempty" toml:"grape_weight" yaml:"grape_weight,omitempty"`
 	VineyardNumber       null.String `boil:"vineyard_number" json:"vineyard_number,omitempty" toml:"vineyard_number" yaml:"vineyard_number,omitempty"`
 	ReceiptDate          null.String `boil:"receipt_date" json:"receipt_date,omitempty" toml:"receipt_date" yaml:"receipt_date,omitempty"`
-	GrapeIdentity        null.String `boil:"grape_identity" json:"grape_identity,omitempty" toml:"grape_identity" yaml:"grape_identity,omitempty"`
+	GrapeIddomain        null.String `boil:"grape_iddomain" json:"grape_iddomain,omitempty" toml:"grape_iddomain" yaml:"grape_iddomain,omitempty"`
 	SupplierType         null.String `boil:"supplier_type" json:"supplier_type,omitempty" toml:"supplier_type" yaml:"supplier_type,omitempty"`
 	SupplierClientRegID  null.String `boil:"supplier_client_reg_id" json:"supplier_client_reg_id,omitempty" toml:"supplier_client_reg_id" yaml:"supplier_client_reg_id,omitempty"`
 	SupplierInn          null.String `boil:"supplier_inn" json:"supplier_inn,omitempty" toml:"supplier_inn" yaml:"supplier_inn,omitempty"`
@@ -56,7 +56,7 @@ var ProductionGrapeColumns = struct {
 	GrapeWeight          string
 	VineyardNumber       string
 	ReceiptDate          string
-	GrapeIdentity        string
+	GrapeIddomain        string
 	SupplierType         string
 	SupplierClientRegID  string
 	SupplierInn          string
@@ -75,7 +75,7 @@ var ProductionGrapeColumns = struct {
 	GrapeWeight:          "grape_weight",
 	VineyardNumber:       "vineyard_number",
 	ReceiptDate:          "receipt_date",
-	GrapeIdentity:        "grape_identity",
+	GrapeIddomain:        "grape_iddomain",
 	SupplierType:         "supplier_type",
 	SupplierClientRegID:  "supplier_client_reg_id",
 	SupplierInn:          "supplier_inn",
@@ -96,7 +96,7 @@ var ProductionGrapeTableColumns = struct {
 	GrapeWeight          string
 	VineyardNumber       string
 	ReceiptDate          string
-	GrapeIdentity        string
+	GrapeIddomain        string
 	SupplierType         string
 	SupplierClientRegID  string
 	SupplierInn          string
@@ -115,7 +115,7 @@ var ProductionGrapeTableColumns = struct {
 	GrapeWeight:          "production_grapes.grape_weight",
 	VineyardNumber:       "production_grapes.vineyard_number",
 	ReceiptDate:          "production_grapes.receipt_date",
-	GrapeIdentity:        "production_grapes.grape_identity",
+	GrapeIddomain:        "production_grapes.grape_iddomain",
 	SupplierType:         "production_grapes.supplier_type",
 	SupplierClientRegID:  "production_grapes.supplier_client_reg_id",
 	SupplierInn:          "production_grapes.supplier_inn",
@@ -138,7 +138,7 @@ var ProductionGrapeWhere = struct {
 	GrapeWeight          whereHelpernull_String
 	VineyardNumber       whereHelpernull_String
 	ReceiptDate          whereHelpernull_String
-	GrapeIdentity        whereHelpernull_String
+	GrapeIddomain        whereHelpernull_String
 	SupplierType         whereHelpernull_String
 	SupplierClientRegID  whereHelpernull_String
 	SupplierInn          whereHelpernull_String
@@ -157,7 +157,7 @@ var ProductionGrapeWhere = struct {
 	GrapeWeight:          whereHelpernull_String{field: "\"production_grapes\".\"grape_weight\""},
 	VineyardNumber:       whereHelpernull_String{field: "\"production_grapes\".\"vineyard_number\""},
 	ReceiptDate:          whereHelpernull_String{field: "\"production_grapes\".\"receipt_date\""},
-	GrapeIdentity:        whereHelpernull_String{field: "\"production_grapes\".\"grape_identity\""},
+	GrapeIddomain:        whereHelpernull_String{field: "\"production_grapes\".\"grape_iddomain\""},
 	SupplierType:         whereHelpernull_String{field: "\"production_grapes\".\"supplier_type\""},
 	SupplierClientRegID:  whereHelpernull_String{field: "\"production_grapes\".\"supplier_client_reg_id\""},
 	SupplierInn:          whereHelpernull_String{field: "\"production_grapes\".\"supplier_inn\""},
@@ -186,9 +186,9 @@ func (*productionGrapeR) NewStruct() *productionGrapeR {
 type productionGrapeL struct{}
 
 var (
-	productionGrapeAllColumns            = []string{"id", "id_production_reports", "id_production_products", "grape_sort", "grape_code", "grape_weight", "vineyard_number", "receipt_date", "grape_identity", "supplier_type", "supplier_client_reg_id", "supplier_inn", "supplier_kpp", "supplier_full_name", "supplier_short_name", "supplier_country_code", "supplier_region_code", "supplier_description"}
+	productionGrapeAllColumns            = []string{"id", "id_production_reports", "id_production_products", "grape_sort", "grape_code", "grape_weight", "vineyard_number", "receipt_date", "grape_iddomain", "supplier_type", "supplier_client_reg_id", "supplier_inn", "supplier_kpp", "supplier_full_name", "supplier_short_name", "supplier_country_code", "supplier_region_code", "supplier_description"}
 	productionGrapeColumnsWithoutDefault = []string{}
-	productionGrapeColumnsWithDefault    = []string{"id", "id_production_reports", "id_production_products", "grape_sort", "grape_code", "grape_weight", "vineyard_number", "receipt_date", "grape_identity", "supplier_type", "supplier_client_reg_id", "supplier_inn", "supplier_kpp", "supplier_full_name", "supplier_short_name", "supplier_country_code", "supplier_region_code", "supplier_description"}
+	productionGrapeColumnsWithDefault    = []string{"id", "id_production_reports", "id_production_products", "grape_sort", "grape_code", "grape_weight", "vineyard_number", "receipt_date", "grape_iddomain", "supplier_type", "supplier_client_reg_id", "supplier_inn", "supplier_kpp", "supplier_full_name", "supplier_short_name", "supplier_country_code", "supplier_region_code", "supplier_description"}
 	productionGrapePrimaryKeyColumns     = []string{"id"}
 	productionGrapeGeneratedColumns      = []string{"id"}
 )

@@ -11,11 +11,6 @@ func (r *repository) Start(ctx context.Context) (err error) {
 			err = fmt.Errorf("%v", r)
 		}
 	}()
-	// пустая проверка пока закомментим на будущее может
-	// if entity.Mode != "production" {
-	// 	r.CheckOnStart()
-	// }
-
 	// ожидаем завершения контекста
 	<-ctx.Done()
 	r.Logger().Infof("завершаем работу репозитория по контексту")

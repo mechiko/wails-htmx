@@ -26,7 +26,7 @@ import (
 type TTNForm2Content struct {
 	ID                   int         `boil:"id" json:"id" toml:"id" yaml:"id"`
 	IDTTNForm2           null.Int    `boil:"id_ttn_form2" json:"id_ttn_form2,omitempty" toml:"id_ttn_form2" yaml:"id_ttn_form2,omitempty"`
-	ProductIdentity      null.String `boil:"product_identity" json:"product_identity,omitempty" toml:"product_identity" yaml:"product_identity,omitempty"`
+	ProductIddomain      null.String `boil:"product_iddomain" json:"product_iddomain,omitempty" toml:"product_iddomain" yaml:"product_iddomain,omitempty"`
 	ProductInformF2RegID null.String `boil:"product_inform_f2_reg_id" json:"product_inform_f2_reg_id,omitempty" toml:"product_inform_f2_reg_id" yaml:"product_inform_f2_reg_id,omitempty"`
 	BottlingDate         null.String `boil:"bottling_date" json:"bottling_date,omitempty" toml:"bottling_date" yaml:"bottling_date,omitempty"`
 
@@ -37,13 +37,13 @@ type TTNForm2Content struct {
 var TTNForm2ContentColumns = struct {
 	ID                   string
 	IDTTNForm2           string
-	ProductIdentity      string
+	ProductIddomain      string
 	ProductInformF2RegID string
 	BottlingDate         string
 }{
 	ID:                   "id",
 	IDTTNForm2:           "id_ttn_form2",
-	ProductIdentity:      "product_identity",
+	ProductIddomain:      "product_iddomain",
 	ProductInformF2RegID: "product_inform_f2_reg_id",
 	BottlingDate:         "bottling_date",
 }
@@ -51,13 +51,13 @@ var TTNForm2ContentColumns = struct {
 var TTNForm2ContentTableColumns = struct {
 	ID                   string
 	IDTTNForm2           string
-	ProductIdentity      string
+	ProductIddomain      string
 	ProductInformF2RegID string
 	BottlingDate         string
 }{
 	ID:                   "ttn_form2_content.id",
 	IDTTNForm2:           "ttn_form2_content.id_ttn_form2",
-	ProductIdentity:      "ttn_form2_content.product_identity",
+	ProductIddomain:      "ttn_form2_content.product_iddomain",
 	ProductInformF2RegID: "ttn_form2_content.product_inform_f2_reg_id",
 	BottlingDate:         "ttn_form2_content.bottling_date",
 }
@@ -67,13 +67,13 @@ var TTNForm2ContentTableColumns = struct {
 var TTNForm2ContentWhere = struct {
 	ID                   whereHelperint
 	IDTTNForm2           whereHelpernull_Int
-	ProductIdentity      whereHelpernull_String
+	ProductIddomain      whereHelpernull_String
 	ProductInformF2RegID whereHelpernull_String
 	BottlingDate         whereHelpernull_String
 }{
 	ID:                   whereHelperint{field: "[dbo].[ttn_form2_content].[id]"},
 	IDTTNForm2:           whereHelpernull_Int{field: "[dbo].[ttn_form2_content].[id_ttn_form2]"},
-	ProductIdentity:      whereHelpernull_String{field: "[dbo].[ttn_form2_content].[product_identity]"},
+	ProductIddomain:      whereHelpernull_String{field: "[dbo].[ttn_form2_content].[product_iddomain]"},
 	ProductInformF2RegID: whereHelpernull_String{field: "[dbo].[ttn_form2_content].[product_inform_f2_reg_id]"},
 	BottlingDate:         whereHelpernull_String{field: "[dbo].[ttn_form2_content].[bottling_date]"},
 }
@@ -95,8 +95,8 @@ func (*ttnForm2ContentR) NewStruct() *ttnForm2ContentR {
 type ttnForm2ContentL struct{}
 
 var (
-	ttnForm2ContentAllColumns            = []string{"id", "id_ttn_form2", "product_identity", "product_inform_f2_reg_id", "bottling_date"}
-	ttnForm2ContentColumnsWithoutDefault = []string{"id_ttn_form2", "product_identity", "product_inform_f2_reg_id", "bottling_date"}
+	ttnForm2ContentAllColumns            = []string{"id", "id_ttn_form2", "product_iddomain", "product_inform_f2_reg_id", "bottling_date"}
+	ttnForm2ContentColumnsWithoutDefault = []string{"id_ttn_form2", "product_iddomain", "product_inform_f2_reg_id", "bottling_date"}
 	ttnForm2ContentColumnsWithDefault    = []string{"id"}
 	ttnForm2ContentPrimaryKeyColumns     = []string{"id"}
 	ttnForm2ContentGeneratedColumns      = []string{"id"}

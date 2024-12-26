@@ -14,7 +14,7 @@ FROM ttn tt join ttn_products tp on tp.id_ttn = tt.id
   left join (select id, id_ttn, act_type from ttn_acts where id in (select max(ID) from ttn_acts where act_date >= '{{.Start}}' and act_date <= '{{.End}}' group by id_ttn)) ta on ta.id_ttn = tt.id and ta.act_type = 'Расхождение'
   -- left join ttn_acts_tickets tat on tat.id_ttn_acts = ta.id
   left join ttn_acts_tickets tat on tat.id_ttn_acts = ta.id and tat.ticket_date >= '{{.Start}}' and tat.ticket_date <= '{{.End}}'
-  left join ttn_acts_content tac on tac.id_ttn_acts = ta.id and tac.product_identity = tp.product_identity
+  left join ttn_acts_content tac on tac.id_ttn_acts = ta.id and tac.product_iddomain = tp.product_iddomain
 where tt.ttn_type in ('Исходящий', 'Импорт')
   and tt.doc_type <> N'Возврат от меня'
   and tf.doc_fix_date >= '{{.Start}}'

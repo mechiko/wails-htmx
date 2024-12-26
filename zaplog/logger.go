@@ -31,22 +31,8 @@ func OnShutdown() {
 
 // возврат только после прерывания контекста
 func Run(ctx context.Context) error {
-	ch := make(chan struct{})
-	go func() {
-		<-ctx.Done()
-		ch <- struct{}{}
-	}()
-	<-ch
-	return nil
-}
-
-func run(ctx context.Context) error {
-	// если завершатется контекст из майн то и эти все задачи завершаются
-	go func() {
-		<-ctx.Done()
-		LoggerShugar.Info("zaplog OnShutdown!")
-		OnShutdown()
-	}()
+	<-ctx.Done()
+	LoggerShugar.Infof("завершаем работу логера по контексту")
 	return nil
 }
 

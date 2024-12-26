@@ -6,7 +6,9 @@ import (
 	"firstwails/domain"
 )
 
-const modError = "dbs:dbinfo"
+const modError = "repo:dbs"
+
+const defaultConfigDbName = "config.db"
 
 type dbs struct {
 	liteDb        *dbInfo
@@ -14,7 +16,7 @@ type dbs struct {
 	znakDb        *dbInfo
 	configDb      *dbInfo
 	scan          bool
-	configFile    string
+	configFile    string // config.db алкохелпа
 	configuration *domain.Configuration
 }
 
@@ -25,6 +27,9 @@ func New(cfg *domain.Configuration, config string, scan bool) *dbs {
 		configuration: cfg,
 		configFile:    config,
 		scan:          scan,
+	}
+	if d.configFile == "" {
+		d.configFile = defaultConfigDbName
 	}
 	d.configDb = NewDbInfoConfig(cfg)
 	file4z := d.fromConfig("oms_id")
@@ -54,19 +59,19 @@ func (d *dbs) A3() domain.DbInfo {
 	return d.a3Db
 }
 
-func (d *dbs) ZnakSvc() domain.DbService {
+func (d *dbs) ZnakSvc() domain.IDbService {
 	return d.znakDb.InfoDbService()
 }
 
-func (d *dbs) A3Svc() domain.DbService {
+func (d *dbs) A3Svc() domain.IDbService {
 	return d.a3Db.InfoDbService()
 }
 
-func (d *dbs) LiteSvc() domain.DbService {
+func (d *dbs) LiteSvc() domain.IDbService {
 	return d.liteDb.InfoDbService()
 }
 
-func (d *dbs) ConfigSvc() domain.DbService {
+func (d *dbs) ConfigSvc() domain.IDbService {
 	return d.configDb.InfoDbService()
 }
 

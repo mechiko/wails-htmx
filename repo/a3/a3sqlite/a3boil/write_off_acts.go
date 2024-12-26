@@ -26,7 +26,7 @@ import (
 type WriteOffAct struct {
 	ID          int64       `boil:"id" json:"id" toml:"id" yaml:"id"`
 	CreateDate  null.String `boil:"create_date" json:"create_date,omitempty" toml:"create_date" yaml:"create_date,omitempty"`
-	DocIdentity null.String `boil:"doc_identity" json:"doc_identity,omitempty" toml:"doc_identity" yaml:"doc_identity,omitempty"`
+	DocIddomain null.String `boil:"doc_iddomain" json:"doc_iddomain,omitempty" toml:"doc_iddomain" yaml:"doc_iddomain,omitempty"`
 	DocType     null.String `boil:"doc_type" json:"doc_type,omitempty" toml:"doc_type" yaml:"doc_type,omitempty"`
 	DocNumber   null.String `boil:"doc_number" json:"doc_number,omitempty" toml:"doc_number" yaml:"doc_number,omitempty"`
 	DocDate     null.String `boil:"doc_date" json:"doc_date,omitempty" toml:"doc_date" yaml:"doc_date,omitempty"`
@@ -45,7 +45,7 @@ type WriteOffAct struct {
 var WriteOffActColumns = struct {
 	ID          string
 	CreateDate  string
-	DocIdentity string
+	DocIddomain string
 	DocType     string
 	DocNumber   string
 	DocDate     string
@@ -59,7 +59,7 @@ var WriteOffActColumns = struct {
 }{
 	ID:          "id",
 	CreateDate:  "create_date",
-	DocIdentity: "doc_identity",
+	DocIddomain: "doc_iddomain",
 	DocType:     "doc_type",
 	DocNumber:   "doc_number",
 	DocDate:     "doc_date",
@@ -75,7 +75,7 @@ var WriteOffActColumns = struct {
 var WriteOffActTableColumns = struct {
 	ID          string
 	CreateDate  string
-	DocIdentity string
+	DocIddomain string
 	DocType     string
 	DocNumber   string
 	DocDate     string
@@ -89,7 +89,7 @@ var WriteOffActTableColumns = struct {
 }{
 	ID:          "write_off_acts.id",
 	CreateDate:  "write_off_acts.create_date",
-	DocIdentity: "write_off_acts.doc_identity",
+	DocIddomain: "write_off_acts.doc_iddomain",
 	DocType:     "write_off_acts.doc_type",
 	DocNumber:   "write_off_acts.doc_number",
 	DocDate:     "write_off_acts.doc_date",
@@ -107,7 +107,7 @@ var WriteOffActTableColumns = struct {
 var WriteOffActWhere = struct {
 	ID          whereHelperint64
 	CreateDate  whereHelpernull_String
-	DocIdentity whereHelpernull_String
+	DocIddomain whereHelpernull_String
 	DocType     whereHelpernull_String
 	DocNumber   whereHelpernull_String
 	DocDate     whereHelpernull_String
@@ -121,7 +121,7 @@ var WriteOffActWhere = struct {
 }{
 	ID:          whereHelperint64{field: "\"write_off_acts\".\"id\""},
 	CreateDate:  whereHelpernull_String{field: "\"write_off_acts\".\"create_date\""},
-	DocIdentity: whereHelpernull_String{field: "\"write_off_acts\".\"doc_identity\""},
+	DocIddomain: whereHelpernull_String{field: "\"write_off_acts\".\"doc_iddomain\""},
 	DocType:     whereHelpernull_String{field: "\"write_off_acts\".\"doc_type\""},
 	DocNumber:   whereHelpernull_String{field: "\"write_off_acts\".\"doc_number\""},
 	DocDate:     whereHelpernull_String{field: "\"write_off_acts\".\"doc_date\""},
@@ -151,9 +151,9 @@ func (*writeOffActR) NewStruct() *writeOffActR {
 type writeOffActL struct{}
 
 var (
-	writeOffActAllColumns            = []string{"id", "create_date", "doc_identity", "doc_type", "doc_number", "doc_date", "doc_comment", "version", "state", "status", "reply_id", "archive", "xml"}
+	writeOffActAllColumns            = []string{"id", "create_date", "doc_iddomain", "doc_type", "doc_number", "doc_date", "doc_comment", "version", "state", "status", "reply_id", "archive", "xml"}
 	writeOffActColumnsWithoutDefault = []string{}
-	writeOffActColumnsWithDefault    = []string{"id", "create_date", "doc_identity", "doc_type", "doc_number", "doc_date", "doc_comment", "version", "state", "status", "reply_id", "archive", "xml"}
+	writeOffActColumnsWithDefault    = []string{"id", "create_date", "doc_iddomain", "doc_type", "doc_number", "doc_date", "doc_comment", "version", "state", "status", "reply_id", "archive", "xml"}
 	writeOffActPrimaryKeyColumns     = []string{"id"}
 	writeOffActGeneratedColumns      = []string{"id"}
 )

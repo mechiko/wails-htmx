@@ -39,7 +39,7 @@ select
     0.0 as 'summ'
 FROM import_reports tt join import_products tp on tp.id_import_reports = tt.id
   left join import_form1 tf on tf.id_import_reports = tt.id
-  left join import_form1_content tfc on tfc.id_import_form1 = tf.id and tfc.product_identity = tp.product_identity 
+  left join import_form1_content tfc on tfc.id_import_form1 = tf.id and tfc.product_iddomain = tp.product_iddomain 
 where 
 	tt.status in ('Проведён') 
   and tt.doc_date >= '{{.Start}}'

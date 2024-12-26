@@ -11,6 +11,8 @@ import (
 const modError = "pkg:effects"
 
 type IApp interface {
+	Logger() *zap.SugaredLogger
+	Repo() domain.Repo
 	Reductor() domain.Reductor
 	Effects() domain.Effects
 	Configuration() *domain.Configuration

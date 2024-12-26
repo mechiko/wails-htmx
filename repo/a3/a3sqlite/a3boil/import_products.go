@@ -34,7 +34,7 @@ type ImportProduct struct {
 	ProductAlcCode         null.String `boil:"product_alc_code" json:"product_alc_code,omitempty" toml:"product_alc_code" yaml:"product_alc_code,omitempty"`
 	ProductCode            null.String `boil:"product_code" json:"product_code,omitempty" toml:"product_code" yaml:"product_code,omitempty"`
 	ProductUnitType        null.String `boil:"product_unit_type" json:"product_unit_type,omitempty" toml:"product_unit_type" yaml:"product_unit_type,omitempty"`
-	ProductIdentity        null.String `boil:"product_identity" json:"product_identity,omitempty" toml:"product_identity" yaml:"product_identity,omitempty"`
+	ProductIddomain        null.String `boil:"product_iddomain" json:"product_iddomain,omitempty" toml:"product_iddomain" yaml:"product_iddomain,omitempty"`
 	ProductQuantity        null.String `boil:"product_quantity" json:"product_quantity,omitempty" toml:"product_quantity" yaml:"product_quantity,omitempty"`
 	ProductPlannedImportID null.String `boil:"product_planned_import_id" json:"product_planned_import_id,omitempty" toml:"product_planned_import_id" yaml:"product_planned_import_id,omitempty"`
 	ProductParty           null.String `boil:"product_party" json:"product_party,omitempty" toml:"product_party" yaml:"product_party,omitempty"`
@@ -64,7 +64,7 @@ var ImportProductColumns = struct {
 	ProductAlcCode         string
 	ProductCode            string
 	ProductUnitType        string
-	ProductIdentity        string
+	ProductIddomain        string
 	ProductQuantity        string
 	ProductPlannedImportID string
 	ProductParty           string
@@ -89,7 +89,7 @@ var ImportProductColumns = struct {
 	ProductAlcCode:         "product_alc_code",
 	ProductCode:            "product_code",
 	ProductUnitType:        "product_unit_type",
-	ProductIdentity:        "product_identity",
+	ProductIddomain:        "product_iddomain",
 	ProductQuantity:        "product_quantity",
 	ProductPlannedImportID: "product_planned_import_id",
 	ProductParty:           "product_party",
@@ -116,7 +116,7 @@ var ImportProductTableColumns = struct {
 	ProductAlcCode         string
 	ProductCode            string
 	ProductUnitType        string
-	ProductIdentity        string
+	ProductIddomain        string
 	ProductQuantity        string
 	ProductPlannedImportID string
 	ProductParty           string
@@ -141,7 +141,7 @@ var ImportProductTableColumns = struct {
 	ProductAlcCode:         "import_products.product_alc_code",
 	ProductCode:            "import_products.product_code",
 	ProductUnitType:        "import_products.product_unit_type",
-	ProductIdentity:        "import_products.product_identity",
+	ProductIddomain:        "import_products.product_iddomain",
 	ProductQuantity:        "import_products.product_quantity",
 	ProductPlannedImportID: "import_products.product_planned_import_id",
 	ProductParty:           "import_products.product_party",
@@ -170,7 +170,7 @@ var ImportProductWhere = struct {
 	ProductAlcCode         whereHelpernull_String
 	ProductCode            whereHelpernull_String
 	ProductUnitType        whereHelpernull_String
-	ProductIdentity        whereHelpernull_String
+	ProductIddomain        whereHelpernull_String
 	ProductQuantity        whereHelpernull_String
 	ProductPlannedImportID whereHelpernull_String
 	ProductParty           whereHelpernull_String
@@ -195,7 +195,7 @@ var ImportProductWhere = struct {
 	ProductAlcCode:         whereHelpernull_String{field: "\"import_products\".\"product_alc_code\""},
 	ProductCode:            whereHelpernull_String{field: "\"import_products\".\"product_code\""},
 	ProductUnitType:        whereHelpernull_String{field: "\"import_products\".\"product_unit_type\""},
-	ProductIdentity:        whereHelpernull_String{field: "\"import_products\".\"product_identity\""},
+	ProductIddomain:        whereHelpernull_String{field: "\"import_products\".\"product_iddomain\""},
 	ProductQuantity:        whereHelpernull_String{field: "\"import_products\".\"product_quantity\""},
 	ProductPlannedImportID: whereHelpernull_String{field: "\"import_products\".\"product_planned_import_id\""},
 	ProductParty:           whereHelpernull_String{field: "\"import_products\".\"product_party\""},
@@ -228,9 +228,9 @@ func (*importProductR) NewStruct() *importProductR {
 type importProductL struct{}
 
 var (
-	importProductAllColumns            = []string{"id", "id_import_reports", "product_full_name", "product_capacity", "product_alc_volume", "product_alc_volume_min", "product_alc_volume_max", "product_alc_code", "product_code", "product_unit_type", "product_identity", "product_quantity", "product_planned_import_id", "product_party", "product_comment", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description"}
+	importProductAllColumns            = []string{"id", "id_import_reports", "product_full_name", "product_capacity", "product_alc_volume", "product_alc_volume_min", "product_alc_volume_max", "product_alc_code", "product_code", "product_unit_type", "product_iddomain", "product_quantity", "product_planned_import_id", "product_party", "product_comment", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description"}
 	importProductColumnsWithoutDefault = []string{}
-	importProductColumnsWithDefault    = []string{"id", "id_import_reports", "product_full_name", "product_capacity", "product_alc_volume", "product_alc_volume_min", "product_alc_volume_max", "product_alc_code", "product_code", "product_unit_type", "product_identity", "product_quantity", "product_planned_import_id", "product_party", "product_comment", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description"}
+	importProductColumnsWithDefault    = []string{"id", "id_import_reports", "product_full_name", "product_capacity", "product_alc_volume", "product_alc_volume_min", "product_alc_volume_max", "product_alc_code", "product_code", "product_unit_type", "product_iddomain", "product_quantity", "product_planned_import_id", "product_party", "product_comment", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description"}
 	importProductPrimaryKeyColumns     = []string{"id"}
 	importProductGeneratedColumns      = []string{"id"}
 )

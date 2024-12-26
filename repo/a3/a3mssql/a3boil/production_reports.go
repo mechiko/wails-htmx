@@ -26,7 +26,7 @@ import (
 type ProductionReport struct {
 	ID                  int         `boil:"id" json:"id" toml:"id" yaml:"id"`
 	CreateDate          null.String `boil:"create_date" json:"create_date,omitempty" toml:"create_date" yaml:"create_date,omitempty"`
-	DocIdentity         null.String `boil:"doc_identity" json:"doc_identity,omitempty" toml:"doc_identity" yaml:"doc_identity,omitempty"`
+	DocIddomain         null.String `boil:"doc_iddomain" json:"doc_iddomain,omitempty" toml:"doc_iddomain" yaml:"doc_iddomain,omitempty"`
 	DocType             null.String `boil:"doc_type" json:"doc_type,omitempty" toml:"doc_type" yaml:"doc_type,omitempty"`
 	DocNumber           null.String `boil:"doc_number" json:"doc_number,omitempty" toml:"doc_number" yaml:"doc_number,omitempty"`
 	DocDate             null.String `boil:"doc_date" json:"doc_date,omitempty" toml:"doc_date" yaml:"doc_date,omitempty"`
@@ -55,7 +55,7 @@ type ProductionReport struct {
 var ProductionReportColumns = struct {
 	ID                  string
 	CreateDate          string
-	DocIdentity         string
+	DocIddomain         string
 	DocType             string
 	DocNumber           string
 	DocDate             string
@@ -79,7 +79,7 @@ var ProductionReportColumns = struct {
 }{
 	ID:                  "id",
 	CreateDate:          "create_date",
-	DocIdentity:         "doc_identity",
+	DocIddomain:         "doc_iddomain",
 	DocType:             "doc_type",
 	DocNumber:           "doc_number",
 	DocDate:             "doc_date",
@@ -105,7 +105,7 @@ var ProductionReportColumns = struct {
 var ProductionReportTableColumns = struct {
 	ID                  string
 	CreateDate          string
-	DocIdentity         string
+	DocIddomain         string
 	DocType             string
 	DocNumber           string
 	DocDate             string
@@ -129,7 +129,7 @@ var ProductionReportTableColumns = struct {
 }{
 	ID:                  "production_reports.id",
 	CreateDate:          "production_reports.create_date",
-	DocIdentity:         "production_reports.doc_identity",
+	DocIddomain:         "production_reports.doc_iddomain",
 	DocType:             "production_reports.doc_type",
 	DocNumber:           "production_reports.doc_number",
 	DocDate:             "production_reports.doc_date",
@@ -157,7 +157,7 @@ var ProductionReportTableColumns = struct {
 var ProductionReportWhere = struct {
 	ID                  whereHelperint
 	CreateDate          whereHelpernull_String
-	DocIdentity         whereHelpernull_String
+	DocIddomain         whereHelpernull_String
 	DocType             whereHelpernull_String
 	DocNumber           whereHelpernull_String
 	DocDate             whereHelpernull_String
@@ -181,7 +181,7 @@ var ProductionReportWhere = struct {
 }{
 	ID:                  whereHelperint{field: "[dbo].[production_reports].[id]"},
 	CreateDate:          whereHelpernull_String{field: "[dbo].[production_reports].[create_date]"},
-	DocIdentity:         whereHelpernull_String{field: "[dbo].[production_reports].[doc_identity]"},
+	DocIddomain:         whereHelpernull_String{field: "[dbo].[production_reports].[doc_iddomain]"},
 	DocType:             whereHelpernull_String{field: "[dbo].[production_reports].[doc_type]"},
 	DocNumber:           whereHelpernull_String{field: "[dbo].[production_reports].[doc_number]"},
 	DocDate:             whereHelpernull_String{field: "[dbo].[production_reports].[doc_date]"},
@@ -221,8 +221,8 @@ func (*productionReportR) NewStruct() *productionReportR {
 type productionReportL struct{}
 
 var (
-	productionReportAllColumns            = []string{"id", "create_date", "doc_identity", "doc_type", "doc_number", "doc_date", "doc_produced_date", "doc_comment", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description", "version", "state", "status", "reply_id", "archive", "xml"}
-	productionReportColumnsWithoutDefault = []string{"create_date", "doc_identity", "doc_type", "doc_number", "doc_date", "doc_produced_date", "doc_comment", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description", "version", "state", "status", "reply_id", "archive", "xml"}
+	productionReportAllColumns            = []string{"id", "create_date", "doc_iddomain", "doc_type", "doc_number", "doc_date", "doc_produced_date", "doc_comment", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description", "version", "state", "status", "reply_id", "archive", "xml"}
+	productionReportColumnsWithoutDefault = []string{"create_date", "doc_iddomain", "doc_type", "doc_number", "doc_date", "doc_produced_date", "doc_comment", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description", "version", "state", "status", "reply_id", "archive", "xml"}
 	productionReportColumnsWithDefault    = []string{"id"}
 	productionReportPrimaryKeyColumns     = []string{"id"}
 	productionReportGeneratedColumns      = []string{"id"}

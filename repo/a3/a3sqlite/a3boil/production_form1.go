@@ -26,7 +26,7 @@ import (
 type ProductionForm1 struct {
 	ID                  int64       `boil:"id" json:"id" toml:"id" yaml:"id"`
 	IDProductionReports null.Int64  `boil:"id_production_reports" json:"id_production_reports,omitempty" toml:"id_production_reports" yaml:"id_production_reports,omitempty"`
-	DocIdentity         null.String `boil:"doc_identity" json:"doc_identity,omitempty" toml:"doc_identity" yaml:"doc_identity,omitempty"`
+	DocIddomain         null.String `boil:"doc_iddomain" json:"doc_iddomain,omitempty" toml:"doc_iddomain" yaml:"doc_iddomain,omitempty"`
 	DocRegID            null.String `boil:"doc_reg_id" json:"doc_reg_id,omitempty" toml:"doc_reg_id" yaml:"doc_reg_id,omitempty"`
 	ClientType          null.String `boil:"client_type" json:"client_type,omitempty" toml:"client_type" yaml:"client_type,omitempty"`
 	ClientRegID         null.String `boil:"client_reg_id" json:"client_reg_id,omitempty" toml:"client_reg_id" yaml:"client_reg_id,omitempty"`
@@ -46,7 +46,7 @@ type ProductionForm1 struct {
 var ProductionForm1Columns = struct {
 	ID                  string
 	IDProductionReports string
-	DocIdentity         string
+	DocIddomain         string
 	DocRegID            string
 	ClientType          string
 	ClientRegID         string
@@ -61,7 +61,7 @@ var ProductionForm1Columns = struct {
 }{
 	ID:                  "id",
 	IDProductionReports: "id_production_reports",
-	DocIdentity:         "doc_identity",
+	DocIddomain:         "doc_iddomain",
 	DocRegID:            "doc_reg_id",
 	ClientType:          "client_type",
 	ClientRegID:         "client_reg_id",
@@ -78,7 +78,7 @@ var ProductionForm1Columns = struct {
 var ProductionForm1TableColumns = struct {
 	ID                  string
 	IDProductionReports string
-	DocIdentity         string
+	DocIddomain         string
 	DocRegID            string
 	ClientType          string
 	ClientRegID         string
@@ -93,7 +93,7 @@ var ProductionForm1TableColumns = struct {
 }{
 	ID:                  "production_form1.id",
 	IDProductionReports: "production_form1.id_production_reports",
-	DocIdentity:         "production_form1.doc_identity",
+	DocIddomain:         "production_form1.doc_iddomain",
 	DocRegID:            "production_form1.doc_reg_id",
 	ClientType:          "production_form1.client_type",
 	ClientRegID:         "production_form1.client_reg_id",
@@ -112,7 +112,7 @@ var ProductionForm1TableColumns = struct {
 var ProductionForm1Where = struct {
 	ID                  whereHelperint64
 	IDProductionReports whereHelpernull_Int64
-	DocIdentity         whereHelpernull_String
+	DocIddomain         whereHelpernull_String
 	DocRegID            whereHelpernull_String
 	ClientType          whereHelpernull_String
 	ClientRegID         whereHelpernull_String
@@ -127,7 +127,7 @@ var ProductionForm1Where = struct {
 }{
 	ID:                  whereHelperint64{field: "\"production_form1\".\"id\""},
 	IDProductionReports: whereHelpernull_Int64{field: "\"production_form1\".\"id_production_reports\""},
-	DocIdentity:         whereHelpernull_String{field: "\"production_form1\".\"doc_identity\""},
+	DocIddomain:         whereHelpernull_String{field: "\"production_form1\".\"doc_iddomain\""},
 	DocRegID:            whereHelpernull_String{field: "\"production_form1\".\"doc_reg_id\""},
 	ClientType:          whereHelpernull_String{field: "\"production_form1\".\"client_type\""},
 	ClientRegID:         whereHelpernull_String{field: "\"production_form1\".\"client_reg_id\""},
@@ -158,9 +158,9 @@ func (*productionForm1R) NewStruct() *productionForm1R {
 type productionForm1L struct{}
 
 var (
-	productionForm1AllColumns            = []string{"id", "id_production_reports", "doc_identity", "doc_reg_id", "client_type", "client_reg_id", "client_inn", "client_kpp", "client_full_name", "client_short_name", "client_country_code", "client_region_code", "client_description", "xml"}
+	productionForm1AllColumns            = []string{"id", "id_production_reports", "doc_iddomain", "doc_reg_id", "client_type", "client_reg_id", "client_inn", "client_kpp", "client_full_name", "client_short_name", "client_country_code", "client_region_code", "client_description", "xml"}
 	productionForm1ColumnsWithoutDefault = []string{}
-	productionForm1ColumnsWithDefault    = []string{"id", "id_production_reports", "doc_identity", "doc_reg_id", "client_type", "client_reg_id", "client_inn", "client_kpp", "client_full_name", "client_short_name", "client_country_code", "client_region_code", "client_description", "xml"}
+	productionForm1ColumnsWithDefault    = []string{"id", "id_production_reports", "doc_iddomain", "doc_reg_id", "client_type", "client_reg_id", "client_inn", "client_kpp", "client_full_name", "client_short_name", "client_country_code", "client_region_code", "client_description", "xml"}
 	productionForm1PrimaryKeyColumns     = []string{"id"}
 	productionForm1GeneratedColumns      = []string{"id"}
 )

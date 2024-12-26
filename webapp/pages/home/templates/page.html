@@ -1,0 +1,23 @@
+  <!-- Здесь выводятся компоненты по роутингу если нет глобальной ошибки -->
+<table class="w-2/3 table-auto border border-slate-400 border-separate border-spacing-0.5">
+  <col class="">
+  <col class="">
+  <tbody>
+  <tr>
+    <td class="border border-slate-400">БД АлкоХелп</td>
+    <td class="border border-slate-400">{{ if .DbA3.Absent }}нет{{else}}{{.DbA3.File}}{{end}}</td>
+  </tr>
+  <tr>
+    <td class="border border-slate-400">БД ЧЗ</td>
+    <td class="border border-slate-400">{{ if .DbZnak.Absent }}нет{{else}}{{.DbZnak.File}}{{end}}</td>
+  </tr>
+  <tr>
+    <td class="border border-slate-400">БД Лайт</td>
+    <td class="border border-slate-400">{{ if .DbLite.Absent }}нет{{else}}{{.DbLite.File}}{{end}}</td>
+  </tr>
+  <tr>
+    <td class="border border-slate-400">БД Конфигурации</td>
+    <td class="border border-slate-400">{{ if .DbConfig.Absent }}нет{{else}}{{.DbConfig.File}}{{end}}</td>
+  </tr>
+  </tbody>
+</table>

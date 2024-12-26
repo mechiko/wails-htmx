@@ -4,7 +4,7 @@ import (
 	_ "embed"
 	"fmt"
 
-	"firstwails/entity"
+	"firstwails/domain"
 
 	"github.com/jmoiron/sqlx"
 	"go.uber.org/zap"
@@ -26,12 +26,12 @@ type versionDb struct {
 	db      *sqlx.DB
 }
 
-var _ entity.VersionDB = (*versionDb)(nil)
+var _ domain.VersionDB = (*versionDb)(nil)
 
 type IRepo interface {
-	Configuration() *entity.Configuration
+	Configuration() *domain.Configuration
 	Logger() *zap.SugaredLogger
-	LiteDbService() entity.DbService
+	LiteDbService() domain.IDbService
 }
 
 // создаем структуру с номером версии и методами для создания

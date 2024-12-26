@@ -26,7 +26,7 @@ import (
 type ProductionForm1Content struct {
 	ID                   int         `boil:"id" json:"id" toml:"id" yaml:"id"`
 	IDProductionForm1    null.Int    `boil:"id_production_form1" json:"id_production_form1,omitempty" toml:"id_production_form1" yaml:"id_production_form1,omitempty"`
-	ProductIdentity      null.String `boil:"product_identity" json:"product_identity,omitempty" toml:"product_identity" yaml:"product_identity,omitempty"`
+	ProductIddomain      null.String `boil:"product_iddomain" json:"product_iddomain,omitempty" toml:"product_iddomain" yaml:"product_iddomain,omitempty"`
 	ProductInformF1RegID null.String `boil:"product_inform_f1_reg_id" json:"product_inform_f1_reg_id,omitempty" toml:"product_inform_f1_reg_id" yaml:"product_inform_f1_reg_id,omitempty"`
 	ProductInformF2RegID null.String `boil:"product_inform_f2_reg_id" json:"product_inform_f2_reg_id,omitempty" toml:"product_inform_f2_reg_id" yaml:"product_inform_f2_reg_id,omitempty"`
 
@@ -37,13 +37,13 @@ type ProductionForm1Content struct {
 var ProductionForm1ContentColumns = struct {
 	ID                   string
 	IDProductionForm1    string
-	ProductIdentity      string
+	ProductIddomain      string
 	ProductInformF1RegID string
 	ProductInformF2RegID string
 }{
 	ID:                   "id",
 	IDProductionForm1:    "id_production_form1",
-	ProductIdentity:      "product_identity",
+	ProductIddomain:      "product_iddomain",
 	ProductInformF1RegID: "product_inform_f1_reg_id",
 	ProductInformF2RegID: "product_inform_f2_reg_id",
 }
@@ -51,13 +51,13 @@ var ProductionForm1ContentColumns = struct {
 var ProductionForm1ContentTableColumns = struct {
 	ID                   string
 	IDProductionForm1    string
-	ProductIdentity      string
+	ProductIddomain      string
 	ProductInformF1RegID string
 	ProductInformF2RegID string
 }{
 	ID:                   "production_form1_content.id",
 	IDProductionForm1:    "production_form1_content.id_production_form1",
-	ProductIdentity:      "production_form1_content.product_identity",
+	ProductIddomain:      "production_form1_content.product_iddomain",
 	ProductInformF1RegID: "production_form1_content.product_inform_f1_reg_id",
 	ProductInformF2RegID: "production_form1_content.product_inform_f2_reg_id",
 }
@@ -67,13 +67,13 @@ var ProductionForm1ContentTableColumns = struct {
 var ProductionForm1ContentWhere = struct {
 	ID                   whereHelperint
 	IDProductionForm1    whereHelpernull_Int
-	ProductIdentity      whereHelpernull_String
+	ProductIddomain      whereHelpernull_String
 	ProductInformF1RegID whereHelpernull_String
 	ProductInformF2RegID whereHelpernull_String
 }{
 	ID:                   whereHelperint{field: "[dbo].[production_form1_content].[id]"},
 	IDProductionForm1:    whereHelpernull_Int{field: "[dbo].[production_form1_content].[id_production_form1]"},
-	ProductIdentity:      whereHelpernull_String{field: "[dbo].[production_form1_content].[product_identity]"},
+	ProductIddomain:      whereHelpernull_String{field: "[dbo].[production_form1_content].[product_iddomain]"},
 	ProductInformF1RegID: whereHelpernull_String{field: "[dbo].[production_form1_content].[product_inform_f1_reg_id]"},
 	ProductInformF2RegID: whereHelpernull_String{field: "[dbo].[production_form1_content].[product_inform_f2_reg_id]"},
 }
@@ -95,8 +95,8 @@ func (*productionForm1ContentR) NewStruct() *productionForm1ContentR {
 type productionForm1ContentL struct{}
 
 var (
-	productionForm1ContentAllColumns            = []string{"id", "id_production_form1", "product_identity", "product_inform_f1_reg_id", "product_inform_f2_reg_id"}
-	productionForm1ContentColumnsWithoutDefault = []string{"id_production_form1", "product_identity", "product_inform_f1_reg_id", "product_inform_f2_reg_id"}
+	productionForm1ContentAllColumns            = []string{"id", "id_production_form1", "product_iddomain", "product_inform_f1_reg_id", "product_inform_f2_reg_id"}
+	productionForm1ContentColumnsWithoutDefault = []string{"id_production_form1", "product_iddomain", "product_inform_f1_reg_id", "product_inform_f2_reg_id"}
 	productionForm1ContentColumnsWithDefault    = []string{"id"}
 	productionForm1ContentPrimaryKeyColumns     = []string{"id"}
 	productionForm1ContentGeneratedColumns      = []string{"id"}

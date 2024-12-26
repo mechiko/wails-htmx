@@ -1,4 +1,4 @@
-WITH act_last_diff AS (select ta1.product_identity, ta1.product_quantity, ta2.id_ttn, ta2.act_type, ta2.act_date, ta2.id 
+WITH act_last_diff AS (select ta1.product_iddomain, ta1.product_quantity, ta2.id_ttn, ta2.act_type, ta2.act_date, ta2.id 
 from ttn_acts_content ta1 JOIN ttn_acts ta2 ON ta1.id_ttn_acts = ta2.id 
 where ta2.id in (select max(ID) from ttn_acts group by id_ttn))
 select
@@ -45,7 +45,7 @@ select
 --  COALESCE(cast(tp.product_quantity as float),0) * cast(tp.product_price as float) as 'summ'
 FROM ttn tt 
   join ttn_products tp on tp.id_ttn = tt.id
-  left join act_last_diff tac on tac.id_ttn = tt.id AND tac.product_identity = tp.product_identity
+  left join act_last_diff tac on tac.id_ttn = tt.id AND tac.product_iddomain = tp.product_iddomain
   LEFT join ttn_form2 tf on tf.id_ttn = tt.id
   LEFT join form1_egais fa ON fa.product_inform_f1_reg_id = tp.product_inform_f1_reg_id 
   LEFT join form2_egais fb ON fb.product_inform_f2_reg_id = tp.product_inform_f2_reg_id 

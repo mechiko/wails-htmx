@@ -5,7 +5,7 @@ import (
 	_ "embed"
 	"fmt"
 
-	"firstwails/entity"
+	"firstwails/domain"
 
 	"go.uber.org/zap"
 )
@@ -16,19 +16,19 @@ type dbAlcohelp3 struct {
 }
 
 type IRepo interface {
-	Configuration() *entity.Configuration
+	Configuration() *domain.Configuration
 	Logger() *zap.SugaredLogger
-	Config() entity.IConfig
+	Config() domain.IConfig
 	FsrarID() string
 	StartDateString() string
 	EndDateString() string
 
-	A3DbService() entity.DbService
+	A3DbService() domain.IDbService
 }
 
 const modError = "repo:a3sqlite:dbalcohelp3"
 
-func New(a IRepo) entity.DbAlcohelp3 {
+func New(a IRepo) domain.DbAlcohelp3 {
 	var err error
 	rc := &dbAlcohelp3{
 		IRepo: a,

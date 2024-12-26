@@ -33,7 +33,7 @@ type ProductionResource struct {
 	ResourceAlcCode       null.String `boil:"resource_alc_code" json:"resource_alc_code,omitempty" toml:"resource_alc_code" yaml:"resource_alc_code,omitempty"`
 	ResourceCode          null.String `boil:"resource_code" json:"resource_code,omitempty" toml:"resource_code" yaml:"resource_code,omitempty"`
 	ResourceUnitType      null.String `boil:"resource_unit_type" json:"resource_unit_type,omitempty" toml:"resource_unit_type" yaml:"resource_unit_type,omitempty"`
-	ResourceIdentity      null.String `boil:"resource_identity" json:"resource_identity,omitempty" toml:"resource_identity" yaml:"resource_identity,omitempty"`
+	ResourceIddomain      null.String `boil:"resource_iddomain" json:"resource_iddomain,omitempty" toml:"resource_iddomain" yaml:"resource_iddomain,omitempty"`
 	ResourceQuantity      null.String `boil:"resource_quantity" json:"resource_quantity,omitempty" toml:"resource_quantity" yaml:"resource_quantity,omitempty"`
 	ResourceInformF1RegID null.String `boil:"resource_inform_f1_reg_id" json:"resource_inform_f1_reg_id,omitempty" toml:"resource_inform_f1_reg_id" yaml:"resource_inform_f1_reg_id,omitempty"`
 	ResourceInformF2RegID null.String `boil:"resource_inform_f2_reg_id" json:"resource_inform_f2_reg_id,omitempty" toml:"resource_inform_f2_reg_id" yaml:"resource_inform_f2_reg_id,omitempty"`
@@ -61,7 +61,7 @@ var ProductionResourceColumns = struct {
 	ResourceAlcCode       string
 	ResourceCode          string
 	ResourceUnitType      string
-	ResourceIdentity      string
+	ResourceIddomain      string
 	ResourceQuantity      string
 	ResourceInformF1RegID string
 	ResourceInformF2RegID string
@@ -84,7 +84,7 @@ var ProductionResourceColumns = struct {
 	ResourceAlcCode:       "resource_alc_code",
 	ResourceCode:          "resource_code",
 	ResourceUnitType:      "resource_unit_type",
-	ResourceIdentity:      "resource_identity",
+	ResourceIddomain:      "resource_iddomain",
 	ResourceQuantity:      "resource_quantity",
 	ResourceInformF1RegID: "resource_inform_f1_reg_id",
 	ResourceInformF2RegID: "resource_inform_f2_reg_id",
@@ -109,7 +109,7 @@ var ProductionResourceTableColumns = struct {
 	ResourceAlcCode       string
 	ResourceCode          string
 	ResourceUnitType      string
-	ResourceIdentity      string
+	ResourceIddomain      string
 	ResourceQuantity      string
 	ResourceInformF1RegID string
 	ResourceInformF2RegID string
@@ -132,7 +132,7 @@ var ProductionResourceTableColumns = struct {
 	ResourceAlcCode:       "production_resources.resource_alc_code",
 	ResourceCode:          "production_resources.resource_code",
 	ResourceUnitType:      "production_resources.resource_unit_type",
-	ResourceIdentity:      "production_resources.resource_identity",
+	ResourceIddomain:      "production_resources.resource_iddomain",
 	ResourceQuantity:      "production_resources.resource_quantity",
 	ResourceInformF1RegID: "production_resources.resource_inform_f1_reg_id",
 	ResourceInformF2RegID: "production_resources.resource_inform_f2_reg_id",
@@ -159,7 +159,7 @@ var ProductionResourceWhere = struct {
 	ResourceAlcCode       whereHelpernull_String
 	ResourceCode          whereHelpernull_String
 	ResourceUnitType      whereHelpernull_String
-	ResourceIdentity      whereHelpernull_String
+	ResourceIddomain      whereHelpernull_String
 	ResourceQuantity      whereHelpernull_String
 	ResourceInformF1RegID whereHelpernull_String
 	ResourceInformF2RegID whereHelpernull_String
@@ -182,7 +182,7 @@ var ProductionResourceWhere = struct {
 	ResourceAlcCode:       whereHelpernull_String{field: "[dbo].[production_resources].[resource_alc_code]"},
 	ResourceCode:          whereHelpernull_String{field: "[dbo].[production_resources].[resource_code]"},
 	ResourceUnitType:      whereHelpernull_String{field: "[dbo].[production_resources].[resource_unit_type]"},
-	ResourceIdentity:      whereHelpernull_String{field: "[dbo].[production_resources].[resource_identity]"},
+	ResourceIddomain:      whereHelpernull_String{field: "[dbo].[production_resources].[resource_iddomain]"},
 	ResourceQuantity:      whereHelpernull_String{field: "[dbo].[production_resources].[resource_quantity]"},
 	ResourceInformF1RegID: whereHelpernull_String{field: "[dbo].[production_resources].[resource_inform_f1_reg_id]"},
 	ResourceInformF2RegID: whereHelpernull_String{field: "[dbo].[production_resources].[resource_inform_f2_reg_id]"},
@@ -214,8 +214,8 @@ func (*productionResourceR) NewStruct() *productionResourceR {
 type productionResourceL struct{}
 
 var (
-	productionResourceAllColumns            = []string{"id", "id_production_reports", "id_production_products", "resource_full_name", "resource_capacity", "resource_alc_volume", "resource_alc_code", "resource_code", "resource_unit_type", "resource_identity", "resource_quantity", "resource_inform_f1_reg_id", "resource_inform_f2_reg_id", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description"}
-	productionResourceColumnsWithoutDefault = []string{"id_production_reports", "id_production_products", "resource_full_name", "resource_capacity", "resource_alc_volume", "resource_alc_code", "resource_code", "resource_unit_type", "resource_identity", "resource_quantity", "resource_inform_f1_reg_id", "resource_inform_f2_reg_id", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description"}
+	productionResourceAllColumns            = []string{"id", "id_production_reports", "id_production_products", "resource_full_name", "resource_capacity", "resource_alc_volume", "resource_alc_code", "resource_code", "resource_unit_type", "resource_iddomain", "resource_quantity", "resource_inform_f1_reg_id", "resource_inform_f2_reg_id", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description"}
+	productionResourceColumnsWithoutDefault = []string{"id_production_reports", "id_production_products", "resource_full_name", "resource_capacity", "resource_alc_volume", "resource_alc_code", "resource_code", "resource_unit_type", "resource_iddomain", "resource_quantity", "resource_inform_f1_reg_id", "resource_inform_f2_reg_id", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description"}
 	productionResourceColumnsWithDefault    = []string{"id"}
 	productionResourcePrimaryKeyColumns     = []string{"id"}
 	productionResourceGeneratedColumns      = []string{"id"}

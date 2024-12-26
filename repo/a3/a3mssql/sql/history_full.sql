@@ -1,4 +1,4 @@
-WITH act_last_diff AS (select ta1.product_identity, ta1.product_quantity, ta2.id_ttn, ta2.act_type, ta2.act_date, ta2.id 
+WITH act_last_diff AS (select ta1.product_iddomain, ta1.product_quantity, ta2.id_ttn, ta2.act_type, ta2.act_date, ta2.id 
 from ttn_acts_content ta1 JOIN ttn_acts ta2 ON ta1.id_ttn_acts = ta2.id 
 where ta2.id in (select max(ID) from ttn_acts group by id_ttn))
 -- расход и возвраты от меня
@@ -41,7 +41,7 @@ select
   COALESCE(cast(tac.product_quantity as float),cast(tp.product_quantity as float),0) * cast(tp.product_price as float) as 'summ'
 FROM ttn tt 
   join ttn_products tp on tp.id_ttn = tt.id
-  left join act_last_diff tac on tac.id_ttn = tt.id AND tac.product_identity = tp.product_identity
+  left join act_last_diff tac on tac.id_ttn = tt.id AND tac.product_iddomain = tp.product_iddomain
 where tt.status in ('Подтверждён','Проведён') 
   and tt.ttn_type in ('Исходящий', 'Импорт')
   and tt.doc_date >= '{{.Start}}'
@@ -87,7 +87,7 @@ select
   COALESCE(cast(tac.product_quantity as float),cast(tp.product_quantity as float),0) * cast(tp.product_price as float) as 'summ'
 FROM ttn tt 
   join ttn_products tp on tp.id_ttn = tt.id
-  left join act_last_diff tac on tac.id_ttn = tt.id AND tac.product_identity = tp.product_identity
+  left join act_last_diff tac on tac.id_ttn = tt.id AND tac.product_iddomain = tp.product_iddomain
 where tt.status in ('Подтверждён','Проведён') 
   and tt.ttn_type in ('Входящий')
   and tt.doc_date >= '{{.Start}}'
@@ -134,7 +134,7 @@ select
     0.0 as 'summ'
 FROM production_reports tt join production_products tp on tp.id_production_reports = tt.id
   left join production_form1 tf on tf.id_production_reports = tt.id
-  left join production_form1_content tfc on tfc.id_production_form1 = tf.id and tfc.product_identity = tp.product_identity 
+  left join production_form1_content tfc on tfc.id_production_form1 = tf.id and tfc.product_iddomain = tp.product_iddomain 
 where 
   tt.status in ('Проведён') 
   and tt.doc_produced_date >= '{{.Start}}'
@@ -180,7 +180,7 @@ select
     0.0 as 'summ'
 FROM import_reports tt join import_products tp on tp.id_import_reports = tt.id
   left join import_form1 tf on tf.id_import_reports = tt.id
-  left join import_form1_content tfc on tfc.id_import_form1 = tf.id and tfc.product_identity = tp.product_identity 
+  left join import_form1_content tfc on tfc.id_import_form1 = tf.id and tfc.product_iddomain = tp.product_iddomain 
 where 
   tt.status in ('Проведён') 
   and tt.doc_date >= '{{.Start}}'
@@ -272,7 +272,7 @@ select
     0.0 as 'summ'
 FROM charge_on_acts tt join charge_on_products tp on tp.id_charge_on_acts = tt.id
   left join charge_on_form1 tf on tf.id_charge_on_acts = tt.id
-  left join charge_on_form1_content tfc on tfc.id_charge_on_form1 = tf.id and tfc.product_identity = tp.product_identity 
+  left join charge_on_form1_content tfc on tfc.id_charge_on_form1 = tf.id and tfc.product_iddomain = tp.product_iddomain 
 where 
 	tt.status in ('Проведён') 
   and tt.doc_date >= '{{.Start}}'

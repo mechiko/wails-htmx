@@ -6,7 +6,7 @@ import (
 	"firstwails/repo/lite/version"
 )
 
-// func (r *repository) LiteDbService() entity.DbService {
+// func (r *repository) LiteDbService() domain.IDbService {
 // 	return r.dbs.Lite().DbService()
 // }
 

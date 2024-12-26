@@ -26,7 +26,7 @@ import (
 type TTNActsContent struct {
 	ID                   int         `boil:"id" json:"id" toml:"id" yaml:"id"`
 	IDTTNActs            null.Int    `boil:"id_ttn_acts" json:"id_ttn_acts,omitempty" toml:"id_ttn_acts" yaml:"id_ttn_acts,omitempty"`
-	ProductIdentity      null.String `boil:"product_identity" json:"product_identity,omitempty" toml:"product_identity" yaml:"product_identity,omitempty"`
+	ProductIddomain      null.String `boil:"product_iddomain" json:"product_iddomain,omitempty" toml:"product_iddomain" yaml:"product_iddomain,omitempty"`
 	ProductInformF2RegID null.String `boil:"product_inform_f2_reg_id" json:"product_inform_f2_reg_id,omitempty" toml:"product_inform_f2_reg_id" yaml:"product_inform_f2_reg_id,omitempty"`
 	ProductQuantity      null.String `boil:"product_quantity" json:"product_quantity,omitempty" toml:"product_quantity" yaml:"product_quantity,omitempty"`
 
@@ -37,13 +37,13 @@ type TTNActsContent struct {
 var TTNActsContentColumns = struct {
 	ID                   string
 	IDTTNActs            string
-	ProductIdentity      string
+	ProductIddomain      string
 	ProductInformF2RegID string
 	ProductQuantity      string
 }{
 	ID:                   "id",
 	IDTTNActs:            "id_ttn_acts",
-	ProductIdentity:      "product_identity",
+	ProductIddomain:      "product_iddomain",
 	ProductInformF2RegID: "product_inform_f2_reg_id",
 	ProductQuantity:      "product_quantity",
 }
@@ -51,13 +51,13 @@ var TTNActsContentColumns = struct {
 var TTNActsContentTableColumns = struct {
 	ID                   string
 	IDTTNActs            string
-	ProductIdentity      string
+	ProductIddomain      string
 	ProductInformF2RegID string
 	ProductQuantity      string
 }{
 	ID:                   "ttn_acts_content.id",
 	IDTTNActs:            "ttn_acts_content.id_ttn_acts",
-	ProductIdentity:      "ttn_acts_content.product_identity",
+	ProductIddomain:      "ttn_acts_content.product_iddomain",
 	ProductInformF2RegID: "ttn_acts_content.product_inform_f2_reg_id",
 	ProductQuantity:      "ttn_acts_content.product_quantity",
 }
@@ -67,13 +67,13 @@ var TTNActsContentTableColumns = struct {
 var TTNActsContentWhere = struct {
 	ID                   whereHelperint
 	IDTTNActs            whereHelpernull_Int
-	ProductIdentity      whereHelpernull_String
+	ProductIddomain      whereHelpernull_String
 	ProductInformF2RegID whereHelpernull_String
 	ProductQuantity      whereHelpernull_String
 }{
 	ID:                   whereHelperint{field: "[dbo].[ttn_acts_content].[id]"},
 	IDTTNActs:            whereHelpernull_Int{field: "[dbo].[ttn_acts_content].[id_ttn_acts]"},
-	ProductIdentity:      whereHelpernull_String{field: "[dbo].[ttn_acts_content].[product_identity]"},
+	ProductIddomain:      whereHelpernull_String{field: "[dbo].[ttn_acts_content].[product_iddomain]"},
 	ProductInformF2RegID: whereHelpernull_String{field: "[dbo].[ttn_acts_content].[product_inform_f2_reg_id]"},
 	ProductQuantity:      whereHelpernull_String{field: "[dbo].[ttn_acts_content].[product_quantity]"},
 }
@@ -95,8 +95,8 @@ func (*ttnActsContentR) NewStruct() *ttnActsContentR {
 type ttnActsContentL struct{}
 
 var (
-	ttnActsContentAllColumns            = []string{"id", "id_ttn_acts", "product_identity", "product_inform_f2_reg_id", "product_quantity"}
-	ttnActsContentColumnsWithoutDefault = []string{"id_ttn_acts", "product_identity", "product_inform_f2_reg_id", "product_quantity"}
+	ttnActsContentAllColumns            = []string{"id", "id_ttn_acts", "product_iddomain", "product_inform_f2_reg_id", "product_quantity"}
+	ttnActsContentColumnsWithoutDefault = []string{"id_ttn_acts", "product_iddomain", "product_inform_f2_reg_id", "product_quantity"}
 	ttnActsContentColumnsWithDefault    = []string{"id"}
 	ttnActsContentPrimaryKeyColumns     = []string{"id"}
 	ttnActsContentGeneratedColumns      = []string{"id"}

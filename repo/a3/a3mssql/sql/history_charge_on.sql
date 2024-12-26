@@ -39,7 +39,7 @@ select
     0.0 as 'summ'
 FROM charge_on_acts tt join charge_on_products tp on tp.id_charge_on_acts = tt.id
   left join charge_on_form1 tf on tf.id_charge_on_acts = tt.id
-  left join charge_on_form1_content tfc on tfc.id_charge_on_form1 = tf.id and tfc.product_identity = tp.product_identity 
+  left join charge_on_form1_content tfc on tfc.id_charge_on_form1 = tf.id and tfc.product_iddomain = tp.product_iddomain 
 where 
 	tt.status in ('Проведён') 
   and tt.doc_date >= '{{.Start}}'

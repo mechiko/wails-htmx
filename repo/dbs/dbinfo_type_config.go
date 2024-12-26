@@ -8,8 +8,6 @@ import (
 	"firstwails/utility"
 )
 
-const defaultConfigDbName = "config.db"
-
 // база config.db всегда sqlite3 пока
 
 func NewDbInfoConfig(cfg *domain.Configuration) (di *dbInfo) {
@@ -20,20 +18,19 @@ func NewDbInfoConfig(cfg *domain.Configuration) (di *dbInfo) {
 		}
 	}()
 	di = &dbInfo{
-		driver: cfg.Config.Driver,
-		uri:    cfg.Sqlite.ConnectionUri,
-		file:   cfg.Config.File,
-		name:   cfg.Config.DbName,
+		driver:     cfg.Config.Driver,
+		connection: "",
+		file:       cfg.Config.File,
+		name:       cfg.Config.DbName,
+		mode:       domain.RoMode,
+		checkMode:  domain.NoMatter,
 	}
 	// пытаемся найти в конфиге приложения или берем по умолчанию
 	if di.file == "" {
 		di.file = defaultConfigDbName
 	}
 	if utility.PathOrFileExistsMust(di.file) {
-		if di.uri == "" {
-			di.uri = cfg.Sqlite.ConnectionUri
-		}
-		dbs, err := sqlite.NewFromUri(di.file, di.uri, sqlite.NoMatter)
+		dbs, err := sqlite.New(di)
 		if err != nil {
 			panic(fmt.Errorf("%s %w", modError, err))
 		}

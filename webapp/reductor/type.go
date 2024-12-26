@@ -18,6 +18,7 @@ type IApp interface {
 }
 
 type reductor struct {
+	IApp
 	mutex      sync.Mutex
 	in         chan domain.Message
 	logger     *zap.SugaredLogger
@@ -32,6 +33,7 @@ var _ domain.Reductor = &reductor{}
 // создаем начальную модель которую будем тут и соблюдать
 func New(app IApp, efs domain.Effects) *reductor {
 	return &reductor{
+		IApp:    app,
 		in:      make(chan domain.Message, 5),
 		logger:  zaplog.Reductor.Sugar(),
 		effects: efs,

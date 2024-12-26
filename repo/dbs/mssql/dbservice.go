@@ -12,26 +12,31 @@ import (
 )
 
 type dbService struct {
-	ctx           context.Context
-	connectionUri string
-	driver        string
-	dbName        string
-	// user          string
-	// host          string
-	// pass          string
+	ctx    context.Context
+	dbInfo domain.DbInfo
 	dBConn *sql.DB
 }
 
-const modError = "dbs:mssql"
+type IDbService interface {
+	Ping() error
+	CheckDb() error
+	Db() (*sql.DB, error)
+	Close()
+	DbInfo() domain.DbInfo
+	IsCreated() bool
+	SetCreated()
+}
 
-var _ domain.DbService = &dbService{}
+const modError = "dbs:dbservice:mssql"
+const driver = "mssql"
 
-func New(dbname string, uri string) (ss domain.DbService, err error) {
+var _ domain.IDbService = &dbService{}
+var _ IDbService = &dbService{}
+
+func New(info domain.DbInfo) (ss domain.IDbService, err error) {
 	s := &dbService{
-		dbName:        dbname,
-		driver:        "mssql",
-		connectionUri: uri + fmt.Sprintf(";database=%s", dbname),
-		ctx:           context.TODO(),
+		dbInfo: info,
+		ctx:    context.TODO(),
 	}
 	if err := s.CheckDb(); err != nil {
 		return s, fmt.Errorf("%s %w", modError, err)
@@ -40,26 +45,6 @@ func New(dbname string, uri string) (ss domain.DbService, err error) {
 		return s, fmt.Errorf("%s %w", modError, err)
 	}
 	return s, nil
-}
-
-func NewFromUri(dbname string, uri string) (ss domain.DbService, err error) {
-	s := &dbService{
-		dbName:        dbname,
-		driver:        "mssql",
-		connectionUri: uri,
-		ctx:           context.TODO(),
-	}
-	if err := s.CheckDb(); err != nil {
-		return s, fmt.Errorf("%s %w", modError, err)
-	}
-	if err := s.Ping(); err != nil {
-		return s, fmt.Errorf("%s %w", modError, err)
-	}
-	return s, nil
-}
-
-func (s *dbService) GetName() string {
-	return s.dbName
 }
 
 func (s *dbService) Ping() error {
@@ -74,7 +59,7 @@ func (s *dbService) Ping() error {
 }
 
 func (s *dbService) CheckDb() (err error) {
-	s.dBConn, err = sql.Open("mssql", s.connectionUri)
+	s.dBConn, err = sql.Open("mssql", s.dbInfo.URI())
 	return err
 }
 
@@ -99,6 +84,6 @@ func (s *dbService) IsCreated() bool {
 func (s *dbService) SetCreated() {
 }
 
-func (s *dbService) Driver() string {
-	return s.driver
+func (s *dbService) DbInfo() domain.DbInfo {
+	return s.dbInfo
 }

@@ -26,7 +26,7 @@ import (
 type TTNHistory struct {
 	ID       int         `boil:"id" json:"id" toml:"id" yaml:"id"`
 	IDTTN    null.Int    `boil:"id_ttn" json:"id_ttn,omitempty" toml:"id_ttn" yaml:"id_ttn,omitempty"`
-	Identity null.String `boil:"identity" json:"identity,omitempty" toml:"identity" yaml:"identity,omitempty"`
+	Iddomain null.String `boil:"iddomain" json:"iddomain,omitempty" toml:"iddomain" yaml:"iddomain,omitempty"`
 
 	R *ttnHistoryR `boil:"-" json:"-" toml:"-" yaml:"-"`
 	L ttnHistoryL  `boil:"-" json:"-" toml:"-" yaml:"-"`
@@ -35,21 +35,21 @@ type TTNHistory struct {
 var TTNHistoryColumns = struct {
 	ID       string
 	IDTTN    string
-	Identity string
+	Iddomain string
 }{
 	ID:       "id",
 	IDTTN:    "id_ttn",
-	Identity: "identity",
+	Iddomain: "iddomain",
 }
 
 var TTNHistoryTableColumns = struct {
 	ID       string
 	IDTTN    string
-	Identity string
+	Iddomain string
 }{
 	ID:       "ttn_histories.id",
 	IDTTN:    "ttn_histories.id_ttn",
-	Identity: "ttn_histories.identity",
+	Iddomain: "ttn_histories.iddomain",
 }
 
 // Generated where
@@ -57,11 +57,11 @@ var TTNHistoryTableColumns = struct {
 var TTNHistoryWhere = struct {
 	ID       whereHelperint
 	IDTTN    whereHelpernull_Int
-	Identity whereHelpernull_String
+	Iddomain whereHelpernull_String
 }{
 	ID:       whereHelperint{field: "[dbo].[ttn_histories].[id]"},
 	IDTTN:    whereHelpernull_Int{field: "[dbo].[ttn_histories].[id_ttn]"},
-	Identity: whereHelpernull_String{field: "[dbo].[ttn_histories].[identity]"},
+	Iddomain: whereHelpernull_String{field: "[dbo].[ttn_histories].[iddomain]"},
 }
 
 // TTNHistoryRels is where relationship names are stored.
@@ -81,8 +81,8 @@ func (*ttnHistoryR) NewStruct() *ttnHistoryR {
 type ttnHistoryL struct{}
 
 var (
-	ttnHistoryAllColumns            = []string{"id", "id_ttn", "identity"}
-	ttnHistoryColumnsWithoutDefault = []string{"id_ttn", "identity"}
+	ttnHistoryAllColumns            = []string{"id", "id_ttn", "iddomain"}
+	ttnHistoryColumnsWithoutDefault = []string{"id_ttn", "iddomain"}
 	ttnHistoryColumnsWithDefault    = []string{"id"}
 	ttnHistoryPrimaryKeyColumns     = []string{"id"}
 	ttnHistoryGeneratedColumns      = []string{"id"}

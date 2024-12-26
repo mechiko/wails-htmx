@@ -17,10 +17,12 @@ func NewDbInfo4z(cfg *domain.Configuration, name string, dbType string) (di *dbI
 		}
 	}()
 	di = &dbInfo{
-		driver: cfg.TrueZnak.Driver,
-		uri:    "",
-		file:   cfg.TrueZnak.File,
-		name:   cfg.TrueZnak.DbName,
+		connection: "",
+		mode:       domain.RoMode,
+		checkMode:  domain.NoMatter,
+		driver:     cfg.TrueZnak.Driver,
+		file:       cfg.TrueZnak.File,
+		name:       cfg.TrueZnak.DbName,
 	}
 	if di.driver == "" {
 		if di.driver = dbType; di.driver == "" {
@@ -35,8 +37,8 @@ func NewDbInfo4z(cfg *domain.Configuration, name string, dbType string) (di *dbI
 				return di
 			}
 		}
-		if di.uri == "" {
-			di.uri = cfg.Mssql.ConnectionUri
+		if di.connection == "" {
+			di.connection = cfg.Mssql.Connection
 		}
 		di.file = ""
 		if di.name == "" {
@@ -45,7 +47,7 @@ func NewDbInfo4z(cfg *domain.Configuration, name string, dbType string) (di *dbI
 				return di
 			}
 		}
-		dbs, err := mssql.New(di.name, di.uri)
+		dbs, err := mssql.New(di)
 		if err != nil {
 			panic(fmt.Errorf("%s %w", modError, err))
 		}
@@ -65,10 +67,7 @@ func NewDbInfo4z(cfg *domain.Configuration, name string, dbType string) (di *dbI
 			}
 		}
 		if utility.PathOrFileExistsMust(di.file) {
-			if di.uri == "" {
-				di.uri = sqlite.RoMode.String()
-			}
-			dbs, err := sqlite.NewFromUri(di.file, di.uri, sqlite.NoMatter)
+			dbs, err := sqlite.New(di)
 			if err != nil {
 				panic(fmt.Errorf("%s %w", modError, err))
 			}

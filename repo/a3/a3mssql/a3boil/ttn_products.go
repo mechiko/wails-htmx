@@ -32,7 +32,7 @@ type TTNProduct struct {
 	ProductAlcCode       null.String `boil:"product_alc_code" json:"product_alc_code,omitempty" toml:"product_alc_code" yaml:"product_alc_code,omitempty"`
 	ProductCode          null.String `boil:"product_code" json:"product_code,omitempty" toml:"product_code" yaml:"product_code,omitempty"`
 	ProductUnitType      null.String `boil:"product_unit_type" json:"product_unit_type,omitempty" toml:"product_unit_type" yaml:"product_unit_type,omitempty"`
-	ProductIdentity      null.String `boil:"product_identity" json:"product_identity,omitempty" toml:"product_identity" yaml:"product_identity,omitempty"`
+	ProductIddomain      null.String `boil:"product_iddomain" json:"product_iddomain,omitempty" toml:"product_iddomain" yaml:"product_iddomain,omitempty"`
 	ProductQuantity      null.String `boil:"product_quantity" json:"product_quantity,omitempty" toml:"product_quantity" yaml:"product_quantity,omitempty"`
 	ProductPrice         null.String `boil:"product_price" json:"product_price,omitempty" toml:"product_price" yaml:"product_price,omitempty"`
 	ProductParty         null.String `boil:"product_party" json:"product_party,omitempty" toml:"product_party" yaml:"product_party,omitempty"`
@@ -62,7 +62,7 @@ var TTNProductColumns = struct {
 	ProductAlcCode       string
 	ProductCode          string
 	ProductUnitType      string
-	ProductIdentity      string
+	ProductIddomain      string
 	ProductQuantity      string
 	ProductPrice         string
 	ProductParty         string
@@ -87,7 +87,7 @@ var TTNProductColumns = struct {
 	ProductAlcCode:       "product_alc_code",
 	ProductCode:          "product_code",
 	ProductUnitType:      "product_unit_type",
-	ProductIdentity:      "product_identity",
+	ProductIddomain:      "product_iddomain",
 	ProductQuantity:      "product_quantity",
 	ProductPrice:         "product_price",
 	ProductParty:         "product_party",
@@ -114,7 +114,7 @@ var TTNProductTableColumns = struct {
 	ProductAlcCode       string
 	ProductCode          string
 	ProductUnitType      string
-	ProductIdentity      string
+	ProductIddomain      string
 	ProductQuantity      string
 	ProductPrice         string
 	ProductParty         string
@@ -139,7 +139,7 @@ var TTNProductTableColumns = struct {
 	ProductAlcCode:       "ttn_products.product_alc_code",
 	ProductCode:          "ttn_products.product_code",
 	ProductUnitType:      "ttn_products.product_unit_type",
-	ProductIdentity:      "ttn_products.product_identity",
+	ProductIddomain:      "ttn_products.product_iddomain",
 	ProductQuantity:      "ttn_products.product_quantity",
 	ProductPrice:         "ttn_products.product_price",
 	ProductParty:         "ttn_products.product_party",
@@ -168,7 +168,7 @@ var TTNProductWhere = struct {
 	ProductAlcCode       whereHelpernull_String
 	ProductCode          whereHelpernull_String
 	ProductUnitType      whereHelpernull_String
-	ProductIdentity      whereHelpernull_String
+	ProductIddomain      whereHelpernull_String
 	ProductQuantity      whereHelpernull_String
 	ProductPrice         whereHelpernull_String
 	ProductParty         whereHelpernull_String
@@ -193,7 +193,7 @@ var TTNProductWhere = struct {
 	ProductAlcCode:       whereHelpernull_String{field: "[dbo].[ttn_products].[product_alc_code]"},
 	ProductCode:          whereHelpernull_String{field: "[dbo].[ttn_products].[product_code]"},
 	ProductUnitType:      whereHelpernull_String{field: "[dbo].[ttn_products].[product_unit_type]"},
-	ProductIdentity:      whereHelpernull_String{field: "[dbo].[ttn_products].[product_identity]"},
+	ProductIddomain:      whereHelpernull_String{field: "[dbo].[ttn_products].[product_iddomain]"},
 	ProductQuantity:      whereHelpernull_String{field: "[dbo].[ttn_products].[product_quantity]"},
 	ProductPrice:         whereHelpernull_String{field: "[dbo].[ttn_products].[product_price]"},
 	ProductParty:         whereHelpernull_String{field: "[dbo].[ttn_products].[product_party]"},
@@ -228,8 +228,8 @@ func (*ttnProductR) NewStruct() *ttnProductR {
 type ttnProductL struct{}
 
 var (
-	ttnProductAllColumns            = []string{"id", "id_ttn", "product_full_name", "product_capacity", "product_alc_volume", "product_alc_code", "product_code", "product_unit_type", "product_identity", "product_quantity", "product_price", "product_party", "product_pack_id", "product_inform_f1_reg_id", "product_inform_f2_reg_id", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description"}
-	ttnProductColumnsWithoutDefault = []string{"id_ttn", "product_full_name", "product_capacity", "product_alc_volume", "product_alc_code", "product_code", "product_unit_type", "product_identity", "product_quantity", "product_price", "product_party", "product_pack_id", "product_inform_f1_reg_id", "product_inform_f2_reg_id", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description"}
+	ttnProductAllColumns            = []string{"id", "id_ttn", "product_full_name", "product_capacity", "product_alc_volume", "product_alc_code", "product_code", "product_unit_type", "product_iddomain", "product_quantity", "product_price", "product_party", "product_pack_id", "product_inform_f1_reg_id", "product_inform_f2_reg_id", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description"}
+	ttnProductColumnsWithoutDefault = []string{"id_ttn", "product_full_name", "product_capacity", "product_alc_volume", "product_alc_code", "product_code", "product_unit_type", "product_iddomain", "product_quantity", "product_price", "product_party", "product_pack_id", "product_inform_f1_reg_id", "product_inform_f2_reg_id", "producer_type", "producer_client_reg_id", "producer_inn", "producer_kpp", "producer_full_name", "producer_short_name", "producer_country_code", "producer_region_code", "producer_description"}
 	ttnProductColumnsWithDefault    = []string{"id"}
 	ttnProductPrimaryKeyColumns     = []string{"id"}
 	ttnProductGeneratedColumns      = []string{"id"}

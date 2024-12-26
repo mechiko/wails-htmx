@@ -26,7 +26,7 @@ import (
 type ImportForm1Content struct {
 	ID                   int         `boil:"id" json:"id" toml:"id" yaml:"id"`
 	IDImportForm1        null.Int    `boil:"id_import_form1" json:"id_import_form1,omitempty" toml:"id_import_form1" yaml:"id_import_form1,omitempty"`
-	ProductIdentity      null.String `boil:"product_identity" json:"product_identity,omitempty" toml:"product_identity" yaml:"product_identity,omitempty"`
+	ProductIddomain      null.String `boil:"product_iddomain" json:"product_iddomain,omitempty" toml:"product_iddomain" yaml:"product_iddomain,omitempty"`
 	ProductInformF1RegID null.String `boil:"product_inform_f1_reg_id" json:"product_inform_f1_reg_id,omitempty" toml:"product_inform_f1_reg_id" yaml:"product_inform_f1_reg_id,omitempty"`
 	ProductInformF2RegID null.String `boil:"product_inform_f2_reg_id" json:"product_inform_f2_reg_id,omitempty" toml:"product_inform_f2_reg_id" yaml:"product_inform_f2_reg_id,omitempty"`
 
@@ -37,13 +37,13 @@ type ImportForm1Content struct {
 var ImportForm1ContentColumns = struct {
 	ID                   string
 	IDImportForm1        string
-	ProductIdentity      string
+	ProductIddomain      string
 	ProductInformF1RegID string
 	ProductInformF2RegID string
 }{
 	ID:                   "id",
 	IDImportForm1:        "id_import_form1",
-	ProductIdentity:      "product_identity",
+	ProductIddomain:      "product_iddomain",
 	ProductInformF1RegID: "product_inform_f1_reg_id",
 	ProductInformF2RegID: "product_inform_f2_reg_id",
 }
@@ -51,13 +51,13 @@ var ImportForm1ContentColumns = struct {
 var ImportForm1ContentTableColumns = struct {
 	ID                   string
 	IDImportForm1        string
-	ProductIdentity      string
+	ProductIddomain      string
 	ProductInformF1RegID string
 	ProductInformF2RegID string
 }{
 	ID:                   "import_form1_content.id",
 	IDImportForm1:        "import_form1_content.id_import_form1",
-	ProductIdentity:      "import_form1_content.product_identity",
+	ProductIddomain:      "import_form1_content.product_iddomain",
 	ProductInformF1RegID: "import_form1_content.product_inform_f1_reg_id",
 	ProductInformF2RegID: "import_form1_content.product_inform_f2_reg_id",
 }
@@ -67,13 +67,13 @@ var ImportForm1ContentTableColumns = struct {
 var ImportForm1ContentWhere = struct {
 	ID                   whereHelperint
 	IDImportForm1        whereHelpernull_Int
-	ProductIdentity      whereHelpernull_String
+	ProductIddomain      whereHelpernull_String
 	ProductInformF1RegID whereHelpernull_String
 	ProductInformF2RegID whereHelpernull_String
 }{
 	ID:                   whereHelperint{field: "[dbo].[import_form1_content].[id]"},
 	IDImportForm1:        whereHelpernull_Int{field: "[dbo].[import_form1_content].[id_import_form1]"},
-	ProductIdentity:      whereHelpernull_String{field: "[dbo].[import_form1_content].[product_identity]"},
+	ProductIddomain:      whereHelpernull_String{field: "[dbo].[import_form1_content].[product_iddomain]"},
 	ProductInformF1RegID: whereHelpernull_String{field: "[dbo].[import_form1_content].[product_inform_f1_reg_id]"},
 	ProductInformF2RegID: whereHelpernull_String{field: "[dbo].[import_form1_content].[product_inform_f2_reg_id]"},
 }
@@ -95,8 +95,8 @@ func (*importForm1ContentR) NewStruct() *importForm1ContentR {
 type importForm1ContentL struct{}
 
 var (
-	importForm1ContentAllColumns            = []string{"id", "id_import_form1", "product_identity", "product_inform_f1_reg_id", "product_inform_f2_reg_id"}
-	importForm1ContentColumnsWithoutDefault = []string{"id_import_form1", "product_identity", "product_inform_f1_reg_id", "product_inform_f2_reg_id"}
+	importForm1ContentAllColumns            = []string{"id", "id_import_form1", "product_iddomain", "product_inform_f1_reg_id", "product_inform_f2_reg_id"}
+	importForm1ContentColumnsWithoutDefault = []string{"id_import_form1", "product_iddomain", "product_inform_f1_reg_id", "product_inform_f2_reg_id"}
 	importForm1ContentColumnsWithDefault    = []string{"id"}
 	importForm1ContentPrimaryKeyColumns     = []string{"id"}
 	importForm1ContentGeneratedColumns      = []string{"id"}

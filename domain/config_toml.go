@@ -13,11 +13,11 @@ input = ''
 
 [mssql]
 driver = "mssql"
-connectionuri = "server=localhost;encrypt=disable;user id=;port=1433"
+connection = "server=localhost;encrypt=disable;user id=;port=1433"
 
 [sqlite]
-driver = "sqlite3"
-connectionuri = "?cache=shared&mode=rwc"
+driver = "sqlite"
+# connectionuri = "?mode=rwc&_journal_mode=WAL"
 
 [layouts]
 timelayout = "2006-01-02T15:04:05-0700"
@@ -80,7 +80,7 @@ type layoutConfiguration struct {
 }
 
 type databaseConfiguration struct {
-	ConnectionUri  string `json:"connectionuri"`
+	Connection     string `json:"connection"`
 	Driver         string `json:"driver"`
 	AlcoHelpDbName string `json:"alcohelpdbname"`
 	ConfigDbName   string `json:"configdbname"`
