@@ -41,6 +41,7 @@ func New(app IApp, efs domain.Effects) *reductor {
 	}
 }
 
+// возвращаем новый объект Модель (разыменовываем внутреннюю)
 func (rdc *reductor) Model() domain.Model {
 	rdc.mutex.Lock()
 	defer rdc.mutex.Unlock()

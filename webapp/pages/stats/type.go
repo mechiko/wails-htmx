@@ -1,4 +1,4 @@
-package home
+package stats
 
 import (
 	"firstwails/domain"
@@ -9,7 +9,7 @@ import (
 )
 
 // путь к файлам шаблонов модуля для локальной отладки только
-const defaultSrc = `E:\src\goproj\!!firstwails\webapp\pages\home\templates`
+const defaultSrc = `E:\src\goproj\!!firstwails\webapp\pages\stats\templates`
 const defaultTemplateName = "index"
 
 // type IApp interface {
@@ -19,6 +19,7 @@ const defaultTemplateName = "index"
 // 	Reductor() domain.Reductor
 // 	Effects() domain.Effects
 // 	Repo() domain.Repo
+// 	SetActivePage(page string)
 // }
 
 type page struct {

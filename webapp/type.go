@@ -13,7 +13,6 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
-	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"go.uber.org/zap"
 )
 
@@ -91,10 +90,10 @@ func (a *webapp) Startup(ctx context.Context) {
 }
 
 // domReady is called after front-end resources have been loaded
-func (a webapp) DomReady(ctx context.Context) {
+func (a *webapp) DomReady(ctx context.Context) {
 	// Add your action here
-	a.logger.Debug("DomReady!")
 	a.readyDOM = true
+	a.logger.Debugf("DomReady [readyDOM:%v]", a.readyDOM)
 }
 
 // beforeClose is called when the application is about to quit,
@@ -189,16 +188,4 @@ func (a *webapp) Pwd() string {
 
 func (a *webapp) Repo() domain.Repo {
 	return a.repo
-}
-
-func (a *webapp) ReductorUpdater(cmd string, model domain.Model) (string, domain.Model) {
-	// пока не будет сигнала DomReady(ctx context.Context)
-	// при перезагрузке окна он еще раз прилетает
-	if !a.readyDOM {
-		return "", model
-	}
-	a.logger.Debug("webapp ReductorUpdater")
-	a.readyDOM = false
-	runtime.WindowReload(a.ctx)
-	return "", model
 }

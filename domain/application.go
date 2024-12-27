@@ -11,4 +11,5 @@ type IApp interface {
 	Reductor() Reductor
 	Effects() Effects
 	Repo() Repo
+	SetActivePage(string, bool)
 }

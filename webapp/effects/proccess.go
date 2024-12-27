@@ -11,9 +11,15 @@ func (rdc *effects) proccessMessage(msg domain.Message) {
 
 	rdc.logger.Debugf("%s proccess %s from %s len chain %d", modError, msg.Cmd, msg.Sender, len(rdc.in))
 	switch msg.Cmd {
+	case "stats":
+		msg.Cmd = "stats"
+		msg.Sender = "effects.stats"
+		mm := usecase.New(rdc).HomeModel(rdc.Reductor().Model())
+		msg.Model = &mm
+		rdc.Reductor().ChanIn() <- msg
 	case "home":
 		msg.Cmd = "home"
-		msg.Sender = "effects.hom"
+		msg.Sender = "effects.home"
 		mm := usecase.New(rdc).HomeModel(rdc.Reductor().Model())
 		msg.Model = &mm
 		rdc.Reductor().ChanIn() <- msg
