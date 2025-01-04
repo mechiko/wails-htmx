@@ -7,6 +7,12 @@ import (
 //go:embed templates\index.html
 var indexTmpl string
 
+//go:embed templates\indexerror.html
+var indexErrorTmpl string
+
+//go:embed templates\error.html
+var errorTmpl string
+
 //go:embed templates\style.html
 var styleTmpl string
 

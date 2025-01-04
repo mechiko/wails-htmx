@@ -13,6 +13,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
+	"github.com/r3labs/sse/v2"
 	"go.uber.org/zap"
 )
 
@@ -32,13 +33,14 @@ type webapp struct {
 	endTime       time.Time
 	repo          domain.Repo
 	readyDOM      bool
+	sse           *sse.Server
 }
 
 const modError = "webapp"
 
 var _ domain.IApp = &webapp{}
 
-func NewWebApp(logger *zap.SugaredLogger, e *echo.Echo, pwd string) *webapp {
+func NewWebApp(logger *zap.SugaredLogger, e *echo.Echo, sse *sse.Server, pwd string) *webapp {
 	sc := &webapp{}
 	sc.pwd = pwd
 	sc.logger = logger
@@ -50,6 +52,7 @@ func NewWebApp(logger *zap.SugaredLogger, e *echo.Echo, pwd string) *webapp {
 	sc.pages = pages.New(sc, e)
 	sc.activePage = "home"
 	sc.echo = e
+	sc.sse = sse
 	if err := sc.pages.InitPages(); err != nil {
 		panic(fmt.Sprintf("%s NewWebApp() %s", modError, err.Error()))
 	}
@@ -123,10 +126,6 @@ func (a *webapp) Reductor() domain.Reductor {
 
 func (a *webapp) Effects() domain.Effects {
 	return a.effects
-}
-
-func (a *webapp) Route() {
-	a.echo.GET("/page", a.CurrentPageIndex)
 }
 
 func (a *webapp) initDateMn() {

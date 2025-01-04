@@ -3,10 +3,10 @@ package domain
 var TomlConfig = []byte(`
 # This is a TOML document.
 name=""
-hostname = "localhost"
+hostname = "127.0.0.1"
 saveconfig = false
 utmhost = "localhost"
-utmport = "8080"
+utmport = "8088"
 browser = ""
 output = "output"
 input = ''

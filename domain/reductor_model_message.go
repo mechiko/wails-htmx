@@ -3,8 +3,9 @@ package domain
 // пакет состояния всей программы
 // интерфейс Reader для доступа только чтения
 type Model struct {
-	Gui  gui
-	Home home
+	Error string
+	Gui   gui
+	Home  home
 }
 
 // формат сообщения

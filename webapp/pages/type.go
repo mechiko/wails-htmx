@@ -39,10 +39,14 @@ func (pgs *Pages) AddPage(name string, f domain.RenderHandler) {
 
 // рендер страницы по зарегистрированному имени name страницы
 func (pgs *Pages) RenderPage(w io.Writer, name string, data interface{}, c echo.Context) error {
-	if _, ok := pgs.registered[name]; ok {
+	if page, ok := pgs.registered[name]; ok {
 		// передаем templateName пустой для отображения дефолтового шаблона страницы
 		model := pgs.Reductor().Model()
-		return pgs.registered[name](w, "", &model, c)
+		err := page(w, "", &model, c)
+		if err != nil {
+			pgs.Logger().Errorf("page %s error %s", name, err.Error())
+		}
+		return err
 	}
 	return fmt.Errorf("%s not registered", name)
 }

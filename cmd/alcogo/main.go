@@ -3,27 +3,23 @@ package main
 import (
 	"context"
 	_ "embed"
-	"firstwails/alcogo"
 	"firstwails/checkdbg"
 	"firstwails/domain"
+	"firstwails/httpserver"
 	"firstwails/repo"
 	"firstwails/utility"
 	"firstwails/webapp"
 	"firstwails/zaplog"
 	"fmt"
-	"net/http"
 	"os"
 	"path/filepath"
+	"time"
 
 	// "github.com/brpaz/echozap"
 	"github.com/karagenc/zap4echo"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/wailsapp/wails/v2"
-	"github.com/wailsapp/wails/v2/pkg/logger"
-	"github.com/wailsapp/wails/v2/pkg/options"
-	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
-	"github.com/wailsapp/wails/v2/pkg/options/windows"
+	"github.com/r3labs/sse/v2"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -63,9 +59,24 @@ func main() {
 	loger := zaplog.LoggerShugar
 	loger.Debug("zaplog started")
 
+	serverSse := sse.New()       // create SSE broadcaster server
+	serverSse.AutoReplay = false // do not replay messages for each new subscriber that connects
+	_ = serverSse.CreateStream("ready")
+	go func(s *sse.Server) {
+		ticker := time.NewTicker(1 * time.Second)
+		defer ticker.Stop()
+
+		for {
+			select {
+			case <-ticker.C:
+				s.Publish("ready", &sse.Event{
+					Data: []byte("time: " + time.Now().Format(time.RFC3339Nano)),
+				})
+			}
+		}
+	}(serverSse)
+
 	e := echo.New()
-	// e.Use(middleware.Logger())
-	// e.Use(echozap.ZapLogger(zaplog.EchoSugar))
 	e.Use(
 		zap4echo.Logger(zaplog.EchoSugar),
 		zap4echo.Recover(zaplog.EchoSugar),
@@ -77,7 +88,8 @@ func main() {
 		AllowMethods:     []string{echo.OPTIONS, echo.GET, echo.HEAD, echo.PUT, echo.PATCH, echo.POST, echo.DELETE},
 	}))
 
-	webApp := webapp.NewWebApp(zaplog.LoggerShugar, e, dir)
+	// инитим роутер для http, конфиг и прочее
+	webApp := webapp.NewWebApp(zaplog.LoggerShugar, e, serverSse, dir)
 	e.Renderer = webApp
 
 	// инициализируем REPO
@@ -101,6 +113,32 @@ func main() {
 		cancel()
 	}
 
+	port := webApp.Configuration().HostPort
+	if port == "" || port == "auto" {
+		if portFree, err := utility.GetFreePort(); err == nil {
+			port = fmt.Sprintf("%d", portFree)
+			webApp.Config().Set("hostport", port, true)
+		}
+	}
+	loger.Infof("http port %s", port)
+	host := webApp.Configuration().Hostname
+	if host == "" {
+		host = "127.0.0.1"
+	}
+	httpServer := httpserver.New(e, httpserver.HostPort(host, port))
+	group.Go(func() error {
+		go func() {
+			<-groupCtx.Done()
+			loger.Debugf("%s получен сигнал завершения контекста группы в HTTP", modError)
+			if err := httpServer.Shutdown(); err != nil {
+				loger.Debugf("%s Stopped http server with error:", modError, err)
+			}
+		}()
+		httpServer.Start()
+		// по ошибке сервера возвращаем в группу код ошибки
+		return <-httpServer.Notify()
+	})
+
 	group.Go(func() error {
 		go func() {
 			<-groupCtx.Done()
@@ -111,63 +149,6 @@ func main() {
 		// в Run запускают необходимые фоновые задачи
 		return webApp.Run(groupCtx)
 	})
-
-	// Create application with options
-	if err := wails.Run(&options.App{
-		Title:     "firstwails",
-		Width:     1040,
-		Height:    768,
-		MinWidth:  200,
-		MinHeight: 200,
-		// MaxWidth:      1280,
-		// MaxHeight:     800,
-		DisableResize: false,
-		Fullscreen:    false,
-		Frameless:     false,
-		// CSSDragProperty:   "widows",
-		// CSSDragValue:      "1",
-		StartHidden:       false,
-		HideWindowOnClose: false,
-		BackgroundColour:  &options.RGBA{R: 255, G: 255, B: 255, A: 255},
-		AssetServer: &assetserver.Options{
-			Assets: alcogo.Assets,
-			Middleware: func(next http.Handler) http.Handler {
-				// устанавливаем обработку not found на предлагаемую по умолчанию wails
-				// это произойдет когда наш роутер не найдет нужного
-				e.RouteNotFound("/*", func(c echo.Context) error {
-					next.ServeHTTP(c.Response(), c.Request())
-					return echo.NewHTTPError(http.StatusInternalServerError, "not found")
-				})
-				return e
-			},
-			// Handler: e,
-		},
-		Menu:             webApp.ApplicationMenu(),
-		Logger:           nil,
-		LogLevel:         logger.INFO,
-		OnStartup:        webApp.Startup,
-		OnDomReady:       webApp.DomReady,
-		OnBeforeClose:    webApp.BeforeClose,
-		OnShutdown:       webApp.Shutdown,
-		WindowStartState: options.Normal,
-		// Windows platform specific options
-		Windows: &windows.Options{
-			WebviewIsTransparent: false,
-			WindowIsTranslucent:  false,
-			DisableWindowIcon:    false,
-			// DisableFramelessWindowDecorations: false,
-			WebviewUserDataPath: "",
-			ZoomFactor:          1.0,
-		},
-		Debug: options.Debug{
-			OpenInspectorOnStartup: true,
-		},
-	}); err != nil {
-		loger.Errorf("%s wails error %s", modError, err.Error())
-	}
-	// все задачи завершаются сразу после запуска и обрабатывают только контекст
-	// поэтому по закрытию окна приложения завершаем контекст
-	cancel()
 	// ожидание завершения всех в группе
 	if err := group.Wait(); err != nil {
 		panic(err.Error())

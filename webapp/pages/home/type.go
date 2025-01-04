@@ -9,7 +9,9 @@ import (
 )
 
 // путь к файлам шаблонов модуля для локальной отладки только
-const defaultSrc = `E:\src\goproj\!!firstwails\webapp\pages\home\templates`
+const defaultSrc = `C:\!src\wails-htmx\webapp\pages\home\templates`
+
+// const defaultSrc = `E:\src\goproj\!!firstwails\webapp\pages\home\templates`
 const defaultTemplateName = "index"
 
 // type IApp interface {
@@ -43,8 +45,10 @@ func NewPage(app domain.IApp, templ string, src string) *page {
 	tt := template.New("")
 	template.Must(tt.New("style").Parse(styleTmpl))
 	template.Must(tt.New("index").Funcs(funcMapHtml).Parse(indexTmpl))
+	template.Must(tt.New("indexerror").Funcs(funcMapHtml).Parse(indexErrorTmpl))
 	template.Must(tt.New("navbar").Funcs(funcMapHtml).Parse(navbarTmpl))
 	template.Must(tt.New("page").Funcs(funcMapHtml).Parse(pageTmpl))
+	template.Must(tt.New("error").Funcs(funcMapHtml).Parse(errorTmpl))
 	template.Must(tt.New("footer").Funcs(funcMapHtml).Parse(footerTmpl))
 	t.template = tt
 	return t
@@ -88,16 +92,23 @@ func (t *page) DoRender(w io.Writer, templateName string, data interface{}, c ec
 	if _, err := tt.New("index").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\index.html")); err != nil {
 		t.Logger().Error(err)
 	}
+	if _, err := tt.New("indexerror").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\indexerror.html")); err != nil {
+		t.Logger().Error(err)
+	}
 	if _, err := tt.New("navbar").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\navbar.html")); err != nil {
 		t.Logger().Error(err)
 	}
 	if _, err := tt.New("page").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\page.html")); err != nil {
 		t.Logger().Error(err)
 	}
+	if _, err := tt.New("error").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\error.html")); err != nil {
+		t.Logger().Error(err)
+	}
 	if _, err := tt.New("footer").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\footer.html")); err != nil {
 		t.Logger().Error(err)
 	}
-	return tt.ExecuteTemplate(w, templateName, data)
+	err := tt.ExecuteTemplate(w, templateName, data)
+	return err
 }
 
 func (t *page) Model(model domain.Model) domain.Model {

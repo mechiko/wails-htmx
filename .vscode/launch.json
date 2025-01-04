@@ -2,31 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Wails: Production mysvelte",
+      "name": "Go Debug",
       "type": "go",
       "request": "launch",
-      "mode": "exec",
-      "program": "${workspaceFolder}/build/bin/mysvelte.exe",
-      "preLaunchTask": "build",
-      "cwd": "${workspaceFolder}/cmd/alcogo"
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/alcogo",
+      // "preLaunchTask": "build",
+      // "cwd": "${workspaceFolder}/cmd/alcogo"
     },
-    {
-      "name": "Wails: Debug mysvelte",
-      "type": "go",
-      "request": "launch",
-      "mode": "exec",
-      "program": "${workspaceFolder}/build/bin/alcogo.exe",
-      "preLaunchTask": "build debug",
-      "cwd": "${workspaceFolder}/cmd/alcogo"
-    },
-    {
-      "name": "Wails: Dev mysvelte",
-      "type": "go",
-      "request": "launch",
-      "mode": "exec",
-      "program": "${workspaceFolder}",
-      "preLaunchTask": "build dev",
-      "cwd": "${workspaceFolder}/cmd/alcogo"
-    }
   ]
 }
