@@ -63,7 +63,7 @@ func main() {
 	serverSse.AutoReplay = false // do not replay messages for each new subscriber that connects
 	_ = serverSse.CreateStream("ready")
 	go func(s *sse.Server) {
-		ticker := time.NewTicker(1 * time.Second)
+		ticker := time.NewTicker(10 * time.Second)
 		defer ticker.Stop()
 
 		for {

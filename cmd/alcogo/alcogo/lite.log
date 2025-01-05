@@ -1,8 +1,6 @@
-2025-01-04 21:45:00	debug	alcogo/main.go:60	zaplog started
-2025-01-04 21:45:00	info	repo/types.go:64	pkg:repo отсутствует БД А3 [драйвер sqlite]
-2025-01-04 21:45:00	info	repo/types.go:81	pkg:repo отсутствует БД config драйвер sqlite
-2025-01-04 21:45:00	info	repo/types.go:89	pkg:repo отсутствует БД 4z драйвер sqlite
-2025-01-04 21:45:00	info	alcogo/main.go:123	http port 58741
-2025-01-04 21:45:01	debug	webapp/type.go:78	echo webapp render home
-2025-01-04 21:45:01	debug	webapp/route.go:13	The client is connected: 127.0.0.1
-2025-01-04 21:45:20	debug	webapp/route.go:16	The client is disconnected: 127.0.0.1
+2025-01-05 18:54:00	debug	alcogo/main.go:60	zaplog started
+2025-01-05 18:54:00	info	repo/types.go:64	pkg:repo отсутствует БД А3 [драйвер sqlite]
+2025-01-05 18:54:00	info	repo/types.go:81	pkg:repo отсутствует БД config драйвер sqlite
+2025-01-05 18:54:00	info	repo/types.go:89	pkg:repo отсутствует БД 4z драйвер sqlite
+2025-01-05 18:54:00	info	alcogo/main.go:123	http port 58741
+2025-01-05 18:54:01	debug	webapp/type.go:78	echo webapp render home

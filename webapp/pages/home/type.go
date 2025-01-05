@@ -8,6 +8,8 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+const modError = "home"
+
 // путь к файлам шаблонов модуля для локальной отладки только
 const defaultSrc = `C:\!src\wails-htmx\webapp\pages\home\templates`
 
@@ -28,6 +30,7 @@ type page struct {
 	src          string
 	template     *template.Template
 	templateName string
+	reloadPage   bool
 }
 
 // шаблоны парсятся однажды
@@ -77,7 +80,8 @@ func (t *page) Render(w io.Writer, templateName string, data interface{}, c echo
 	if templateName == "" {
 		templateName = defaultTemplateName
 	}
-	return t.template.ExecuteTemplate(w, templateName, data)
+	err := t.template.ExecuteTemplate(w, templateName, data)
+	return err
 }
 
 // такой вариант на ходу парсит шаблоны для отладки удобней

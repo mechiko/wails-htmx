@@ -40,7 +40,7 @@
       <script src="/assets/js/sse.js"></script>
     </head>
     <body class="" _="on htmx:responseError call alert('A error occurred')
-                      on htmx:sseBeforeMessage call alert('htmx:sseBeforeMessage')">
+                      on htmx:sseBeforeMessage log 'htmx:sseBeforeMessage' ">
       <div id="app" hx-get="/page" hx-trigger="load" hx-target="#app" hx-swap="outerHTML"></div>
       <!-- <script>   
         window.addEventListener("htmx:sendError", function() { alert("A network error occured");   }); 

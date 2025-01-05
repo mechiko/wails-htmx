@@ -1,25 +1,24 @@
   <!-- Здесь выводятся компоненты по роутингу если нет глобальной ошибки -->
-<div hx-ext="sse" sse-connect="/sse?stream=ready" sse-swap="message">
-</div>
+<!-- <div style="display: none;" hx-ext="sse" sse-connect="/sse?stream=ready" sse-swap="message"></div> -->
   <table class="w-2/3 table-auto border border-slate-400 border-separate border-spacing-0.5">
-  <col class="">
-  <col class="">
-  <tbody>
-  <tr>
-    <td class="border border-slate-400">БД АлкоХелп</td>
-    <td class="border border-slate-400">{{ if .DbA3 }}{{ if .DbA3.Absent }}нет{{else}}{{.DbA3.File}}{{end}}{{end}}</td>
-  </tr>
-  <tr>
-    <td class="border border-slate-400">БД ЧЗ</td>
-    <td class="border border-slate-400">{{ if .DbZnak }}{{ if .DbZnak.Absent }}нет{{else}}{{.DbZnak.File}}{{end}}{{end}}</td>
-  </tr>
-  <tr>
-    <td class="border border-slate-400">БД Лайт</td>
-    <td class="border border-slate-400">{{ if .DbLite }}{{ if .DbLite.Absent }}нет{{else}}{{.DbLite.File}}{{end}}{{end}}</td>
-  </tr>
-  <tr>
-    <td class="border border-slate-400">БД Конфигурации</td>
-    <td class="border border-slate-400">{{ if .DbConfig }}{{ if .DbConfig.Absent }}нет{{else}}{{.DbConfig.File}}{{end}}{{end}}</td>
-  </tr>
-  </tbody>
-</table>
+    <col class="">
+    <col class="">
+    <tbody>
+    <tr>
+      <td class="border border-slate-400">БД АлкоХелп</td>
+      <td class="border border-slate-400">{{ if .DbA3 }}{{ if .DbA3.Absent }}нет{{else}}{{.DbA3.File}}{{end}}{{end}}</td>
+    </tr>
+    <tr>
+      <td class="border border-slate-400">БД ЧЗ</td>
+      <td class="border border-slate-400">{{ if .DbZnak }}{{ if .DbZnak.Absent }}нет{{else}}{{.DbZnak.File}}{{end}}{{end}}</td>
+    </tr>
+    <tr>
+      <td class="border border-slate-400">БД Лайт</td>
+      <td class="border border-slate-400">{{ if .DbLite }}{{ if .DbLite.Absent }}нет{{else}}{{.DbLite.File}}{{end}}{{end}}</td>
+    </tr>
+    <tr>
+      <td class="border border-slate-400">БД Конфигурации</td>
+      <td class="border border-slate-400">{{ if .DbConfig }}{{ if .DbConfig.Absent }}нет{{else}}{{.DbConfig.File}}{{end}}{{end}}</td>
+    </tr>
+    </tbody>
+  </table>
