@@ -1,5 +1,7 @@
 package domain
 
+// создаем начальную модель для редуктора
+// потом будет вызов usecase.InitModel()
 var InitModel Model = Model{
 	Gui: gui{
 		MainWindow: MainWindow{
@@ -12,7 +14,7 @@ var InitModel Model = Model{
 			},
 		},
 	},
-	Home: home{
+	DbInfo: dbInfo{
 		Export:  "export",
 		Browser: "",
 		Output:  "output",

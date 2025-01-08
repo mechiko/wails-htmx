@@ -17,22 +17,15 @@ func (rdc *reductor) proccessMessage(msg domain.Message) {
 		msg.Model = rdc.model
 	}
 	switch msg.Cmd {
-	case "startup":
+	case "dbinfo":
 		mdl := *msg.Model
-		rdc.model = &mdl
-		msg := domain.Message{
-			Sender: "reductor.Startup",
-			Cmd:    "home",
-			Model:  rdc.model,
-		}
-		rdc.Effects().ChanIn() <- msg
-	case "home":
-		mdl := *msg.Model
-		_, newModel := rdc.UpdaterGUI("home", mdl)
+		_, newModel := rdc.UpdaterGUI("dbinfo", mdl)
 		rdc.model = &newModel
 	case "stats":
 		mdl := *msg.Model
 		_, newModel := rdc.UpdaterGUI("stats", mdl)
 		rdc.model = &newModel
+	default:
+		rdc.Logger().Errorf("%s cmd %s not found", modError, msg.Cmd)
 	}
 }

@@ -1,6 +1,6 @@
 package domain
 
-type home struct {
+type dbInfo struct {
 	Export      string
 	Browser     string
 	BrowserList []string

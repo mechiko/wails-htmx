@@ -3,16 +3,34 @@ package webapp
 import (
 	"context"
 	"fmt"
+	"time"
 )
 
-func (a *webapp) Run(ctx context.Context) error {
+// пинг на апи /ready идет из корневого index.html (embeded)
+// по таймеру проверяем время последнего пинга и если больше 3 сек закрываем приложение
+func (a *webapp) Run(ctx context.Context, cancel context.CancelFunc) error {
+	a.readyPingLastTime = time.Now()
 	go func() {
-		a.reductor.RegisterGui(a.ReductorUpdater)
+		a.reductor.RegisterGui(a.ReductorUpdaterHttp)
 		a.reductor.Run(ctx)
 	}()
 	go func() {
 		a.effects.Run(ctx)
 	}()
+	go func() {
+		ticker := time.NewTicker(time.Second)
+		defer ticker.Stop()
+
+		for range ticker.C {
+			dur := time.Since(a.readyPingLastTime).Seconds()
+			// a.Logger().Debugf("ping timeout duration %v", dur)
+			if dur > durationTimePingOut {
+				a.Logger().Errorf("ping not present app shutdown!")
+				cancel()
+			}
+		}
+	}()
+
 	port := a.Configuration().HostPort
 	host := a.Configuration().Hostname
 	proto := `http://`

@@ -1,4 +1,4 @@
-package home
+package dbinfo
 
 import (
 	"fmt"

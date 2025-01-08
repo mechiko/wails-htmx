@@ -7,6 +7,7 @@ func (t *page) Route(e *echo.Echo) error {
 	return nil
 }
 
+// переходим на страницу Home
 func (t *page) Home(c echo.Context) error {
 	t.SetActivePage("home", false)
 	c.String(204, "")

@@ -14,26 +14,20 @@ func (rdc *effects) proccessMessage(msg domain.Message) {
 	case "stats":
 		msg.Cmd = "stats"
 		msg.Sender = "effects.stats"
-		mm := usecase.New(rdc).HomeModel(rdc.Reductor().Model())
+		mm := usecase.New(rdc).DbInfoModel(rdc.Reductor().Model())
 		msg.Model = &mm
 		rdc.Reductor().ChanIn() <- msg
-	case "home":
-		msg.Cmd = "home"
-		msg.Sender = "effects.home"
-		mm := usecase.New(rdc).HomeModel(rdc.Reductor().Model())
+	case "dbinfo":
+		msg.Cmd = "dbinfo"
+		msg.Sender = "effects.dbinfo"
+		mm := usecase.New(rdc).DbInfoModel(rdc.Reductor().Model())
 		msg.Model = &mm
 		rdc.Reductor().ChanIn() <- msg
 	case "startup":
-		msg.Cmd = "startup"
+		msg.Cmd = rdc.Configuration().Application.StartPage
 		msg.Sender = "effects.startup"
-		mm := rdc.Reductor().Model()
-		msg.Model = &mm
-		msg.Model.Home.UtmHost = rdc.Configuration().UtmHost
-		msg.Model.Home.UtmPort = rdc.Configuration().UtmPort
-		msg.Model.Home.Output = rdc.Configuration().Output
-		msg.Model.Home.Export = rdc.Configuration().Export
-		msg.Model.Gui.MainWindow.StatusBar.Utm = false
-		msg.Model.Gui.MainWindow.StatusBar.Fsrarid = rdc.Configuration().Application.Fsrarid
-		rdc.Reductor().ChanIn() <- msg
+		rdc.ChanIn() <- msg
+	default:
+		rdc.Logger().Errorf("%s cmd %s not found", modError, msg.Cmd)
 	}
 }

@@ -1,7 +1,6 @@
 browser = ''
 hostname = '127.0.0.1'
-hostport = '58741'
-input = ''
+hostport = '55466'
 name = ''
 output = 'output'
 saveconfig = false
@@ -24,7 +23,7 @@ dbtype = 'sqlite'
 fsrarid = ''
 license = 'f7bc886d-bbcd-4ce9-845f-1209d87d406d'
 scantimer = 30
-startpage = 'home'
+startpage = 'dbinfo'
 
 [config]
 dbname = ''

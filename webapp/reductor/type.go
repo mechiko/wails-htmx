@@ -12,6 +12,7 @@ import (
 const modError = "pkg:reductor"
 
 type IApp interface {
+	Logger() *zap.SugaredLogger
 	Reductor() domain.Reductor
 	Effects() domain.Effects
 	Configuration() *domain.Configuration

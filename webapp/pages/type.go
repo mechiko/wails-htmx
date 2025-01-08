@@ -48,5 +48,6 @@ func (pgs *Pages) RenderPage(w io.Writer, name string, data interface{}, c echo.
 		}
 		return err
 	}
-	return fmt.Errorf("%s not registered", name)
+	pgs.Logger().Errorf("%s %s not registered", modError, name)
+	return fmt.Errorf("%s %s not registered", modError, name)
 }

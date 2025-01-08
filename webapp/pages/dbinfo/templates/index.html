@@ -1,0 +1,12 @@
+<!-- если необходима перезагрузка весь элемент прилетит с сервера и заменится -->
+<div hx-get="/dbinfo/ready" hx-trigger="every 300ms" hx-target="this" hx-swap="outerHTML">
+    <div class="flex h-6 w-screen no-print">
+    {{ template "navbar" }}
+    </div>
+    <div>
+    {{ template "page" .DbInfo }}
+    </div>
+    <div class="flex h-6 w-screen no-print">
+    {{ template "footer" }}
+    </div>
+</div>

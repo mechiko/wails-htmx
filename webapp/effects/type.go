@@ -10,16 +10,17 @@ import (
 
 const modError = "pkg:effects"
 
-type IApp interface {
-	Logger() *zap.SugaredLogger
-	Repo() domain.Repo
-	Reductor() domain.Reductor
-	Effects() domain.Effects
-	Configuration() *domain.Configuration
-}
+// type IApp interface {
+// 	Logger() *zap.SugaredLogger
+// 	Repo() domain.Repo
+// 	Reductor() domain.Reductor
+// 	Effects() domain.Effects
+// 	Configuration() *domain.Configuration
+// 	StartUp()
+// }
 
 type effects struct {
-	IApp
+	domain.IApp
 	mutex  sync.Mutex
 	in     chan domain.Message
 	logger *zap.SugaredLogger
@@ -29,7 +30,7 @@ var _ domain.Effects = &effects{}
 
 // регистрируем тут функцию обновления ГУЯ
 // создаем начальную модель которую будем тут и соблюдать
-func New(app IApp) *effects {
+func New(app domain.IApp) *effects {
 	return &effects{
 		IApp:   app,
 		in:     make(chan domain.Message, 5),

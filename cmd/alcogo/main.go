@@ -13,13 +13,13 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"time"
 
 	// "github.com/brpaz/echozap"
 	"github.com/karagenc/zap4echo"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/r3labs/sse/v2"
+
+	// "github.com/r3labs/sse/v2"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -59,22 +59,22 @@ func main() {
 	loger := zaplog.LoggerShugar
 	loger.Debug("zaplog started")
 
-	serverSse := sse.New()       // create SSE broadcaster server
-	serverSse.AutoReplay = false // do not replay messages for each new subscriber that connects
-	_ = serverSse.CreateStream("ready")
-	go func(s *sse.Server) {
-		ticker := time.NewTicker(10 * time.Second)
-		defer ticker.Stop()
+	// serverSse := sse.New()       // create SSE broadcaster server
+	// serverSse.AutoReplay = false // do not replay messages for each new subscriber that connects
+	// _ = serverSse.CreateStream("ready")
+	// go func(s *sse.Server) {
+	// 	ticker := time.NewTicker(10 * time.Second)
+	// 	defer ticker.Stop()
 
-		for {
-			select {
-			case <-ticker.C:
-				s.Publish("ready", &sse.Event{
-					Data: []byte("time: " + time.Now().Format(time.RFC3339Nano)),
-				})
-			}
-		}
-	}(serverSse)
+	// 	for {
+	// 		select {
+	// 		case <-ticker.C:
+	// 			s.Publish("ready", &sse.Event{
+	// 				Data: []byte("time: " + time.Now().Format(time.RFC3339Nano)),
+	// 			})
+	// 		}
+	// 	}
+	// }(serverSse)
 
 	e := echo.New()
 	e.Use(
@@ -89,7 +89,8 @@ func main() {
 	}))
 
 	// инитим роутер для http, конфиг и прочее
-	webApp := webapp.NewWebApp(zaplog.LoggerShugar, e, serverSse, dir)
+	// webApp := webapp.NewWebApp(zaplog.LoggerShugar, e, serverSse, dir)
+	webApp := webapp.NewWebApp(zaplog.LoggerShugar, e, dir)
 	e.Renderer = webApp
 
 	// инициализируем REPO
@@ -147,11 +148,11 @@ func main() {
 		// возврат произойдет когда Run завершится
 		// он так же зависит от прерывания контекста
 		// в Run запускают необходимые фоновые задачи
-		return webApp.Run(groupCtx)
+		return webApp.Run(groupCtx, cancel)
 	})
 	// ожидание завершения всех в группе
 	if err := group.Wait(); err != nil {
-		panic(err.Error())
+		fmt.Printf("game over! error %s\n", err.Error())
 	} else {
 		fmt.Println("game over!")
 	}

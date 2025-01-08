@@ -9,7 +9,6 @@ utmhost = "localhost"
 utmport = "8088"
 browser = ""
 output = "output"
-input = ''
 
 [mssql]
 driver = "mssql"
@@ -31,7 +30,7 @@ console = false
 fsrarid = ""
 dbtype = "sqlite"
 scantimer = 30
-startpage = "home"
+startpage = "dbinfo"
 
 # конфигурации для баз данных
 # пустые имена файлов означают попытку поиска бд

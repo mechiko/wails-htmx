@@ -4,18 +4,24 @@ import (
 	"context"
 	"firstwails/domain"
 	"firstwails/webapp/effects"
+	"firstwails/webapp/footer"
+	"firstwails/webapp/header"
 	"firstwails/webapp/pages"
 	"firstwails/webapp/reductor"
 	"fmt"
 	"io"
-	"net/http"
 	"time"
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
-	"github.com/r3labs/sse/v2"
 	"go.uber.org/zap"
 )
+
+const durationTimePingOut = 3
+
+type fragment interface {
+	Route(*echo.Echo) error
+}
 
 type webapp struct {
 	ctx           context.Context
@@ -33,14 +39,19 @@ type webapp struct {
 	endTime       time.Time
 	repo          domain.Repo
 	readyDOM      bool
-	sse           *sse.Server
+	// sse           *sse.Server
+	readyPingLastTime time.Time
+	reloadActivePage  bool
+	header            fragment
+	footer            fragment
 }
 
 const modError = "webapp"
 
 var _ domain.IApp = &webapp{}
 
-func NewWebApp(logger *zap.SugaredLogger, e *echo.Echo, sse *sse.Server, pwd string) *webapp {
+// func NewWebApp(logger *zap.SugaredLogger, e *echo.Echo, sse *sse.Server, pwd string) *webapp {
+func NewWebApp(logger *zap.SugaredLogger, e *echo.Echo, pwd string) *webapp {
 	sc := &webapp{}
 	sc.pwd = pwd
 	sc.logger = logger
@@ -50,9 +61,11 @@ func NewWebApp(logger *zap.SugaredLogger, e *echo.Echo, sse *sse.Server, pwd str
 		panic(fmt.Sprintf("%s NewWebApp() %s", modError, err.Error()))
 	}
 	sc.pages = pages.New(sc, e)
-	sc.activePage = "home"
+	// перекрывается в методе StartUp() вызываемого из эффектора при запуске
+	sc.activePage = sc.configuration.Application.StartPage
 	sc.echo = e
-	sc.sse = sse
+	e.HTTPErrorHandler = sc.customHTTPErrorHandler
+	// sc.sse = sse
 	if err := sc.pages.InitPages(); err != nil {
 		panic(fmt.Sprintf("%s NewWebApp() %s", modError, err.Error()))
 	}
@@ -61,25 +74,22 @@ func NewWebApp(logger *zap.SugaredLogger, e *echo.Echo, sse *sse.Server, pwd str
 	sc.reductor = reductor.New(sc, sc.effects)
 	sc.Route()
 	sc.initDateMn()
+	sc.header = header.New(sc)
+	sc.header.Route(e)
+	sc.footer = footer.New(sc)
+	sc.footer.Route(e)
 	return sc
-}
-
-// хэндлер для обработки запроса GET отображения текущей страницы s.activePage
-// sc.pages мап страниц с функциями заполнения
-// передаем имя по списку шаблонов зарегистрированных в pages и модель данных для отображения
-func (s *webapp) CurrentPageIndex(c echo.Context) error {
-	return c.Render(http.StatusOK, s.activePage, &struct{ param string }{param: "page"})
 }
 
 // интерфейс для echo заполнения ответа по роутингу
 // вызывает для страницы name функцию рендеринга
 // data модель отображения
 func (s *webapp) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-	s.logger.Debugf("echo %s render %s", modError, name)
+	// s.logger.Debugf("echo %s render %s", modError, name)
 	return s.pages.RenderPage(w, name, data, c)
 }
 
-// startup is called at application startup
+// startup is called at application startup WAILS
 func (a *webapp) Startup(ctx context.Context) {
 	// Perform your setup here
 	a.ctx = ctx
@@ -92,21 +102,43 @@ func (a *webapp) Startup(ctx context.Context) {
 	a.Effects().ChanIn() <- msg
 }
 
+// вызывается из эффектора при запуске
+// HTTP
+func (a *webapp) StartUp() {
+	// Perform your setup here
+	a.logger.Debug("StartUp HTTP!")
+	msg := domain.Message{
+		Sender: "webapp.Startup",
+		Cmd:    "startup",
+		Model:  nil,
+	}
+	a.Effects().ChanIn() <- msg
+}
+
 // domReady is called after front-end resources have been loaded
+// WAILS
 func (a *webapp) DomReady(ctx context.Context) {
 	// Add your action here
 	a.readyDOM = true
-	a.logger.Debugf("DomReady [readyDOM:%v]", a.readyDOM)
+}
+
+// domReady is called after front-end resources have been loaded
+// HTTP
+func (a *webapp) DomReadyHttp() {
+	// Add your action here
+	a.readyDOM = true
 }
 
 // beforeClose is called when the application is about to quit,
 // either by clicking the window close button or calling runtime.Quit.
 // Returning true will cause the application to continue, false will continue shutdown as normal.
+// WAILS
 func (a *webapp) BeforeClose(ctx context.Context) (prevent bool) {
 	return false
 }
 
 // shutdown is called at application termination
+// WAILS
 func (a *webapp) Shutdown(ctx context.Context) {
 	// Perform your teardown here
 	if err := a.echo.Shutdown(ctx); err != nil {
@@ -115,6 +147,7 @@ func (a *webapp) Shutdown(ctx context.Context) {
 }
 
 // shutdown is called at application termination
+// WAILS
 func (a *webapp) OnShutdown() {
 	// Perform your teardown here
 	a.Shutdown(a.ctx)
