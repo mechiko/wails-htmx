@@ -16,4 +16,6 @@ type IApp interface {
 	ReloadActivePage() bool
 	SetReloadActivePage(bool)
 	StartUp()
+	PagesInfo() MapPageInfo
+	ActivePage() string
 }

@@ -15,7 +15,8 @@ func (a *webapp) Route() {
 
 // хэндлер для обработки запроса GET отображения текущей страницы s.activePage
 func (s *webapp) CurrentPageIndex(c echo.Context) error {
-	return c.Render(http.StatusOK, s.activePage, &struct{ param string }{param: "page"})
+	model := s.reductor.Model()
+	return c.Render(http.StatusOK, s.activePage, &model)
 }
 
 // func (a *webapp) HandleSSE(c echo.Context) error { // longer variant with disconnect logic

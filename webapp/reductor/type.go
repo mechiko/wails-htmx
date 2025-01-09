@@ -11,15 +11,15 @@ import (
 
 const modError = "pkg:reductor"
 
-type IApp interface {
-	Logger() *zap.SugaredLogger
-	Reductor() domain.Reductor
-	Effects() domain.Effects
-	Configuration() *domain.Configuration
-}
+// type IApp interface {
+// 	Logger() *zap.SugaredLogger
+// 	Reductor() domain.Reductor
+// 	Effects() domain.Effects
+// 	Configuration() *domain.Configuration
+// }
 
 type reductor struct {
-	IApp
+	domain.IApp
 	mutex      sync.Mutex
 	in         chan domain.Message
 	logger     *zap.SugaredLogger
@@ -32,7 +32,7 @@ var _ domain.Reductor = &reductor{}
 
 // регистрируем тут функцию обновления ГУЯ
 // создаем начальную модель которую будем тут и соблюдать
-func New(app IApp, efs domain.Effects) *reductor {
+func New(app domain.IApp, efs domain.Effects) *reductor {
 	return &reductor{
 		IApp:    app,
 		in:      make(chan domain.Message, 5),

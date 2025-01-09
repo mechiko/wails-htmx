@@ -19,4 +19,9 @@ var InitModel Model = Model{
 		Browser: "",
 		Output:  "output",
 	},
+	Menu: menu{
+		Items: make(MenuItemSlice, 0),
+	},
+	Stats:      stats{},
+	TrueClient: trueClient{},
 }

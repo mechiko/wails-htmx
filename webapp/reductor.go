@@ -37,6 +37,7 @@ func (a *webapp) ReductorUpdater(cmd string, model domain.Model) (string, domain
 // HTTP
 func (a *webapp) ReductorUpdaterHttp(cmd string, model domain.Model) (string, domain.Model) {
 	a.logger.Debugf("webapp ReductorUpdaterHttp [readyDOM:%v]", a.readyDOM)
+	// пока не будет готов DOM для HTTP это когда READY пинг прилетит из индекса
 	if !a.readyDOM {
 		return "", model
 	}
@@ -55,6 +56,10 @@ func (a *webapp) SetActivePage(page string, reductor bool) {
 		a.Effects().ChanIn() <- msg
 	}
 	a.activePage = page
+}
+
+func (a *webapp) ActivePage() string {
+	return a.activePage
 }
 
 func (a *webapp) SetReloadActivePage(b bool) {

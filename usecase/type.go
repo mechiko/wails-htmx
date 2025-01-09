@@ -2,23 +2,21 @@ package usecase
 
 import (
 	"firstwails/domain"
-
-	"go.uber.org/zap"
 )
 
-type IApp interface {
-	Logger() *zap.SugaredLogger
-	Configuration() *domain.Configuration
-	Reductor() domain.Reductor
-	Effects() domain.Effects
-	Repo() domain.Repo
-}
+// type IApp interface {
+// 	Logger() *zap.SugaredLogger
+// 	Configuration() *domain.Configuration
+// 	Reductor() domain.Reductor
+// 	Effects() domain.Effects
+// 	Repo() domain.Repo
+// }
 
 type usecase struct {
-	IApp
+	domain.IApp
 }
 
-func New(app IApp) *usecase {
+func New(app domain.IApp) *usecase {
 	return &usecase{
 		IApp: app,
 	}

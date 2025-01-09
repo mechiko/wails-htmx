@@ -29,7 +29,7 @@ func (t *page) Route(e *echo.Echo) error {
 func (t *page) content(c echo.Context) error {
 	var buf bytes.Buffer
 	model := t.Reductor().Model()
-	model = usecase.New(t).DbInfoModel(model)
+	model = usecase.New(t).StatsModel(model)
 	if err := t.Render(&buf, "content", &model, c); err != nil {
 		t.Logger().Errorf("%s %s", modError, err.Error())
 		c.NoContent(204)

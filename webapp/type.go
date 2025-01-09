@@ -17,7 +17,7 @@ import (
 	"go.uber.org/zap"
 )
 
-const durationTimePingOut = 3
+const durationTimePingOut = 3000
 
 type fragment interface {
 	Route(*echo.Echo) error
@@ -87,32 +87,6 @@ func NewWebApp(logger *zap.SugaredLogger, e *echo.Echo, pwd string) *webapp {
 func (s *webapp) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
 	// s.logger.Debugf("echo %s render %s", modError, name)
 	return s.pages.RenderPage(w, name, data, c)
-}
-
-// startup is called at application startup WAILS
-func (a *webapp) Startup(ctx context.Context) {
-	// Perform your setup here
-	a.ctx = ctx
-	a.logger.Debug("Startup!")
-	msg := domain.Message{
-		Sender: "webapp.Startup",
-		Cmd:    "startup",
-		Model:  nil,
-	}
-	a.Effects().ChanIn() <- msg
-}
-
-// вызывается из эффектора при запуске
-// HTTP
-func (a *webapp) StartUp() {
-	// Perform your setup here
-	a.logger.Debug("StartUp HTTP!")
-	msg := domain.Message{
-		Sender: "webapp.Startup",
-		Cmd:    "startup",
-		Model:  nil,
-	}
-	a.Effects().ChanIn() <- msg
 }
 
 // domReady is called after front-end resources have been loaded

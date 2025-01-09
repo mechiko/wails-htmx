@@ -1,6 +1,7 @@
 package pages
 
 import (
+	"firstwails/domain"
 	"firstwails/webapp/pages/dbinfo"
 	"firstwails/webapp/pages/stats"
 	"fmt"
@@ -16,11 +17,25 @@ func (pgs *Pages) InitPages() error {
 	if err := dbInfoPage.Route(pgs.echo); err != nil {
 		return fmt.Errorf("%s InitPages %w", modError, err)
 	}
-	pgs.AddPage("dbinfo", dbInfoPage.Render)
-	statPage := stats.NewOnDemand(pgs, "", "")
+	infoDbInfoPage := &domain.PageInfo{
+		Name:      "dbinfo",
+		Url:       "dbinfo",
+		MenuTitle: "Инфо",
+		Desc:      "иноформация по бд",
+		Svg:       dbInfoPage.Svg(),
+	}
+	pgs.AddPage(infoDbInfoPage, dbInfoPage.Render)
+	statPage := stats.New(pgs)
 	if err := statPage.Route(pgs.echo); err != nil {
 		return fmt.Errorf("%s InitPages %w", modError, err)
 	}
-	pgs.AddPage("stats", statPage.DoRender)
+	infoStatPage := &domain.PageInfo{
+		Name:      "stats",
+		Url:       "stats",
+		MenuTitle: "Статистика",
+		Desc:      "статистика по КМ",
+		Svg:       statPage.Svg(),
+	}
+	pgs.AddPage(infoStatPage, statPage.DoRender)
 	return nil
 }

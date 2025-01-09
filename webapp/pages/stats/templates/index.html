@@ -1,13 +1,12 @@
-    <!-- Заголовок окна -->
-    <div class="flex h-6 w-screen bg-primary-content items-center no-print">
-    {{ template "navbar" .Home }}
+<!-- если необходима перезагрузка весь элемент прилетит с сервера и заменится -->
+<div hx-get="/stats/ready" hx-trigger="every 300ms" hx-target="this" hx-swap="outerHTML">
+    <div class="flex h-6 w-screen no-print">
+    {{ template "navbar" }}
     </div>
-    <!-- Центр с боковыми панелями -->
-        <div id="content" class="relative w-full overflow-hidden" style="height: calc(100vh - 5rem);">
-          <!-- Здесь выводятся компоненты по роутингу если нет глобальной ошибки -->
-    {{ template "page" .Home }}
-        </div>
-    <!-- Футтер -->
-    <div class="absolute bg-green-200 no-print" style="top: calc(100vh - 2.5rem); right: 0; bottom: 0; left: 0;">
-    {{ template "footer" .Gui.MainWindow.StatusBar}}
+    <div>
+    {{ template "page" .DbInfo }}
     </div>
+    <div class="flex h-6 w-screen no-print">
+    {{ template "footer" }}
+    </div>
+</div>

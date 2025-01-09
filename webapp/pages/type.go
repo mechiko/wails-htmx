@@ -21,20 +21,23 @@ const modError = "pages"
 
 type Pages struct {
 	domain.IApp
-	registered map[string]domain.RenderHandler
-	echo       *echo.Echo
+	registered     map[string]domain.RenderHandler
+	echo           *echo.Echo
+	infoRegistered domain.MapPageInfo
 }
 
 func New(app domain.IApp, e *echo.Echo) *Pages {
 	return &Pages{
-		IApp:       app,
-		registered: make(map[string]domain.RenderHandler),
-		echo:       e,
+		IApp:           app,
+		registered:     make(map[string]domain.RenderHandler),
+		echo:           e,
+		infoRegistered: make(domain.MapPageInfo),
 	}
 }
 
-func (pgs *Pages) AddPage(name string, f domain.RenderHandler) {
-	pgs.registered[name] = f
+func (pgs *Pages) AddPage(info *domain.PageInfo, f domain.RenderHandler) {
+	pgs.registered[info.Name] = f
+	pgs.infoRegistered[info.Name] = info
 }
 
 // рендер страницы по зарегистрированному имени name страницы
@@ -50,4 +53,9 @@ func (pgs *Pages) RenderPage(w io.Writer, name string, data interface{}, c echo.
 	}
 	pgs.Logger().Errorf("%s %s not registered", modError, name)
 	return fmt.Errorf("%s %s not registered", modError, name)
+}
+
+// мап зарегистрированных страниц
+func (pgs *Pages) Infos() domain.MapPageInfo {
+	return pgs.infoRegistered
 }

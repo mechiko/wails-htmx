@@ -47,6 +47,11 @@ driver = "sqlite"
 [alcogo4]
 driver = "sqlite"
 
+[trueclient]
+layoututc = "2006-01-02T15:04:05"
+standgis = "markirovka.sandbox.crptech.ru"
+standsuz = "suz.sandbox.crptech.ru"
+
 `)
 
 type Configuration struct {
@@ -65,10 +70,11 @@ type Configuration struct {
 	Sqlite databaseConfiguration `json:"sqlite"`
 	Mssql  databaseConfiguration `json:"mssql"`
 	// описатели БД рефактор
-	Config    databaseConfiguration `json:"config"`
-	Alcohelp3 databaseConfiguration `json:"alcohelp3"`
-	TrueZnak  databaseConfiguration `json:"trueznak"`
-	Alcogo4   databaseConfiguration `json:"alcogo4"`
+	Config     databaseConfiguration `json:"config"`
+	Alcohelp3  databaseConfiguration `json:"alcohelp3"`
+	TrueZnak   databaseConfiguration `json:"trueznak"`
+	Alcogo4    databaseConfiguration `json:"alcogo4"`
+	TrueClient trueClientConfig      `jdon:"trueclient"`
 }
 
 type layoutConfiguration struct {
@@ -103,4 +109,14 @@ type appConfiguration struct {
 	License      string `json:"license"`
 	ScanTimer    int    `json:"scantimer"`
 	StartPage    string `json:"startpage"`
+}
+
+type trueClientConfig struct {
+	StandGIS  string `jdon:"standgis"`
+	StandSUZ  string `jdon:"standsuz"`
+	TokenGIS  string `jdon:"tokengis"`
+	TokenSUZ  string `jdon:"tokensuz"`
+	AuthTime  string `jdon:"authtime"`
+	LayoutUTC string `jdon:"layoututc"`
+	HashKey   string `jdon:"hashkey"`
 }

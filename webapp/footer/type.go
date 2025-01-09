@@ -12,8 +12,7 @@ import (
 const modError = "home"
 
 // путь к файлам шаблонов модуля для локальной отладки только
-// const defaultSrc = `C:\!src\wails-htmx\webapp\pages\home\templates`
-const defaultSrc = `E:\src\goproj\!!firstwails\webapp\header\templates`
+const defaultSrc = `E:\src\goproj\!!firstwails\webapp\footer\templates`
 
 const defaultTemplateName = "content"
 

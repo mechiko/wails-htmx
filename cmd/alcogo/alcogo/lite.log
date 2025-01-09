@@ -1,11 +1,7 @@
-2025-01-08 21:47:55	debug	alcogo/main.go:60	zaplog started
-2025-01-08 21:47:55	info	repo/types.go:64	pkg:repo отсутствует БД А3 [драйвер sqlite]
-2025-01-08 21:47:55	info	repo/types.go:81	pkg:repo отсутствует БД config драйвер sqlite
-2025-01-08 21:47:55	info	repo/types.go:89	pkg:repo отсутствует БД 4z драйвер sqlite
-2025-01-08 21:47:55	info	alcogo/main.go:124	http port 55466
-2025-01-08 21:47:55	debug	webapp/type.go:109	StartUp HTTP!
-2025-01-08 21:47:55	debug	webapp/reductor.go:39	webapp ReductorUpdaterHttp [readyDOM:false]
-2025-01-08 21:48:21	error	webapp/run.go:28	ping not present app shutdown!
-2025-01-08 21:48:21	debug	alcogo/main.go:133	main получен сигнал завершения контекста группы в HTTP
-2025-01-08 21:48:21	info	repo/start.go:16	завершаем работу репозитория по контексту
-2025-01-08 21:48:21	info	zaplog/logger.go:35	завершаем работу логера по контексту
+2025-01-09 16:27:44	debug	alcogo/main.go:60	zaplog started
+2025-01-09 16:27:44	info	repo/types.go:64	pkg:repo отсутствует БД А3 [драйвер sqlite]
+2025-01-09 16:27:44	info	repo/types.go:81	pkg:repo отсутствует БД config драйвер sqlite
+2025-01-09 16:27:44	info	repo/types.go:89	pkg:repo отсутствует БД 4z драйвер sqlite
+2025-01-09 16:27:44	info	alcogo/main.go:124	http port 55466
+2025-01-09 16:27:44	debug	webapp/startup.go:25	StartUp HTTP!
+2025-01-09 16:27:44	debug	webapp/reductor.go:39	webapp ReductorUpdaterHttp [readyDOM:false]

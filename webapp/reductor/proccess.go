@@ -17,6 +17,19 @@ func (rdc *reductor) proccessMessage(msg domain.Message) {
 		msg.Model = rdc.model
 	}
 	switch msg.Cmd {
+	case "model":
+		// set model to reductor
+		mdl := *msg.Model
+		rdc.model = &mdl
+	case "startup":
+		mdl := *msg.Model
+		rdc.model = &mdl
+		msg2 := domain.Message{
+			Sender: "reductor.StartUp",
+			Cmd:    rdc.ActivePage(),
+			Model:  msg.Model,
+		}
+		rdc.Effects().ChanIn() <- msg2
 	case "dbinfo":
 		mdl := *msg.Model
 		_, newModel := rdc.UpdaterGUI("dbinfo", mdl)
