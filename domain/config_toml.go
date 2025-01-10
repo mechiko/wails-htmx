@@ -51,6 +51,8 @@ driver = "sqlite"
 layoututc = "2006-01-02T15:04:05"
 standgis = "markirovka.sandbox.crptech.ru"
 standsuz = "suz.sandbox.crptech.ru"
+deviceid = ""
+omsid = ""
 
 `)
 
@@ -74,7 +76,7 @@ type Configuration struct {
 	Alcohelp3  databaseConfiguration `json:"alcohelp3"`
 	TrueZnak   databaseConfiguration `json:"trueznak"`
 	Alcogo4    databaseConfiguration `json:"alcogo4"`
-	TrueClient trueClientConfig      `jdon:"trueclient"`
+	TrueClient trueClientConfig      `json:"trueclient"`
 }
 
 type layoutConfiguration struct {
@@ -112,11 +114,13 @@ type appConfiguration struct {
 }
 
 type trueClientConfig struct {
-	StandGIS  string `jdon:"standgis"`
-	StandSUZ  string `jdon:"standsuz"`
-	TokenGIS  string `jdon:"tokengis"`
-	TokenSUZ  string `jdon:"tokensuz"`
-	AuthTime  string `jdon:"authtime"`
-	LayoutUTC string `jdon:"layoututc"`
-	HashKey   string `jdon:"hashkey"`
+	StandGIS  string `json:"standgis"`
+	StandSUZ  string `json:"standsuz"`
+	TokenGIS  string `json:"tokengis"`
+	TokenSUZ  string `json:"tokensuz"`
+	AuthTime  string `json:"authtime"`
+	LayoutUTC string `json:"layoututc"`
+	HashKey   string `json:"hashkey"`
+	DeviceID  string `json:"deviceid"`
+	OmsID     string `json:"omsid"`
 }

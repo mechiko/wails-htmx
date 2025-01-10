@@ -15,7 +15,9 @@ func (u *usecase) InitModel(model domain.Model) domain.Model {
 	model.DbInfo.Export = u.Configuration().Export
 	model.Gui.MainWindow.StatusBar.Utm = false
 	model.Gui.MainWindow.StatusBar.Fsrarid = u.Configuration().Application.Fsrarid
+	// create menu state
 	model = u.MenuModel(model)
+	// true client state
 	if u.Configuration().TrueClient.StandGIS == "" {
 		_ = u.Config().Set("trueclient.standgis", "markirovka.sandbox.crptech.ru", true)
 	}
@@ -48,5 +50,7 @@ func (u *usecase) InitModel(model domain.Model) domain.Model {
 		}
 	}
 	model.TrueClient.HashKey = u.Configuration().TrueClient.HashKey
+	model.TrueClient.DeviceID = u.Configuration().TrueClient.DeviceID
+	model.TrueClient.OmsID = u.Configuration().TrueClient.OmsID
 	return model
 }

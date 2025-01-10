@@ -13,4 +13,6 @@ type trueClient struct {
 	AuthTime  time.Time
 	LayoutUTC string
 	HashKey   string
+	DeviceID  string
+	OmsID     string
 }
