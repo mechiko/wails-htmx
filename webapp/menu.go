@@ -7,7 +7,7 @@ import (
 func (a *webapp) ApplicationMenu() *menu.Menu {
 	reportMenu := menu.SubMenu("Отчеты", menu.NewMenuFromItems(
 		menu.Text("Статистика", nil, func(cbdata *menu.CallbackData) {
-			a.SetActivePage("stats", true)
+			a.SetActivePage("stats")
 		}),
 	))
 	// homeMenu := &menu.MenuItem{

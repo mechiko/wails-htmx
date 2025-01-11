@@ -4,6 +4,8 @@ import (
 	"firstwails/domain"
 )
 
+const modError = "usecase"
+
 // type IApp interface {
 // 	Logger() *zap.SugaredLogger
 // 	Configuration() *domain.Configuration

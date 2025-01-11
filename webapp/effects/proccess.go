@@ -13,12 +13,8 @@ func (rdc *effects) proccessMessage(msgIn domain.Message) {
 	msg := domain.Message{}
 	switch msgIn.Cmd {
 	case "stats":
-		msg.Cmd = "stats"
-		msg.Sender = "effects.stats"
-		// mm := usecase.New(rdc).MenuModel(rdc.Reductor().Model())
-		mm := usecase.New(rdc).StatsModel(rdc.Reductor().Model())
-		msg.Model = &mm
-		rdc.Reductor().ChanIn() <- msg
+		// usecase делает обновление редуктора по завершению запроса
+		_ = usecase.New(rdc).StatsModel(rdc.Reductor().Model())
 	case "dbinfo":
 		msg.Cmd = "dbinfo"
 		msg.Sender = "effects.dbinfo"
@@ -26,7 +22,6 @@ func (rdc *effects) proccessMessage(msgIn domain.Message) {
 		msg.Model = &mm
 		rdc.Reductor().ChanIn() <- msg
 	case "startup":
-		// msg.Cmd = rdc.Configuration().Application.StartPage
 		msg.Cmd = "startup"
 		msg.Sender = "effects.startup"
 		mm := usecase.New(rdc).InitModel(rdc.Reductor().Model())

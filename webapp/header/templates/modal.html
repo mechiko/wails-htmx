@@ -1,6 +1,6 @@
-<div id="modal" _="on closeModal add .closing then wait for animationend then remove me">
+<div id="modal" class="block" _="on closeModal add .closing then wait for animationend then remove me">
 	<div class="modal-underlay" _="on click trigger closeModal"></div>
-	<div class="modal-content w-fit">
+	<div class="modal-content top-8 left-2 w-fit">
     <ul class="menu bg-base-200 rounded-box w-56">
 {{ range $j, $row := $.Items }}
   <li>

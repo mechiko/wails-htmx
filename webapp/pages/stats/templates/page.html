@@ -1,2 +1,11 @@
 <!-- Здесь выводятся компоненты по роутингу если нет глобальной ошибки -->
-<div>STATS</div>
+<div id="page">
+    <!-- errors model root -->
+{{ range $j, $row := $.Error }}
+<div>{{$row}}</div>
+{{ end }}
+<button class="btn" hx-get="/stats/modal" hx-target="body" hx-swap="beforeend">
+    Инфо ЧЗ
+</button>
+<div>{{$.TrueClient.PingSuz}}</div>
+</div>

@@ -32,7 +32,6 @@ type page struct {
 	src          string
 	template     *template.Template
 	templateName string
-	reloadPage   bool
 }
 
 func New(app domain.IApp) *page {
@@ -57,6 +56,7 @@ func (t *page) Production() {
 	template.Must(tt.New("page").Funcs(funcMapHtml).Parse(pageTmpl))
 	template.Must(tt.New("error").Funcs(funcMapHtml).Parse(errorTmpl))
 	template.Must(tt.New("footer").Funcs(funcMapHtml).Parse(footerTmpl))
+	template.Must(tt.New("modal").Funcs(funcMapHtml).Parse(modalTmpl))
 	t.template = tt
 }
 
@@ -100,28 +100,7 @@ func (t *page) DoRender(w io.Writer, templateName string, data interface{}, c ec
 	template.Must(tt.New("page").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\page.html")))
 	template.Must(tt.New("error").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\error.html")))
 	template.Must(tt.New("footer").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\footer.html")))
-	// if _, err := tt.New("style").Parse(fileGetContents(t.src + "\\style.html")); err != nil {
-	// 	t.Logger().Error(err)
-	// }
-	// if _, err := tt.New("index").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\index.html")); err != nil {
-	// 	t.Logger().Error(err)
-	// }
-	// if _, err := tt.New("indexerror").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\indexerror.html")); err != nil {
-	// 	t.Logger().Error(err)
-	// }
-	// if _, err := tt.New("navbar").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\navbar.html")); err != nil {
-	// 	t.Logger().Error(err)
-	// }
-	// if _, err := tt.New("page").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\page.html")); err != nil {
-	// 	t.Logger().Error(err)
-	// }
-	// if _, err := tt.New("error").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\error.html")); err != nil {
-	// 	t.Logger().Error(err)
-	// }
-	// if _, err := tt.New("footer").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\footer.html")); err != nil {
-	// 	t.Logger().Error(err)
-	// }
-	// err = tt.ExecuteTemplate(w, templateName, data)
+	template.Must(tt.New("modal").Funcs(funcMapHtml).Parse(fileGetContents(defaultSrc + "\\modal.html")))
 	return tt.ExecuteTemplate(w, templateName, data)
 }
 

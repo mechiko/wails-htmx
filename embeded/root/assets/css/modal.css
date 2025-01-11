@@ -10,7 +10,7 @@
     z-index: 1000;
 
     /* Flexbox centers the .modal-content vertically and horizontally */
-    display: block;
+    /* display: block; */
     /* flex-direction: row;
     align-items: flex-start; */
 
@@ -32,9 +32,9 @@
   }
 
   #modal>.modal-content {
-    top: 32px;
+    /* top: 32px; */
     /* bottom: 0px; */
-    left: 4px;
+    /* left: 4px; */
     /* right: 0px; */
     /* Position visible dialog near the top of the window */
     /* margin-top: 10vh; */

@@ -3,6 +3,7 @@ package domain
 // создаем начальную модель для редуктора
 // потом будет вызов usecase.InitModel()
 var InitModel Model = Model{
+	Error: make([]string, 0),
 	Gui: gui{
 		MainWindow: MainWindow{
 			Title: "",
@@ -23,5 +24,5 @@ var InitModel Model = Model{
 		Items: make(MenuItemSlice, 0),
 	},
 	Stats:      stats{},
-	TrueClient: trueClient{},
+	TrueClient: TrueClient{},
 }

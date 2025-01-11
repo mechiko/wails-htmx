@@ -9,6 +9,7 @@ import (
 func (t *page) Route(e *echo.Echo) error {
 	e.GET("/stats/title", t.Title)
 	e.GET("/stats/ready", t.Ready)
+	e.GET("/stats/modal", t.modal)
 	return nil
 }
 
@@ -34,5 +35,17 @@ func (t *page) Ready(c echo.Context) error {
 	t.DomReadyHttp()
 	// без контента свап не производится
 	c.NoContent(204)
+	return nil
+}
+
+func (t *page) modal(c echo.Context) error {
+	var buf bytes.Buffer
+	model := t.Reductor().Model()
+	if err := t.Render(&buf, "modal", &model, c); err != nil {
+		t.Logger().Errorf("%s %s", modError, err.Error())
+		c.NoContent(204)
+		return nil
+	}
+	c.HTML(200, buf.String())
 	return nil
 }

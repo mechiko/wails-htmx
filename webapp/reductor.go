@@ -41,20 +41,21 @@ func (a *webapp) ReductorUpdaterHttp(cmd string, model domain.Model) (string, do
 	if !a.readyDOM {
 		return "", model
 	}
+	// чтобы обновить страницу на пинге выставляем разрешение
 	a.SetReloadActivePage(true)
 	return "", model
 }
 
-func (a *webapp) SetActivePage(page string, reductor bool) {
-	if reductor {
-		model := a.reductor.Model()
-		msg := domain.Message{
-			Sender: "webapp.SetActivePage",
-			Cmd:    page,
-			Model:  &model,
-		}
-		a.Effects().ChanIn() <- msg
-	}
+func (a *webapp) SetActivePage(page string) {
+	// if reductor {
+	// 	model := a.reductor.Model()
+	// 	msg := domain.Message{
+	// 		Sender: "webapp.SetActivePage",
+	// 		Cmd:    page,
+	// 		Model:  &model,
+	// 	}
+	// 	a.Effects().ChanIn() <- msg
+	// }
 	a.activePage = page
 }
 

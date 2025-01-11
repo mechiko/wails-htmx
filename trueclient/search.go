@@ -12,8 +12,8 @@ import (
 
 func (t *trueClient) SearchGis(target interface{}) error {
 	var u = url.URL{
-		Scheme: t.url.Scheme,
-		Host:   t.url.Host,
+		Scheme: t.urlGIS.Scheme,
+		Host:   t.urlGIS.Host,
 		Path:   `/api/v4/true-api/cises/search`,
 	}
 	t.Logger().Debugf("url:%s", u.String())

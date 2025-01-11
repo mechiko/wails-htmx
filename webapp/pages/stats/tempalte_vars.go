@@ -24,3 +24,6 @@ var pageTmpl string
 
 //go:embed templates\footer.html
 var footerTmpl string
+
+//go:embed templates\modal.html
+var modalTmpl string

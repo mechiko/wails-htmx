@@ -12,8 +12,8 @@ import (
 // Host:   "markirovka.sandbox.crptech.ru"
 func (t *trueClient) CisesList(target interface{}, cises []string) error {
 	var u = url.URL{
-		Scheme: t.url.Scheme,
-		Host:   "markirovka.sandbox.crptech.ru",
+		Scheme: t.urlGIS.Scheme,
+		Host:   t.urlGIS.Host,
 		Path:   `/api/v3/true-api/cises/list`,
 	}
 	var v = make(url.Values)

@@ -3,13 +3,13 @@ package domain
 // пакет состояния всей программы
 // интерфейс Reader для доступа только чтения
 type Model struct {
-	Error string
+	Error []string
 	Gui   gui
 	Menu  menu
 	// page models
 	DbInfo     dbInfo
 	Stats      stats
-	TrueClient trueClient
+	TrueClient TrueClient
 }
 
 // формат сообщения

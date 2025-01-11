@@ -7,6 +7,7 @@ import (
 	"firstwails/domain"
 	"firstwails/httpserver"
 	"firstwails/repo"
+	"firstwails/trueclient/cmdsign"
 	"firstwails/utility"
 	"firstwails/webapp"
 	"firstwails/zaplog"
@@ -156,4 +157,5 @@ func main() {
 	} else {
 		fmt.Println("game over!")
 	}
+	cmdsign.FilesRemove()
 }

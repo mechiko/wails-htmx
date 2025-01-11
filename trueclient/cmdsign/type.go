@@ -71,7 +71,7 @@ func (c *cmdexec) Sign(in string) (string, error) {
 		return "", fmt.Errorf("%s Sifn() %w", modError, err)
 	}
 	clearSign := bytes.ReplaceAll(sign, []byte("\r\n"), []byte{})
-	FilesRemove()
+	// FilesRemove()
 	return string(clearSign), nil
 }
 

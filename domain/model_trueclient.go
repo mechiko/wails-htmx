@@ -5,7 +5,13 @@ import (
 	"time"
 )
 
-type trueClient struct {
+type PingSuzInfo struct {
+	OmsId      string `json:"omsId"`
+	ApiVersion string `json:"apiVersion"`
+	OmsVersion string `json:"omsVersion"`
+}
+
+type TrueClient struct {
 	StandGIS  url.URL
 	StandSUZ  url.URL
 	TokenGIS  string
@@ -15,4 +21,6 @@ type trueClient struct {
 	HashKey   string
 	DeviceID  string
 	OmsID     string
+	Errors    []string
+	PingSuz   *PingSuzInfo
 }

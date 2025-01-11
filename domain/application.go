@@ -11,7 +11,7 @@ type IApp interface {
 	Reductor() Reductor
 	Effects() Effects
 	Repo() Repo
-	SetActivePage(string, bool)
+	SetActivePage(string)
 	DomReadyHttp()
 	ReloadActivePage() bool
 	SetReloadActivePage(bool)

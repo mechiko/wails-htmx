@@ -32,13 +32,14 @@ var _ domain.Reductor = &reductor{}
 
 // регистрируем тут функцию обновления ГУЯ
 // создаем начальную модель которую будем тут и соблюдать
-func New(app domain.IApp, efs domain.Effects) *reductor {
+func New(app domain.IApp, efs domain.Effects, model *domain.Model) *reductor {
+	mdl := *model
 	return &reductor{
 		IApp:    app,
 		in:      make(chan domain.Message, 5),
 		logger:  zaplog.Reductor.Sugar(),
 		effects: efs,
-		model:   &domain.InitModel,
+		model:   &mdl,
 	}
 }
 
