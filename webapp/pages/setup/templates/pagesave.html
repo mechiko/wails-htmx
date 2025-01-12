@@ -1,0 +1,31 @@
+<div id="page">
+{{if (len .Errors)}}
+<div id="modal" class="flex flex-col items-center" 
+  _="on closeModal add .closing then wait for animationend then remove me">
+	<div class="modal-underlay" _="on click trigger closeModal"></div>
+	<div class="modal-content w-2/3 mt-20 min-h-60">
+        Ошибки:
+        {{ range $j, $row := $.Errors }}
+        <div class="text-red-300">{{$row}}</div>
+        {{ end }}
+  </div>
+</div>
+{{else}}
+<span class="text-primary">Настройки сохранены</span><br>
+{{end}}
+{{if .PingSuz}}
+<div>
+<span class="text-primary">API Version:</span><span>{{.PingSuz.ApiVersion}}</span><br>
+<span class="text-primary">SUZ Version:</span><span>{{.PingSuz.OmsVersion}}</span><br>
+</div>
+{{end}}
+<form hx-post="/setup/save" hx-target="#page" hx-swap="outerHTML">
+    {{ template "omsid" . }}
+    {{ template "deviceid" . }}
+    <label class="input input-bordered flex items-center gap-2">
+        <span class="text-primary">Hash sign</span>
+        <input name="hashkey" class="grow" value="{{.HashKey}}">
+    </label>
+    <button class="btn btn-outline btn-primary">Сохранить</button>
+</form>
+</div>

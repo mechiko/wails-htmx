@@ -14,7 +14,9 @@ import (
 func (u *usecase) TrueClientConfig(model domain.Model) (out domain.Model) {
 	defer func() {
 		if r := recover(); r != nil {
-			u.Logger().Error(fmt.Errorf("%s panic %v", modError, r))
+			errStr := fmt.Sprintf("%s panic %v", modError, r)
+			u.Logger().Error(errStr)
+			model.Error = append(model.Error, errStr)
 			out = model
 		}
 	}()

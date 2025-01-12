@@ -3,6 +3,7 @@ package pages
 import (
 	"firstwails/domain"
 	"firstwails/webapp/pages/dbinfo"
+	"firstwails/webapp/pages/setup"
 	"firstwails/webapp/pages/stats"
 	"fmt"
 )
@@ -37,5 +38,21 @@ func (pgs *Pages) InitPages() error {
 		Svg:       statPage.Svg(),
 	}
 	pgs.AddPage(infoStatPage, statPage.DoRender)
+
+	// setup page
+	setupPage := setup.New(pgs)
+	// инициализируем маршруты страницы в АПИ
+	if err := setupPage.Route(pgs.echo); err != nil {
+		return fmt.Errorf("%s InitPages %w", modError, err)
+	}
+	infoSetupPage := &domain.PageInfo{
+		Name:      "setup",
+		Url:       "setup",
+		MenuTitle: "Настройка",
+		Desc:      "настройка ЧЗ",
+		Svg:       setupPage.Svg(),
+	}
+	pgs.AddPage(infoSetupPage, setupPage.Render)
+
 	return nil
 }

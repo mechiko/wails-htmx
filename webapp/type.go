@@ -74,6 +74,9 @@ func NewWebApp(logger *zap.SugaredLogger, e *echo.Echo, pwd string) *webapp {
 	sc.effects = effects.New(sc)
 	// здесь первый раз происходит попытка авторизации trueclient
 	model := usecase.New(sc).TrueClientConfig(domain.InitModel)
+	if len(model.Error) != 0 {
+		sc.activePage = "setup"
+	}
 	sc.reductor = reductor.New(sc, sc.effects, &model)
 	sc.Route()
 	sc.initDateMn()

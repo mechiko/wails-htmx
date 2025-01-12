@@ -1,11 +1,7 @@
-2025-01-11 21:51:49	debug	alcogo/main.go:61	zaplog started
-2025-01-11 21:51:49	debug	trueclient/pinger_suz.go:64	url:https://suz.sandbox.crptech.ru/api/v3/ping?omsId=32539e31-c671-4462-8443-3d92b038b0f9
-2025-01-11 21:51:49	debug	trueclient/pinger_suz.go:81	ping Body:{"omsId":"32539e31-c671-4462-8443-3d92b038b0f9","omsVersion":"STABLE_RELEASE_4.46-efceecb","apiVersion":"3.0.15"}
-2025-01-11 21:51:49	debug	usecase/trueclient_config.go:63	usecase trueclient authorised
-2025-01-11 21:51:49	info	repo/types.go:64	pkg:repo отсутствует БД А3 [драйвер sqlite]
-2025-01-11 21:51:49	info	repo/types.go:81	pkg:repo отсутствует БД config драйвер sqlite
-2025-01-11 21:51:49	info	repo/types.go:89	pkg:repo отсутствует БД 4z драйвер sqlite
-2025-01-11 21:51:49	info	alcogo/main.go:125	http port 60110
-2025-01-11 21:51:49	debug	webapp/startup.go:25	StartUp HTTP!
-2025-01-11 21:51:49	debug	webapp/reductor.go:39	webapp ReductorUpdaterHttp [readyDOM:false]
-2025-01-11 21:51:55	debug	webapp/reductor.go:39	webapp ReductorUpdaterHttp [readyDOM:true]
+2025-01-12 19:52:49	debug	alcogo/main.go:61	zaplog started
+2025-01-12 19:52:49	error	usecase/trueclient_config.go:18	usecase panic trueclient panic нужна настройка конфигурации
+2025-01-12 19:53:28	info	repo/types.go:64	pkg:repo отсутствует БД А3 [драйвер sqlite]
+2025-01-12 19:53:28	info	repo/types.go:81	pkg:repo отсутствует БД config драйвер sqlite
+2025-01-12 19:53:28	info	repo/types.go:89	pkg:repo отсутствует БД 4z драйвер sqlite
+2025-01-12 19:53:28	info	alcogo/main.go:125	http port 51877
+2025-01-12 19:53:28	debug	webapp/startup.go:25	StartUp HTTP!

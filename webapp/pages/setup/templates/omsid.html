@@ -1,0 +1,9 @@
+<div hx-target="this" hx-swap="outerHTML">
+  <label class="input input-bordered flex items-center gap-2">
+    <span class="text-primary">OMS ID</span>
+    <input name="omsid" class="grow" hx-post="/setup/omsid" value="{{.OmsID}}">
+    {{if (index .Validates "omsid")}}
+    <div class="grow text-red-300">{{index .Validates "omsid"}}</div> 
+    {{end}}
+  </label>
+</div>

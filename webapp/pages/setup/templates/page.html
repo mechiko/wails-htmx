@@ -1,0 +1,19 @@
+<!-- Здесь выводятся компоненты по роутингу если нет глобальной ошибки -->
+<!-- domain. -->
+<div id="page">
+{{if .PingSuz}}
+  <div>
+    <span class="text-primary">API Version:</span><span>{{.PingSuz.ApiVersion}}</span><br>
+    <span class="text-primary">SUZ Version:</span><span>{{.PingSuz.OmsVersion}}</span><br>
+  </div>
+{{end}}
+<form hx-post="/setup/save" hx-target="#page" hx-swap="outerHTML">
+    {{ template "omsid" . }}
+    {{ template "deviceid" . }}
+    <label class="input input-bordered flex items-center gap-2">
+        <span class="text-primary">Hash sign</span>
+        <input name="hashkey" class="grow" value="{{.HashKey}}">
+    </label>
+    <button class="btn btn-outline btn-primary">Сохранить</button>
+</form>
+</div>

@@ -1,10 +1,5 @@
-2025-01-11 21:51:49	debug	effects/proccess.go:12	pkg:effects proccess startup from webapp.StartUp len chain 0
-2025-01-11 21:51:49	debug	reductor/proccess.go:14	pkg:reductor proccess model from usecase.MenuModel len chain 1
-2025-01-11 21:51:49	debug	reductor/proccess.go:14	pkg:reductor proccess startup from effects.startup len chain 0
-2025-01-11 21:51:49	debug	effects/proccess.go:12	pkg:effects proccess dbinfo from reductor.StartUp len chain 0
-2025-01-11 21:51:49	debug	reductor/proccess.go:14	pkg:reductor proccess dbinfo from effects.dbinfo len chain 0
-2025-01-11 21:51:54	debug	reductor/proccess.go:14	pkg:reductor proccess model from usecase.MenuModel len chain 0
-2025-01-11 21:51:55	debug	effects/proccess.go:12	pkg:effects proccess stats from header.pager len chain 0
-2025-01-11 21:51:55	debug	reductor/proccess.go:14	pkg:reductor proccess stats from usecase.StatsModel len chain 0
-2025-01-11 21:52:02	debug	reductor/proccess.go:14	pkg:reductor proccess model from usecase.MenuModel len chain 0
-2025-01-11 21:54:42	debug	reductor/proccess.go:14	pkg:reductor proccess model from usecase.MenuModel len chain 0
+2025-01-12 19:53:28	debug	effects/proccess.go:12	pkg:effects proccess startup from webapp.StartUp len chain 0
+2025-01-12 19:53:28	debug	reductor/proccess.go:14	pkg:reductor proccess model from usecase.MenuModel len chain 1
+2025-01-12 19:53:28	debug	reductor/proccess.go:14	pkg:reductor proccess startup from effects.startup len chain 0
+2025-01-12 19:53:28	debug	effects/proccess.go:12	pkg:effects proccess setup from reductor.StartUp len chain 0
+2025-01-12 19:53:28	error	effects/proccess.go:31	pkg:effects cmd  not found

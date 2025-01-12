@@ -23,4 +23,5 @@ type TrueClient struct {
 	OmsID     string
 	Errors    []string
 	PingSuz   *PingSuzInfo
+	Validates map[string]string
 }

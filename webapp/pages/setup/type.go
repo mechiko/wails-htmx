@@ -1,4 +1,4 @@
-package stats
+package setup
 
 import (
 	"firstwails/domain"
@@ -12,9 +12,9 @@ import (
 const modError = "home"
 
 // путь к файлам шаблонов модуля для локальной отладки только
-const defaultSrc = `C:\!src\wails-htmx\webapp\pages\stats\templates`
+const defaultSrc = `C:\!src\wails-htmx\webapp\pages\setup\templates`
 
-// const defaultSrc = `E:\src\goproj\!!firstwails\webapp\pages\stats\templates`
+// const defaultSrc = `E:\src\goproj\!!firstwails\webapp\pages\setup\templates`
 
 const defaultTemplateName = "index"
 
@@ -23,6 +23,7 @@ type page struct {
 	src          string
 	template     *template.Template
 	templateName string
+	reloadPage   bool
 }
 
 func New(app domain.IApp) *page {
@@ -42,8 +43,10 @@ func (t *page) Production() {
 	tt := template.New("")
 	template.Must(tt.New("index").Funcs(funcMapHtml).Parse(indexTmpl))
 	template.Must(tt.New("page").Funcs(funcMapHtml).Parse(pageTmpl))
-	template.Must(tt.New("navbar").Funcs(funcMapHtml).Parse(navbarTmpl))
-	template.Must(tt.New("footer").Funcs(funcMapHtml).Parse(footerTmpl))
+	template.Must(tt.New("pagesave").Funcs(funcMapHtml).Parse(pageSaveTmpl))
+	template.Must(tt.New("omsid").Funcs(funcMapHtml).Parse(omsIdTmpl))
+	template.Must(tt.New("deviceid").Funcs(funcMapHtml).Parse(deviceIdTmpl))
+	template.Must(tt.New("modal").Funcs(funcMapHtml).Parse(modalTmpl))
 	t.template = tt
 }
 
@@ -78,7 +81,13 @@ func (t *page) DoRender(w io.Writer, templateName string, data interface{}, c ec
 	// ошибки вызовут panic()
 	template.Must(tt.New("index").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\index.html")))
 	template.Must(tt.New("page").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\page.html")))
-	template.Must(tt.New("navbar").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\navbar.html")))
-	template.Must(tt.New("footer").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\footer.html")))
+	template.Must(tt.New("pagesave").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\pagesave.html")))
+	template.Must(tt.New("modal").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\modal.html")))
+	template.Must(tt.New("omsid").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\omsid.html")))
+	template.Must(tt.New("deviceid").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\deviceid.html")))
 	return tt.ExecuteTemplate(w, templateName, data)
+}
+
+func (t *page) SetReload(b bool) {
+	t.reloadPage = b
 }

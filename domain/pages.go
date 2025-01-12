@@ -9,3 +9,5 @@ type PageInfo struct {
 }
 
 type MapPageInfo map[string]*PageInfo
+
+type ArrPageInfo []*PageInfo

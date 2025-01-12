@@ -75,8 +75,15 @@ func New(a domain.IApp, model domain.TrueClient) TrueClient {
 		authTime:   model.AuthTime,
 		errors:     make([]string, 0),
 	}
-	if s.hash == "" {
-		panic(fmt.Sprintf("%s panic %s", modError, "нужен хэш ключа в конфигурации"))
+	if (s.deviсeId) == "" {
+
+		panic(fmt.Sprintf("%s panic %s", modError, "нужна настройка конфигурации"))
+	}
+	if (s.omsId) == "" {
+		panic(fmt.Sprintf("%s panic %s", modError, "нужна настройка конфигурации"))
+	}
+	if (s.hash) == "" {
+		panic(fmt.Sprintf("%s panic %s", modError, "нужна настройка конфигурации"))
 	}
 	if s.CheckNeedAuth() {
 		if err := s.AuthGisSuz(); err != nil {

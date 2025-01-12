@@ -2,6 +2,7 @@ package dbinfo
 
 import (
 	"bytes"
+	"firstwails/webapp/htmxutil"
 
 	"github.com/labstack/echo/v4"
 )
@@ -32,8 +33,11 @@ func (t *page) Ready(c echo.Context) error {
 		c.HTML(200, buf.String())
 		return nil
 	}
-	// готовность DOM когда не надо обновлять страницу и прилетел пинг от нее
-	t.DomReadyHttp()
+	hx := htmxutil.HxRequestHeaderFromRequest(c.Request())
+	if !hx.HxRequest {
+		// готовность DOM когда не надо обновлять страницу и прилетел пинг от нее
+		t.DomReadyHttp()
+	}
 	// без контента свап не производится
 	c.NoContent(204)
 	return nil

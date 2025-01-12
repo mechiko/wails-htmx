@@ -23,7 +23,7 @@ type Pages struct {
 	domain.IApp
 	registered     map[string]domain.RenderHandler
 	echo           *echo.Echo
-	infoRegistered domain.MapPageInfo
+	infoRegistered domain.ArrPageInfo
 }
 
 func New(app domain.IApp, e *echo.Echo) *Pages {
@@ -31,13 +31,13 @@ func New(app domain.IApp, e *echo.Echo) *Pages {
 		IApp:           app,
 		registered:     make(map[string]domain.RenderHandler),
 		echo:           e,
-		infoRegistered: make(domain.MapPageInfo),
+		infoRegistered: make(domain.ArrPageInfo, 0),
 	}
 }
 
 func (pgs *Pages) AddPage(info *domain.PageInfo, f domain.RenderHandler) {
 	pgs.registered[info.Name] = f
-	pgs.infoRegistered[info.Name] = info
+	pgs.infoRegistered = append(pgs.infoRegistered, info)
 }
 
 // рендер страницы по зарегистрированному имени name страницы
@@ -56,6 +56,6 @@ func (pgs *Pages) RenderPage(w io.Writer, name string, data interface{}, c echo.
 }
 
 // мап зарегистрированных страниц
-func (pgs *Pages) Infos() domain.MapPageInfo {
+func (pgs *Pages) Infos() domain.ArrPageInfo {
 	return pgs.infoRegistered
 }
