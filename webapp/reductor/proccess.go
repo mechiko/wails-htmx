@@ -42,6 +42,10 @@ func (rdc *reductor) proccessMessage(msg domain.Message) {
 		mdl := *msg.Model
 		_, newModel := rdc.UpdaterGUI("stats", mdl)
 		rdc.model = &newModel
+	case "setup":
+		mdl := *msg.Model
+		_, newModel := rdc.UpdaterGUI("setup", mdl)
+		rdc.model = &newModel
 	default:
 		rdc.Logger().Errorf("%s cmd %s not found", modError, msg.Cmd)
 	}

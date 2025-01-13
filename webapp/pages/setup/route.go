@@ -5,6 +5,7 @@ import (
 	"firstwails/domain"
 	"firstwails/usecase"
 	"firstwails/webapp/htmxutil"
+	"time"
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
@@ -15,7 +16,7 @@ func (t *page) Route(e *echo.Echo) error {
 	e.POST("/setup/omsid", t.ValidateOmsID)
 	e.POST("/setup/deviceid", t.ValidateDeviceID)
 	e.POST("/setup/save", t.Save)
-	// e.GET("/setup/ready", t.Ready)
+	e.GET("/setup/ready", t.Ready)
 	return nil
 }
 
@@ -98,6 +99,10 @@ func (t *page) Save(c echo.Context) error {
 	tc.DeviceID = deviceID
 	tc.OmsID = omsID
 	tc.HashKey = hashKey
+	// сбрасываем авторизацию после выбора/попытки сохранения настроек
+	tc.TokenGIS = ""
+	tc.TokenSUZ = ""
+	tc.AuthTime = time.Time{}
 	if err := uuid.Validate(tc.DeviceID); err != nil {
 		tc.Errors = append(tc.Errors, err.Error())
 		tc.Validates["deviceid"] = err.Error()

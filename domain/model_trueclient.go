@@ -24,4 +24,5 @@ type TrueClient struct {
 	Errors    []string
 	PingSuz   *PingSuzInfo
 	Validates map[string]string
+	MyStore   map[string]string
 }

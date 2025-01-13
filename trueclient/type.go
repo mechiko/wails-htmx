@@ -76,18 +76,17 @@ func New(a domain.IApp, model domain.TrueClient) TrueClient {
 		errors:     make([]string, 0),
 	}
 	if (s.deviсeId) == "" {
-
-		panic(fmt.Sprintf("%s panic %s", modError, "нужна настройка конфигурации"))
+		panic(fmt.Sprintf("%s %s", modError, "нужна настройка конфигурации"))
 	}
 	if (s.omsId) == "" {
-		panic(fmt.Sprintf("%s panic %s", modError, "нужна настройка конфигурации"))
+		panic(fmt.Sprintf("%s %s", modError, "нужна настройка конфигурации"))
 	}
 	if (s.hash) == "" {
-		panic(fmt.Sprintf("%s panic %s", modError, "нужна настройка конфигурации"))
+		panic(fmt.Sprintf("%s %s", modError, "нужна настройка конфигурации"))
 	}
 	if s.CheckNeedAuth() {
 		if err := s.AuthGisSuz(); err != nil {
-			panic(fmt.Sprintf("%s panic %s", modError, err.Error()))
+			panic(fmt.Sprintf("%s %s", modError, err.Error()))
 		}
 		// сохраняем конфиг после авторизации
 		s.Save()

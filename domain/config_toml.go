@@ -51,9 +51,9 @@ driver = "sqlite"
 layoututc = "2006-01-02T15:04:05"
 standgis = "markirovka.sandbox.crptech.ru"
 standsuz = "suz.sandbox.crptech.ru"
-deviceid = ""
-omsid = ""
-hashkey = ""
+deviceid = '8fea59e4-3bfc-439c-8e0f-c2517490d2b7'
+hashkey = ''
+omsid = '32539e31-c671-4462-8443-3d92b038b0f9'
 
 `)
 

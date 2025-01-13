@@ -15,6 +15,9 @@ func (rdc *effects) proccessMessage(msgIn domain.Message) {
 	case "stats":
 		// usecase делает обновление редуктора по завершению запроса
 		_ = usecase.New(rdc).StatsModel(rdc.Reductor().Model())
+	case "setup":
+		// usecase делает обновление редуктора по завершению запроса
+		_ = usecase.New(rdc).SetupModel(rdc.Reductor().Model())
 	case "dbinfo":
 		msg.Cmd = "dbinfo"
 		msg.Sender = "effects.dbinfo"
@@ -28,6 +31,6 @@ func (rdc *effects) proccessMessage(msgIn domain.Message) {
 		msg.Model = &mm
 		rdc.Reductor().ChanIn() <- msg
 	default:
-		rdc.Logger().Errorf("%s cmd %s not found", modError, msg.Cmd)
+		rdc.Logger().Errorf("%s cmd %s not found", modError, msgIn.Cmd)
 	}
 }

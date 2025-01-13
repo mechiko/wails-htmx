@@ -12,9 +12,9 @@ import (
 const modError = "home"
 
 // путь к файлам шаблонов модуля для локальной отладки только
-const defaultSrc = `C:\!src\wails-htmx\webapp\pages\dbinfo\templates`
+// const defaultSrc = `C:\!src\wails-htmx\webapp\pages\dbinfo\templates`
 
-// const defaultSrc = `E:\src\goproj\!!firstwails\webapp\pages\dbinfo\templates`
+const defaultSrc = `E:\src\goproj\!!firstwails\webapp\pages\dbinfo\templates`
 
 const defaultTemplateName = "index"
 
@@ -100,28 +100,6 @@ func (t *page) DoRender(w io.Writer, templateName string, data interface{}, c ec
 	template.Must(tt.New("page").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\page.html")))
 	template.Must(tt.New("error").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\error.html")))
 	template.Must(tt.New("footer").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\footer.html")))
-	// if _, err := tt.New("style").Parse(fileGetContents(t.src + "\\style.html")); err != nil {
-	// 	t.Logger().Error(err)
-	// }
-	// if _, err := tt.New("index").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\index.html")); err != nil {
-	// 	t.Logger().Error(err)
-	// }
-	// if _, err := tt.New("indexerror").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\indexerror.html")); err != nil {
-	// 	t.Logger().Error(err)
-	// }
-	// if _, err := tt.New("navbar").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\navbar.html")); err != nil {
-	// 	t.Logger().Error(err)
-	// }
-	// if _, err := tt.New("page").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\page.html")); err != nil {
-	// 	t.Logger().Error(err)
-	// }
-	// if _, err := tt.New("error").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\error.html")); err != nil {
-	// 	t.Logger().Error(err)
-	// }
-	// if _, err := tt.New("footer").Funcs(funcMapHtml).Parse(fileGetContents(t.src + "\\footer.html")); err != nil {
-	// 	t.Logger().Error(err)
-	// }
-	// err = tt.ExecuteTemplate(w, templateName, data)
 	return tt.ExecuteTemplate(w, templateName, data)
 }
 

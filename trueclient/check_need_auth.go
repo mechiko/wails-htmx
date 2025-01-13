@@ -4,7 +4,10 @@ import "time"
 
 // возвращает true если авторизация необходима
 func (t *trueClient) CheckNeedAuth() bool {
-	if t.tokenGis+t.tokenSuz == "" {
+	if t.tokenGis == "" {
+		return true
+	}
+	if t.tokenSuz == "" {
 		return true
 	}
 	if t.authTime.IsZero() {

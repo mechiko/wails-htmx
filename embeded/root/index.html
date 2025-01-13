@@ -55,9 +55,12 @@
       <div class="absolute bg-green-200 no-print" style="top: calc(100vh - 32px); right: 0; bottom: 0; left: 0;">
         <div id="footer" hx-get="/footer" hx-trigger="load" hx-target="#footer" hx-swap="outerHTML"></div>
       </div>
-      <!-- <script>   
-        window.addEventListener("htmx:sendError", function() { alert("A network error occured");   }); 
-      </script>   -->
+      <script>   
+        htmx.on("htmx:sendError", function(evt) {
+          console.log("Send ERROR :", evt.detail);
+          // window.close();
+        });
+      </script>  
     </body>
 </html>
 

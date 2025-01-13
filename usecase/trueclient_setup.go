@@ -8,7 +8,7 @@ import (
 
 // не реентерабельная потому что не защищена
 // вызывает авторизацию и затем отправляет модель в редуктор при его создании
-// для страницы Setup
+// для страницы Setup router() Save()
 func (u *usecase) TrueClientSetup(model domain.TrueClient) (out domain.TrueClient) {
 	defer func() {
 		if r := recover(); r != nil {
