@@ -67,3 +67,29 @@ func (a *dbLite) CisRequestDeleteAll() (err error) {
 	}
 	return nil
 }
+
+func (a *dbLite) InsertCisRequestPost(in []domain.CisesPost) (err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = fmt.Errorf("%s panic %v", modError, r)
+		}
+		a.сloseDB()
+	}()
+	ctx := context.Background()
+	for i := range in {
+		jsonBlob, err := json.Marshal(in[i])
+		if err != nil {
+			return fmt.Errorf("%w", err)
+		}
+		cis := &liteboil.CisRequest{
+			Cis:      in[i].Result.Cis,
+			Status:   in[i].Result.Status,
+			Responce: null.NewBytes(jsonBlob, true),
+		}
+		if err := cis.Insert(ctx, a.db, boil.Infer()); err != nil {
+			return fmt.Errorf("%w", err)
+		}
+
+	}
+	return nil
+}

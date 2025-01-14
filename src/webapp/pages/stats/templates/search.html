@@ -1,16 +1,14 @@
-<div id="search">
+<div>
+  {{if (len .Errors)}}
   <div id="modal" class="flex flex-col items-center" 
     _="on closeModal add .closing then wait for animationend then remove me">
     <div class="modal-underlay" _="on click trigger closeModal"></div>
     <div class="modal-content w-2/3 mt-20 min-h-60">
-    {{if (len .Error)}}
-          Ошибки:
-          {{ range $j, $row := $.Error }}
-          <div class="text-red-300">{{$row}}</div>
-          {{ end }}
-    {{else}}
-    Поиск выполнен без ошибок
-    {{end}}
+      Ошибки:
+      {{ range $j, $row := $.Errors }}
+      <div class="text-red-300">{{$row}}</div>
+      {{ end }}
     </div>
   </div>
+  {{end}}
 </div>

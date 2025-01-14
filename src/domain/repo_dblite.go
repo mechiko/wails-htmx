@@ -9,4 +9,5 @@ type DbLite interface {
 	InsertCisRequest(in []Cises) (err error)
 	CisRequestAll() (out liteboil.CisRequestSlice, err error)
 	CisRequestDeleteAll() (err error)
+	InsertCisRequestPost(in []CisesPost) (err error)
 }

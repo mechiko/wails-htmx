@@ -1,6 +1,8 @@
 package domain
 
-import "time"
+import (
+	"time"
+)
 
 type CisesValues struct {
 	Values []string `json:"values"`
@@ -45,4 +47,31 @@ type Cises struct {
 	TnVedEaesGroup     string        `json:"tnVedEaesGroup"`
 	Child              []interface{} `json:"child"`
 	MaxRetailPrice     interface{}   `json:"maxRetailPrice"`
+}
+
+type CisesSlice []*Cises
+
+type CisesPost struct {
+	Result struct {
+		RequestedCis       string        `json:"requestedCis"`
+		Cis                string        `json:"cis"`
+		CisWithoutBrackets string        `json:"cisWithoutBrackets"`
+		Gtin               string        `json:"gtin"`
+		ProducerInn        string        `json:"producerInn"`
+		Status             string        `json:"status"`
+		EmissionDate       time.Time     `json:"emissionDate"`
+		PackageType        string        `json:"packageType"`
+		OwnerInn           string        `json:"ownerInn"`
+		Children           []interface{} `json:"children"`
+		EmissionType       string        `json:"emissionType"`
+		SpecialAttributes  struct {
+			ApprovementDocument struct {
+			} `json:"approvementDocument"`
+		} `json:"specialAttributes"`
+		StatusEx            string        `json:"statusEx"`
+		ProductGroup        string        `json:"productGroup"`
+		ProductGroupID      int           `json:"productGroupId"`
+		ExtendedPackageType string        `json:"extendedPackageType"`
+		Ogvs                []interface{} `json:"ogvs"`
+	} `json:"result"`
 }

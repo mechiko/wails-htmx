@@ -31,7 +31,7 @@ func (u *usecase) TrueClientSearch(model domain.Model) (out domain.Model) {
 	u.Logger().Debugf("%s trueclient authorised", modError)
 	// после авторизации обновляем модель
 
-	chunkSize := 10
+	chunkSize := 1000
 	allCises := utility.ReadTextStringArray(model.Stats.File)
 	chunks := utility.SplitStringSlice2Chunks(allCises, chunkSize)
 	u.Logger().Debugf("%s len allCises %d chunks %d", modError, len(allCises), len(chunks))
@@ -40,28 +40,32 @@ func (u *usecase) TrueClientSearch(model domain.Model) (out domain.Model) {
 		u.Logger().Debugf("%s trueclient authorised errors %d", modError, len(tc.Errors()))
 		return model
 	}
+	model.Stats.CisStatus = make(map[string]int)
+	model.Stats.CisList = make(domain.CisSlice, 0)
 	start := time.Now()
 	for _, chunk := range chunks {
-		cisResponce := []domain.Cises{}
-		if err := tc.CisesList(&cisResponce, chunk); err != nil {
+		cisResponce := []domain.CisesPost{}
+		if err := tc.CisesListPost(&cisResponce, chunk); err != nil {
 			model.Stats.Errors = append(model.Stats.Errors, err.Error())
 			u.Logger().Debugf("%s tc.CisesList %s", modError, err.Error())
 			return model
 		}
-		if err := u.Repo().DbLite().InsertCisRequest(cisResponce); err != nil {
+		if err := u.Repo().DbLite().InsertCisRequestPost(cisResponce); err != nil {
 			model.Stats.Errors = append(model.Stats.Errors, tc.Errors()...)
 			u.Logger().Debugf("%s InsertCisRequest %s", modError, err.Error())
 			return model
 		}
+		for _, cisItem := range cisResponce {
+			if count, ok := model.Stats.CisStatus[cisItem.Result.Status]; !ok {
+				model.Stats.CisStatus[cisItem.Result.Status] = 1
+			} else {
+				model.Stats.CisStatus[cisItem.Result.Status] = count + 1
+			}
+			model.Stats.CisList = append(model.Stats.CisList, &domain.Cis{Cis: cisItem.Result.Cis, Status: cisItem.Result.Status})
+		}
 	}
 	u.Logger().Debugf("%s CisRequest time since %v", modError, time.Since(start))
-	if ciss, err := u.Repo().DbLite().CisRequestAll(); err != nil {
-		model.Stats.Errors = append(model.Stats.Errors, tc.Errors()...)
-		u.Logger().Debugf("%s CisRequestAll %s", modError, err.Error())
-		return model
-	} else {
-		u.Logger().Debugf("%s CisRequestAll %d", modError, len(ciss))
-	}
+	u.Logger().Debugf("%s CisList %d", modError, len(model.Stats.CisList))
 	// обновляем страницу статс
 	// msg := domain.Message{}
 	// msg.Cmd = "stats"

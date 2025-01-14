@@ -1,17 +1,70 @@
 <!-- Здесь выводятся компоненты по роутингу если нет глобальной ошибки -->
+{{if (len $.Stats.Errors)}}
+  <div>
+    <div id="modal" class="flex flex-col items-center" 
+      _="on closeModal add .closing then wait for animationend then remove me">
+      <div class="modal-underlay" _="on click trigger closeModal"></div>
+      <div class="modal-content w-2/3 mt-20 min-h-60">
+        Ошибки:
+        {{ range $j, $row := $.Stats.Errors }}
+        <div class="text-red-300">{{$row}}</div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+{{end}}
+{{if not (len $.Stats.CisList)}}
 <div class="m-2">
   <span class="text-primary">Коды CIS для анализа:</span>
   <button class="btn btn-outline btn-default"
           hx-get="/stats/file" hx-trigger="click" hx-target="#page" hx-swap="innerHTML">
     Выберите файл
   </button>
-  <span id="filesrc">{{if .File }}{{ .File }}{{else}}-- не выбран --{{end}}</span>
+  <span id="filesrc">{{if $.Stats.File }}{{ $.Stats.File }}{{else}}-- не выбран --{{end}}</span>
 </div>
-{{if .File }}
-<div class="m-2">
-  <button class="btn btn-outline btn-default"
-          hx-get="/stats/search" hx-trigger="click" hx-target="#page" hx-swap="innerHTML">
-    Обработка
-  </button>
-</div>
+{{if $.Stats.File }}
+  <div class="m-2">
+    <button class="btn btn-outline btn-default"
+            hx-get="/stats/search" hx-trigger="click" hx-target="#page" hx-swap="innerHTML">
+      Обработка
+    </button>
+  </div>
+{{end}}
+{{else}}  
+  <div class="m-2">
+    <button class="btn btn-outline btn-default"
+            hx-get="/stats/reset" hx-trigger="click" hx-target="#page" hx-swap="innerHTML">
+      Сброс
+    </button>
+  </div>
+  <div class="w-full mb-2">
+  <table class="w-1/2 ml-1 border border-collapse">
+    <caption>Статусы КМ</caption>
+    <col style="width:20%">
+    <col style="width:10%">
+    <tbody>
+    {{range $ci, $cisCount := $.Stats.CisStatus }}
+    <tr class="text-xs">
+      <td class="pl-1 border">{{$ci}}</td>
+      <td class="text-base pl-1 border">{{$cisCount}}</td>
+    </tr>
+    {{end}}
+    </tbody>
+  </table>
+  </div>
+  <div class="w-1/2 text-center">Список КМ</div>
+  <div class="w-full overflow-scroll" style="height: 50vh;">
+  <table class="w-1/2 ml-1 border border-collapse">
+    <col style="width:20%">
+    <col style="width:10%">
+    <tbody>
+    {{range $i, $cis := $.Stats.CisList }}
+    <tr class="text-xs">
+      <td class="pl-1 border">{{$cis.Cis}}</td>
+      <td class="text-base pl-1 border">{{$cis.Status}}</td>
+    </tr>
+    {{end}}
+    </tbody>
+  </table>
+  </div>
 {{end}}

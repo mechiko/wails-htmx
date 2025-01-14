@@ -24,6 +24,7 @@ type TrueClient interface {
 	Balance(interface{}, int64) error
 	SearchGis(target interface{}) error
 	CisesList(target interface{}, cises []string) error
+	CisesListPost(target interface{}, cises []string) error
 	TokenGIS() string
 	TokenSUZ() string
 	AuthTime() time.Time
@@ -54,7 +55,7 @@ type trueClient struct {
 var _ TrueClient = &trueClient{}
 
 // клиент http по умолчанию
-var trueClientDefault = &http.Client{Timeout: 5 * time.Second}
+var trueClientDefault = &http.Client{Timeout: 20 * time.Second}
 
 // инициализируем структурой с полями
 // проверка необходимиости авторизации и ее выполнение
