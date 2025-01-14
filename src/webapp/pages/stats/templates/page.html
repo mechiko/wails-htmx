@@ -1,0 +1,17 @@
+<!-- Здесь выводятся компоненты по роутингу если нет глобальной ошибки -->
+<div class="m-2">
+  <span class="text-primary">Коды CIS для анализа:</span>
+  <button class="btn btn-outline btn-default"
+          hx-get="/stats/file" hx-trigger="click" hx-target="#page" hx-swap="innerHTML">
+    Выберите файл
+  </button>
+  <span id="filesrc">{{if .File }}{{ .File }}{{else}}-- не выбран --{{end}}</span>
+</div>
+{{if .File }}
+<div class="m-2">
+  <button class="btn btn-outline btn-default"
+          hx-get="/stats/search" hx-trigger="click" hx-target="#page" hx-swap="innerHTML">
+    Обработка
+  </button>
+</div>
+{{end}}

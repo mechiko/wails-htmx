@@ -1,0 +1,66 @@
+<html>
+    <head>
+      <meta charset="UTF-8" />
+      <!--
+        * 204 No Content by default does nothing, but is not an error
+        * 2xx, 3xx and 422 responses are non-errors and are swapped
+        * 4xx & 5xx responses are not swapped and are errors
+        * all other responses are swapped using "..." as a catch-all
+      -->
+      <meta
+        name="htmx-config"
+        content='{
+              "responseHandling":[
+                  {"code":"204", "swap": false},
+                  {"code":"[23]..", "swap": true},
+                  {"code":"422", "swap": true},
+                  {"code":"[45]..", "swap": false, "error":true},
+                  {"code":"...", "swap": true}
+              ]
+          }'
+      />
+      <title>ТТН</title>
+			<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png"/>
+			<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"/>
+			<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"/>
+			<link rel="manifest" href="/assets/favicon/site.webmanifest"/>
+  <link rel="stylesheet" type="text/css" href="/assets/css/roboto.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/roboto_condenced.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/daisyui.full.min.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/modal.css">
+<!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hyperscript.org@0.9.13"></script>
+<script src="https://unpkg.com/htmx-ext-sse@2.2.2/sse.js"></script> -->
+      <script src="/assets/js/tailwind.js"></script>
+			<script src="/assets/js/htmx.min.js"></script>
+			<script src="/assets/js/hyperscript.min.js"></script>
+      <!-- <script src="https://unpkg.com/hyperscript.org@0.9.13"></script> -->
+      <!-- <script src="/assets/js/sse.js"></script> -->
+    </head>
+    <body class="" _="on htmx:responseError log 'A error occurred'
+                      on keydown if the event's key is 'Escape' log 'ESC pressed' then if modal is not null remove modal">
+      <div style="display: flex; width: 0px;" hx-get="/ready" hx-trigger="every 1s" hx-target="this" hx-swap="outerHTML"></div>
+      <!-- Навигатор -->
+      <div class="flex w-screen bg-primary-content items-center no-print" style="height: 32px;">
+        <div id="header" hx-get="/header" hx-trigger="load" hx-target="#header" hx-swap="outerHTML"></div>
+      </div>
+      <div id="content" class="relative w-full overflow-hidden" style="height: calc(100vh - 32px);">
+        <!-- Здесь выводятся компоненты по роутингу если нет глобальной ошибки -->
+        <div id="app" hx-get="/page" hx-trigger="load" hx-target="#app" hx-swap="outerHTML"></div>
+      </div>
+      <!-- Футтер -->
+      <div class="absolute bg-green-200 no-print" style="top: calc(100vh - 32px); right: 0; bottom: 0; left: 0;">
+        <div id="footer" hx-get="/footer" hx-trigger="load" hx-target="#footer" hx-swap="outerHTML"></div>
+      </div>
+      <script> 
+        htmx.on("htmx:sendError", function(evt) {
+          console.log("Send ERROR :", evt.detail);
+          // window.close();
+        });
+      </script>  
+    </body>
+</html>
+
