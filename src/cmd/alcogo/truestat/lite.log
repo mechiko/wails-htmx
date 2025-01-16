@@ -1,0 +1,24 @@
+2025-01-16 11:22:05	debug	alcogo/main.go:61	zaplog started
+2025-01-16 11:22:05	info	alcogo/main.go:62	mode = development
+2025-01-16 11:22:08	debug	trueclient/pinger_suz.go:64	url:https://suz.sandbox.crptech.ru/api/v3/ping?omsId=32539e31-c671-4462-8443-3d92b038b0f9
+2025-01-16 11:22:09	debug	trueclient/pinger_suz.go:81	ping Body:{"omsId":"32539e31-c671-4462-8443-3d92b038b0f9","omsVersion":"STABLE_RELEASE_4.46-efceecb","apiVersion":"3.0.15"}
+2025-01-16 11:22:09	debug	usecase/trueclient_config.go:72	usecase trueclient authorised
+2025-01-16 11:22:09	info	repo/types.go:64	pkg:repo отсутствует БД А3 [драйвер sqlite]
+2025-01-16 11:22:09	info	repo/types.go:81	pkg:repo отсутствует БД config драйвер sqlite
+2025-01-16 11:22:09	info	repo/types.go:89	pkg:repo отсутствует БД 4z драйвер sqlite
+2025-01-16 11:22:09	info	alcogo/main.go:125	http port 55372
+2025-01-16 11:22:09	debug	webapp/startup.go:25	StartUp HTTP!
+2025-01-16 11:22:09	debug	webapp/reductor.go:39	webapp ReductorUpdaterHttp [readyDOM:false]
+2025-01-16 11:22:14	debug	webapp/reductor.go:39	webapp ReductorUpdaterHttp [readyDOM:true]
+2025-01-16 11:22:19	debug	stats/route.go:66	stats file selected: C:\Users\office\Documents\napitok.csv
+2025-01-16 11:22:21	debug	trueclient/pinger_suz.go:64	url:https://suz.sandbox.crptech.ru/api/v3/ping?omsId=32539e31-c671-4462-8443-3d92b038b0f9
+2025-01-16 11:22:21	debug	trueclient/pinger_suz.go:81	ping Body:{"omsId":"32539e31-c671-4462-8443-3d92b038b0f9","omsVersion":"STABLE_RELEASE_4.46-efceecb","apiVersion":"3.0.15"}
+2025-01-16 11:22:21	debug	stats/search.go:40	home trueclient authorised
+2025-01-16 11:22:21	debug	stats/search.go:46	home len allCises 1000 chunks 1
+2025-01-16 11:22:23	debug	lite/insert_cis_search.go:66	cis_request delete 0 records
+2025-01-16 11:22:23	debug	stats/search.go:58	home search progress 0
+2025-01-16 11:22:23	debug	trueclient/cis_list_post.go:15	values:1000 length url:70
+2025-01-16 11:22:27	debug	stats/search.go:86	home CisRequest time since 4.4876057s
+2025-01-16 11:22:27	debug	stats/search.go:87	home CisList 0
+2025-01-16 11:22:27	debug	webapp/reductor.go:39	webapp ReductorUpdaterHttp [readyDOM:true]
+2025-01-16 11:23:03	debug	stats/route.go:154	stats file selected: C:\Users\office\Documents\save_EMITTED

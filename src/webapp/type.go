@@ -4,6 +4,7 @@ import (
 	"context"
 	"firstwails/domain"
 	"firstwails/usecase"
+	"firstwails/utility"
 	"firstwails/webapp/effects"
 	"firstwails/webapp/footer"
 	"firstwails/webapp/header"
@@ -11,6 +12,8 @@ import (
 	"firstwails/webapp/reductor"
 	"fmt"
 	"io"
+	"io/fs"
+	"os"
 	"time"
 
 	"github.com/google/uuid"
@@ -18,7 +21,7 @@ import (
 	"go.uber.org/zap"
 )
 
-const durationTimePingOut = 3000
+const durationTimePingOut = 5
 
 type fragment interface {
 	Route(*echo.Echo) error
@@ -45,6 +48,7 @@ type webapp struct {
 	reloadActivePage  bool
 	header            fragment
 	footer            fragment
+	output            string
 }
 
 const modError = "webapp"
@@ -64,6 +68,15 @@ func NewWebApp(logger *zap.SugaredLogger, e *echo.Echo, pwd string) *webapp {
 	sc.pages = pages.New(sc, e)
 	// перекрывается в методе StartUp() вызываемого из эффектора при запуске
 	sc.activePage = sc.configuration.Application.StartPage
+	sc.output = sc.configuration.Output
+	if sc.output != "" {
+		if !utility.PathOrFileExists(sc.output) {
+			if err := os.Mkdir(sc.output, fs.FileMode(domain.PosixChownPath)); err != nil {
+				logger.Errorf("webapp create output [%s] %w", sc.output, err)
+			}
+		}
+	}
+
 	sc.echo = e
 	e.HTTPErrorHandler = sc.customHTTPErrorHandler
 	// sc.sse = sse
@@ -77,6 +90,7 @@ func NewWebApp(logger *zap.SugaredLogger, e *echo.Echo, pwd string) *webapp {
 	if len(model.Error) != 0 {
 		sc.activePage = "setup"
 	}
+	// model := domain.InitModel
 	sc.reductor = reductor.New(sc, sc.effects, &model)
 	sc.Route()
 	sc.initDateMn()
@@ -200,4 +214,8 @@ func (a *webapp) Pwd() string {
 
 func (a *webapp) Repo() domain.Repo {
 	return a.repo
+}
+
+func (a *webapp) Output() string {
+	return a.output
 }

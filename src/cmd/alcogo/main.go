@@ -57,9 +57,9 @@ func main() {
 		return zaplog.Run(groupCtx)
 	})
 
-	loger := zaplog.LoggerShugar
+	loger := zaplog.LoggerSugar
 	loger.Debug("zaplog started")
-
+	loger.Infof("mode = %s", domain.Mode)
 	// serverSse := sse.New()       // create SSE broadcaster server
 	// serverSse.AutoReplay = false // do not replay messages for each new subscriber that connects
 	// _ = serverSse.CreateStream("ready")
@@ -91,7 +91,7 @@ func main() {
 
 	// инитим роутер для http, конфиг и прочее
 	// webApp := webapp.NewWebApp(zaplog.LoggerShugar, e, serverSse, dir)
-	webApp := webapp.NewWebApp(zaplog.LoggerShugar, e, dir)
+	webApp := webapp.NewWebApp(zaplog.LoggerSugar, e, dir)
 	e.Renderer = webApp
 
 	// инициализируем REPO

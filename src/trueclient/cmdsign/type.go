@@ -11,8 +11,8 @@ import (
 const modError = "cmdexec"
 
 var paths = []string{
-	`C:\Program Files (x86)\Crypto Pro\CSP`,
 	`C:\Program Files\Crypto Pro\CSP`,
+	`C:\Program Files (x86)\Crypto Pro\CSP`,
 }
 
 var FileIn, FileOut string
@@ -46,6 +46,7 @@ func init() {
 func New(hash string) *cmdexec {
 	// fmt.Println("IN file: ", fileIn.Name())
 	command := strings.Split(fmt.Sprintf("-sfsign -sign -in %s -out %s -my %s -base64 -add -addsigtime -cades_strict -verify -alg GOST12_256", FileIn, FileOut, hash), " ")
+	// fmt.Printf("cmdsing : %s\n", command)
 	return &cmdexec{
 		FileIn:  FileIn,
 		FileOut: FileOut,
@@ -59,6 +60,7 @@ func (c *cmdexec) Sign(in string) (string, error) {
 	if err != nil {
 		panic(fmt.Sprintf("error write IN temp file %s", err.Error()))
 	}
+
 	cmd := exec.Command("csptest.exe", c.Command...)
 	if out, err := cmd.CombinedOutput(); err != nil {
 		return "", fmt.Errorf("%s %s Sign() %w", modError, out, err)

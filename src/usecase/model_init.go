@@ -15,5 +15,9 @@ func (u *usecase) InitModel(model domain.Model) domain.Model {
 	model.Gui.MainWindow.StatusBar.Fsrarid = u.Configuration().Application.Fsrarid
 	// create menu state
 	model = u.MenuModel(model)
+	// model = u.TrueClientConfig(model)
+	// if len(model.Error) != 0 {
+	// 	u.SetActivePage("setup")
+	// }
 	return model
 }

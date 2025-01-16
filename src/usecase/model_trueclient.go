@@ -11,7 +11,7 @@ import (
 
 var reentranceTrueClientModelFlag int64
 
-// вызывается когда либо в процессе
+// не используется ...
 func (u *usecase) TrueClientModel(model domain.Model) domain.Model {
 	defer func() {
 		if r := recover(); r != nil {

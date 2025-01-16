@@ -13,9 +13,10 @@ import (
 
 var onlyOnce sync.Once
 
-var LoggerShugar *zap.SugaredLogger
+var LoggerSugar *zap.SugaredLogger
 var Reductor *zap.Logger
 var EchoSugar *zap.Logger
+var TrueSugar *zap.SugaredLogger
 
 func OnStartup() {
 	onlyOnce.Do(func() {
@@ -24,7 +25,7 @@ func OnStartup() {
 }
 
 func OnShutdown() {
-	LoggerShugar.Sync()
+	LoggerSugar.Sync()
 	Reductor.Sync()
 	EchoSugar.Sync()
 }
@@ -32,7 +33,7 @@ func OnShutdown() {
 // возврат только после прерывания контекста
 func Run(ctx context.Context) error {
 	<-ctx.Done()
-	LoggerShugar.Infof("завершаем работу логера по контексту")
+	LoggerSugar.Infof("завершаем работу логера по контексту")
 	return nil
 }
 
@@ -52,7 +53,8 @@ func initLogger() {
 		zapcore.NewCore(fileEncoderLogger, writer, defaultLogLevel),
 		zapcore.NewCore(consoleEncoder, zapcore.AddSync(os.Stdout), defaultLogLevel),
 	)
-	LoggerShugar = zap.New(core, zap.AddCaller()).Sugar()
+	LoggerSugar = zap.New(core, zap.AddCaller()).Sugar()
+
 	configReductor := zap.NewProductionEncoderConfig()
 	configReductor.EncodeTime = zapcore.TimeEncoderOfLayout("2006-01-02 15:04:05")
 	logpathReductor := path.Join(domain.LogPath, "reductor.log")
@@ -74,4 +76,16 @@ func initLogger() {
 		zapcore.NewCore(fileEchoEncoder, writerEcho, defaultLogLevel),
 	)
 	EchoSugar = zap.New(core5, zap.AddCaller())
+
+	configTrue := zap.NewProductionEncoderConfig()
+	configTrue.EncodeTime = zapcore.TimeEncoderOfLayout("2006-01-02 15:04:05")
+	logpathTrue := path.Join(domain.LogPath, "true.log")
+	trueLogFile, _ := os.OpenFile(logpathTrue, os.O_TRUNC|os.O_CREATE|os.O_WRONLY, 0644)
+	fileTrueEncoder := zapcore.NewConsoleEncoder(configTrue)
+	writerTrue := zapcore.AddSync(trueLogFile)
+	core6 := zapcore.NewTee(
+		zapcore.NewCore(fileTrueEncoder, writerTrue, defaultLogLevel),
+	)
+	TrueSugar = zap.New(core6, zap.AddCaller()).Sugar()
+
 }

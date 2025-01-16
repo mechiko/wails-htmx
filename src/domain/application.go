@@ -18,4 +18,8 @@ type IApp interface {
 	StartUp()
 	PagesInfo() ArrPageInfo
 	ActivePage() string
+	UpdateModel(Model)
+	UpdatePage(Model, string)
+	Pwd() string
+	Output() string
 }

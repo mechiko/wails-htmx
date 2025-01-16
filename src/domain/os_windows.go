@@ -5,9 +5,9 @@ package domain
 const RootPathTemplateDebug = `E:\src\goproj\!!firstwails\src`
 
 var (
-	ConfigPath       = "./alcogo"
-	DbPath           = "./alcogo"
-	LogPath          = "./alcogo"
+	ConfigPath       = "./truestat"
+	DbPath           = "./truestat"
+	LogPath          = "./truestat"
 	Supported        = true
 	Windows          = true
 	Linux            = false

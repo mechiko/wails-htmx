@@ -11,3 +11,11 @@ func DialogOpenFile() string {
 	}
 	return result
 }
+
+func DialogSaveFile() string {
+	result, err := dialog.File().Filter("Excel", "xlsx").Filter("all", "*").Save()
+	if err != nil {
+		return err.Error()
+	}
+	return result
+}

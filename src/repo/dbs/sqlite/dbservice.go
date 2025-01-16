@@ -10,13 +10,13 @@ import (
 
 	"github.com/jmoiron/sqlx"
 
-	_ "modernc.org/sqlite"
-	// _ "github.com/mattn/go-sqlite3"
+	// _ "modernc.org/sqlite"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 const modError = "dbs:dbservice:sqlite3"
 
-const driver = "sqlite"
+const driver = "sqlite3"
 
 type IDbService interface {
 	Ping() error

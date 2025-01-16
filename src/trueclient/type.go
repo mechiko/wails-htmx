@@ -2,7 +2,9 @@ package trueclient
 
 import (
 	"firstwails/domain"
+	"firstwails/zaplog"
 	"fmt"
+	"net"
 	"net/http"
 	"net/url"
 	"time"
@@ -55,26 +57,42 @@ type trueClient struct {
 var _ TrueClient = &trueClient{}
 
 // клиент http по умолчанию
-var trueClientDefault = &http.Client{Timeout: 20 * time.Second}
+// var trueClientDefault = &http.Client{Timeout: 20 * time.Second}
+// http.Client{
+//   Transport: &http.Transport{
+//     Dial: net.Dialer{Timeout: 2 * time.Second}.Dial,
+//   },
+// }
 
 // инициализируем структурой с полями
 // проверка необходимиости авторизации и ее выполнение
 // паника если ошибки авторизации
 func New(a domain.IApp, model domain.TrueClient) TrueClient {
+	var netTransport = &http.Transport{
+		Dial: (&net.Dialer{
+			Timeout: 10 * time.Second,
+		}).Dial,
+		TLSHandshakeTimeout: 10 * time.Second,
+	}
+	var netClient = &http.Client{
+		Timeout:   time.Second * 120,
+		Transport: netTransport,
+	}
 	s := &trueClient{
 		IApp:       a,
-		httpClient: trueClientDefault,
+		httpClient: netClient,
 		layout:     model.LayoutUTC,
-		logger:     a.Logger(),
-		urlSUZ:     model.StandSUZ,
-		urlGIS:     model.StandGIS,
-		tokenGis:   model.TokenGIS,
-		tokenSuz:   model.TokenSUZ,
-		hash:       model.HashKey,
-		deviсeId:   model.DeviceID,
-		omsId:      model.OmsID,
-		authTime:   model.AuthTime,
-		errors:     make([]string, 0),
+		// logger:     a.Logger(),
+		logger:   zaplog.TrueSugar,
+		urlSUZ:   model.StandSUZ,
+		urlGIS:   model.StandGIS,
+		tokenGis: model.TokenGIS,
+		tokenSuz: model.TokenSUZ,
+		hash:     model.HashKey,
+		deviсeId: model.DeviceID,
+		omsId:    model.OmsID,
+		authTime: model.AuthTime,
+		errors:   make([]string, 0),
 	}
 	if (s.deviсeId) == "" {
 		panic(fmt.Sprintf("%s %s", modError, "нужна настройка конфигурации"))

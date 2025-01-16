@@ -83,3 +83,13 @@ body {
 .modal:target {
   display: flex;
 }
+.htmx-indicator {
+    opacity:0.5;
+    transition: opacity 500ms ease-in;
+}
+.htmx-request .htmx-indicator{
+    opacity:1
+}
+.htmx-request.htmx-indicator{
+    opacity:1
+}

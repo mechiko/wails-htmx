@@ -37,7 +37,7 @@ func (pgs *Pages) InitPages() error {
 		Desc:      "статистика по КМ",
 		Svg:       statPage.Svg(),
 	}
-	pgs.AddPage(infoStatPage, statPage.DoRender)
+	pgs.AddPage(infoStatPage, statPage.Render)
 
 	// setup page
 	setupPage := setup.New(pgs)

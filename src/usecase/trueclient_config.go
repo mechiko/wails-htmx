@@ -8,7 +8,6 @@ import (
 	"time"
 )
 
-// не реентерабельная потому что не защищена
 // вызывает авторизацию и затем отправляет модель в редуктор при его создании
 // в конструкторе NewWebApp()
 func (u *usecase) TrueClientConfig(model domain.Model) (out domain.Model) {
@@ -62,13 +61,18 @@ func (u *usecase) TrueClientConfig(model domain.Model) (out domain.Model) {
 	if len(tc.Errors()) > 0 {
 		model.Error = append(model.Error, tc.Errors()...)
 		u.Logger().Debugf("%s trueclient authorised errors %d", modError, len(tc.Errors()))
+	} else {
+		// если нет ошибок сделаем пинг суз
+		if info, err := tc.PingSuz(); err != nil {
+			model.Error = append(model.Error, err.Error())
+		} else {
+			model.TrueClient.PingSuz = info
+		}
 	}
 	u.Logger().Debugf("%s trueclient authorised", modError)
 	// после авторизации обновляем модель
 	model.TrueClient.TokenGIS = tc.TokenGIS()
 	model.TrueClient.TokenSUZ = tc.TokenSUZ()
 	model.TrueClient.AuthTime = tc.AuthTime()
-	model.TrueClient.PingSuz = tc.PingSuzInfo()
-
 	return model
 }

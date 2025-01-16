@@ -25,23 +25,31 @@ func (t *trueClient) AuthGisSuz() (err error) {
 	// две попытки подключения
 	// почему то в режиме отладки почте всегда первая попытка неудачная ...
 	// не знаю почему
-	attempt := 2
-	for {
-		err := t.getAuth(authPath, &authJSON)
-		if err == nil {
-			break
-		}
-		attempt--
-		if attempt == 0 {
-			return fmt.Errorf("%w", err)
-		}
+	// attempt := 2
+	// for {
+	// 	err := t.getAuth(authPath, &authJSON)
+	// 	if err == nil {
+	// 		break
+	// 	}
+	// 	attempt--
+	// 	if attempt == 0 {
+	// 		return fmt.Errorf("%w", err)
+	// 	}
+	// }
+	err = t.getAuth(authPath, &authJSON)
+	if err != nil {
+		t.logger.Errorf("getAuth:%s", err.Error())
+		return fmt.Errorf("getAuth %w", err)
 	}
+	t.logger.Infof("authJSON:%+v", authJSON)
 	authJSON.Data, err = cmdsign.New(t.hash).Sign(authJSON.Data)
 	if err != nil {
-		return fmt.Errorf("%w", err)
+		t.logger.Errorf("cmdsign:%s", err.Error())
+		return fmt.Errorf("cmdsign.New %w", err)
 	}
 	body, err := json.Marshal(authJSON)
 	if err != nil {
+		t.logger.Errorf("json.Marshal(authJSON):%s", err.Error())
 		return fmt.Errorf("%w", err)
 	}
 	tokenJSON := struct {
@@ -49,16 +57,18 @@ func (t *trueClient) AuthGisSuz() (err error) {
 	}{}
 	err = t.postSignGis(signGIS, body, &tokenJSON)
 	if err != nil {
-		return fmt.Errorf("%w", err)
+		t.logger.Errorf("json.Marshal(authJSON):%s", err.Error())
+		return fmt.Errorf("postSignGis %w", err)
 	}
-	// t.Logger().Debugf("len tokenGis:%d", len(tokenJSON.Token))
+	t.logger.Infof("postSignGis:%d", tokenJSON.Token)
 	t.tokenGis = tokenJSON.Token
 
 	err = t.postSignSuz(signSUZ, body, &tokenJSON)
 	if err != nil {
-		return fmt.Errorf("%w", err)
+		t.logger.Errorf("postSignSuz:%d", err.Error())
+		return fmt.Errorf("postSignSuz %w", err)
 	}
-	// t.Logger().Debugf("tokenSuz:%s", tokenJSON.Token)
+	t.logger.Infof("tokenSuz:%s", tokenJSON.Token)
 	t.tokenSuz = tokenJSON.Token
 	t.authTime = time.Now()
 	return nil

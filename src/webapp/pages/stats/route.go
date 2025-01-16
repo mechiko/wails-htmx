@@ -2,10 +2,9 @@ package stats
 
 import (
 	"bytes"
-	"firstwails/domain"
-	"firstwails/usecase"
 	"firstwails/utility"
 	"firstwails/webapp/htmxutil"
+	"fmt"
 
 	"github.com/labstack/echo/v4"
 )
@@ -17,6 +16,8 @@ func (t *page) Route(e *echo.Echo) error {
 	e.GET("/stats/file", t.file)
 	e.GET("/stats/search", t.search)
 	e.GET("/stats/reset", t.reset)
+	e.GET("/stats/progress", t.progress)
+	e.GET("/stats/excel/:status", t.excel)
 	return nil
 }
 
@@ -67,12 +68,9 @@ func (t *page) file(c echo.Context) error {
 		var buf bytes.Buffer
 		// обновляем модель Stats
 		model := t.Reductor().Model()
+		model.Stats.State = 1
 		model.Stats.File = file
-		msg := domain.Message{}
-		msg.Cmd = "model"
-		msg.Sender = "stats.router.file"
-		msg.Model = &model
-		t.Reductor().ChanIn() <- msg
+		t.UpdateModel(model)
 		if err := t.Render(&buf, "page", &model, c); err != nil {
 			t.Logger().Errorf("%s %s", modError, err.Error())
 			c.NoContent(204)
@@ -89,15 +87,13 @@ func (t *page) file(c echo.Context) error {
 func (t *page) search(c echo.Context) error {
 	var buf bytes.Buffer
 	// обрабатываем поиск
-	model := usecase.New(t).TrueClientSearch(t.Reductor().Model())
-	t.Logger().Debugf("stats file selected proccess error: %d", len(model.Error))
-	msg := domain.Message{}
-	msg.Cmd = "model"
-	msg.Sender = "stats.router.search"
-	msg.Model = &model
-	t.Reductor().ChanIn() <- msg
-	// c.String(200, file)
-	// c.NoContent(204)
+	model := t.Reductor().Model()
+	model.Stats.CisOut = nil
+	model.Stats.Errors = nil
+	model.Stats.State = 2
+	t.UpdateModel(model)
+	// model = usecase.New(t).TrueClientSearch(model)
+	t.Search(model)
 	if err := t.Render(&buf, "page", &model, c); err != nil {
 		t.Logger().Errorf("%s %s", modError, err.Error())
 		c.NoContent(204)
@@ -112,18 +108,53 @@ func (t *page) reset(c echo.Context) error {
 	// обновляем модель Stats
 	model := t.Reductor().Model()
 	model.Stats.File = ""
-	model.Stats.CisList = make(domain.CisSlice, 0)
-	model.Stats.Errors = make([]string, 0)
-	msg := domain.Message{}
-	msg.Cmd = "model"
-	msg.Sender = "stats.router.reset"
-	msg.Model = &model
-	t.Reductor().ChanIn() <- msg
+	model.Stats.CisOut = nil
+	model.Stats.Errors = nil
+	model.Stats.State = 0
+	t.UpdateModel(model)
 	if err := t.Render(&buf, "page", &model, c); err != nil {
 		t.Logger().Errorf("%s %s", modError, err.Error())
 		c.NoContent(204)
 		return nil
 	}
 	c.HTML(200, buf.String())
+	return nil
+}
+
+func (t *page) progress(c echo.Context) error {
+	var buf bytes.Buffer
+	// обновляем модель Stats
+	model := t.Reductor().Model().Stats
+	if model.State == 2 {
+		if err := t.Render(&buf, "progress", &model, c); err != nil {
+			t.Logger().Errorf("%s %s", modError, err.Error())
+			c.NoContent(204)
+			return nil
+		}
+		c.String(200, buf.String())
+	}
+	c.String(200, "")
+	return nil
+}
+
+func (t *page) excel(c echo.Context) error {
+	status := c.Param("status")
+	file := utility.DialogSaveFile()
+	file = fmt.Sprintf("%s_%s", file, status)
+	allcis := t.Reductor().Model().Stats.CisOut
+	arrStatus := make([]string, 0)
+	for _, cis := range allcis {
+		if cis.Status == status {
+			arrStatus = append(arrStatus, cis.Cis)
+		}
+	}
+	if err := t.ToExcel(arrStatus, file); err != nil {
+		return c.String(200, err.Error())
+	}
+	t.Logger().Debugf("stats file selected: %s", file)
+	// возвращаем имя файла для отображения на форме
+	out := fmt.Sprintf("записано %d кодов маркировки", len(arrStatus))
+	c.String(200, out)
+	// c.NoContent(204)
 	return nil
 }

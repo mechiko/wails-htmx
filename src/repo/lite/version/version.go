@@ -11,8 +11,9 @@ import (
 
 	"github.com/jmoiron/sqlx"
 	"go.uber.org/zap"
-	_ "modernc.org/sqlite"
-	// _ "github.com/mattn/go-sqlite3"
+
+	// _ "modernc.org/sqlite"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 type IRepo interface {
@@ -23,7 +24,7 @@ type IRepo interface {
 }
 
 const modError = "repo:lite:version"
-const driver = "sqlite"
+const driver = "sqlite3"
 
 // const setVersion string = `INSERT OR REPLACE INTO dboptions (name, value) VALUES ('version',?)`
 const getVersionSql string = `select value from dboptions where name = 'version' limit 1;`

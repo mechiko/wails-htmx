@@ -1,0 +1,3 @@
+module firstwails
+
+go 1.20

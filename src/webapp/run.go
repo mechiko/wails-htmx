@@ -2,6 +2,7 @@ package webapp
 
 import (
 	"context"
+	"firstwails/domain"
 	"fmt"
 	"time"
 )
@@ -26,7 +27,9 @@ func (a *webapp) Run(ctx context.Context, cancel context.CancelFunc) error {
 			// a.Logger().Debugf("ping timeout duration %v", dur)
 			if dur > durationTimePingOut {
 				a.Logger().Errorf("ping not present app shutdown!")
-				cancel()
+				if domain.Mode != "development" {
+					cancel()
+				}
 			}
 		}
 	}()

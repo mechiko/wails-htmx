@@ -16,5 +16,5 @@ var pageTmpl string
 //go:embed templates\footer.html
 var footerTmpl string
 
-//go:embed templates\search.html
-var searchTmpl string
+//go:embed templates\progress.html
+var progressTmpl string

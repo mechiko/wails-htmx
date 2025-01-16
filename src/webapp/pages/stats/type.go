@@ -45,7 +45,7 @@ func (t *page) Production() {
 	template.Must(tt.New("page").Funcs(funcMapHtml).Parse(pageTmpl))
 	template.Must(tt.New("navbar").Funcs(funcMapHtml).Parse(navbarTmpl))
 	template.Must(tt.New("footer").Funcs(funcMapHtml).Parse(footerTmpl))
-	template.Must(tt.New("search").Funcs(funcMapHtml).Parse(searchTmpl))
+	template.Must(tt.New("progress").Funcs(funcMapHtml).Parse(progressTmpl))
 	t.template = tt
 }
 
@@ -82,6 +82,6 @@ func (t *page) DoRender(w io.Writer, templateName string, data interface{}, c ec
 	template.Must(tt.New("page").Funcs(funcMapHtml).Parse(utility.FilePackageContents("page.html")))
 	template.Must(tt.New("navbar").Funcs(funcMapHtml).Parse(utility.FilePackageContents("navbar.html")))
 	template.Must(tt.New("footer").Funcs(funcMapHtml).Parse(utility.FilePackageContents("footer.html")))
-	template.Must(tt.New("search").Funcs(funcMapHtml).Parse(utility.FilePackageContents("search.html")))
+	template.Must(tt.New("progress").Funcs(funcMapHtml).Parse(utility.FilePackageContents("progress.html")))
 	return tt.ExecuteTemplate(w, templateName, data)
 }
