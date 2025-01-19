@@ -18,7 +18,7 @@ func (t *page) Search(model domain.Model) {
 				t.Logger().Error(errStr)
 				modelRecover := t.Reductor().Model()
 				modelRecover.Stats.Errors = append(modelRecover.Stats.Errors, errStr)
-				t.UpdateModel(modelRecover)
+				t.UpdateModel(modelRecover, "stats.search.recover")
 			}
 		}()
 		// эта часть в фоне выполняется только в одном экземпляре
@@ -30,7 +30,7 @@ func (t *page) Search(model domain.Model) {
 		}
 		// создаем клиента и если надо авторизуемся
 		// там же сохраняется в конфиг если происходит обновление токенов
-		tc := t.StartTrueClientGis(model)
+		tc := t.StartTrueClient(model)
 		// tc := trueclient.New(t, model.TrueClient)
 		if len(tc.Errors()) > 0 {
 			model.Stats.Errors = append(model.Stats.Errors, tc.Errors()...)
@@ -57,7 +57,7 @@ func (t *page) Search(model domain.Model) {
 			progress := i * 100 / len(chunks)
 			t.Logger().Debugf("%s search progress %d", modError, progress)
 			model.Stats.Progress = progress
-			t.UpdateModel(model)
+			t.UpdateModel(model, "stats.search")
 			cisResponce := []domain.CisesPost{}
 			if err := tc.CisesListPost(&cisResponce, chunk); err != nil {
 				model.Stats.Errors = append(model.Stats.Errors, err.Error())
@@ -88,6 +88,6 @@ func (t *page) Search(model domain.Model) {
 		model.Stats.CisOut = cisOut
 		model.Stats.CisStatus = cisStatus
 		model.Stats.State = 3
-		t.UpdatePage(model, "stats")
+		t.UpdatePage(model, "stats", "stats.search")
 	}()
 }

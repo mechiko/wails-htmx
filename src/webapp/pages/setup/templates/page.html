@@ -1,5 +1,5 @@
 <!-- Здесь выводятся компоненты по роутингу если нет глобальной ошибки -->
-<!-- domain. -->
+<!-- domain.TrueClient -->
 <div id="page">
   <div class="ml-2">
     {{if .TokenGIS}}<span class="text-primary">Токен ГИС:</span><span class="">{{printf "%.40s" .TokenGIS}}...</span><br>{{end}}
@@ -13,6 +13,7 @@
   </div>
 {{end}}
   <form hx-post="/setup/save" hx-target="#page" hx-swap="outerHTML">
+      {{ template "configdb" . }}
       {{ template "omsid" . }}
       {{ template "deviceid" . }}
       <div class="pl-4 flex items-center gap-2">

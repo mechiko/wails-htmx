@@ -67,7 +67,14 @@ var _ domain.ITrueClient = &trueClient{}
 // инициализируем структурой с полями
 // проверка необходимиости авторизации и ее выполнение
 // паника если ошибки авторизации
-func New(a domain.IApp, model domain.TrueClient) *trueClient {
+func New(a domain.IApp, model domain.TrueClient) (s *trueClient) {
+	defer func() {
+		if r := recover(); r != nil {
+			errStr := fmt.Sprintf("%s panic %v", modError, r)
+			s.errors = append(s.errors, errStr)
+		}
+	}()
+
 	var netTransport = &http.Transport{
 		Dial: (&net.Dialer{
 			Timeout: 10 * time.Second,
@@ -78,7 +85,7 @@ func New(a domain.IApp, model domain.TrueClient) *trueClient {
 		Timeout:   time.Second * 120,
 		Transport: netTransport,
 	}
-	s := &trueClient{
+	s = &trueClient{
 		IApp:       a,
 		httpClient: netClient,
 		layout:     model.LayoutUTC,
@@ -94,6 +101,7 @@ func New(a domain.IApp, model domain.TrueClient) *trueClient {
 		authTime: model.AuthTime,
 		errors:   make([]string, 0),
 	}
+	s.Save(model)
 	if (s.deviсeId) == "" {
 		panic(fmt.Sprintf("%s %s", modError, "нужна настройка конфигурации"))
 	}
@@ -108,7 +116,7 @@ func New(a domain.IApp, model domain.TrueClient) *trueClient {
 			panic(fmt.Sprintf("%s %s", modError, err.Error()))
 		}
 		// сохраняем конфиг после авторизации
-		s.Save()
+		s.Save(model)
 	}
 	return s
 }

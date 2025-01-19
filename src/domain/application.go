@@ -1,9 +1,6 @@
 package domain
 
 import (
-	"io"
-
-	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 )
 
@@ -21,13 +18,14 @@ type IApp interface {
 	StartUp()
 	PagesInfo() ArrPageInfo
 	ActivePage() string
-	UpdateModel(Model)
-	UpdatePage(Model, string)
+	UpdateModel(Model, string)
+	UpdateTrueClientModel(TrueClient, string)
+	UpdatePage(Model, string, string)
 	Pwd() string
 	Output() string
 	StartTrueClient(model Model) ITrueClient
 	StartTrueClientSuz(model Model) ITrueClient
-	Render(w io.Writer, name string, data interface{}, c echo.Context) error
+	// Render(w io.Writer, name string, data interface{}, c echo.Context) error
 	StartDateString() string
 	EndDateString() string
 	SetFsrarID(string)

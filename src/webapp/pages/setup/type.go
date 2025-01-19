@@ -47,6 +47,7 @@ func (t *page) Production() {
 	template.Must(tt.New("pagesave").Funcs(funcMapHtml).Parse(pageSaveTmpl))
 	template.Must(tt.New("omsid").Funcs(funcMapHtml).Parse(omsIdTmpl))
 	template.Must(tt.New("deviceid").Funcs(funcMapHtml).Parse(deviceIdTmpl))
+	template.Must(tt.New("configdb").Funcs(funcMapHtml).Parse(configDbTmpl))
 	template.Must(tt.New("modal").Funcs(funcMapHtml).Parse(modalTmpl))
 	t.template = tt
 }
@@ -86,6 +87,7 @@ func (t *page) DoRender(w io.Writer, templateName string, data interface{}, c ec
 	template.Must(tt.New("modal").Funcs(funcMapHtml).Parse(utility.FilePackageContents("modal.html")))
 	template.Must(tt.New("omsid").Funcs(funcMapHtml).Parse(utility.FilePackageContents("omsid.html")))
 	template.Must(tt.New("deviceid").Funcs(funcMapHtml).Parse(utility.FilePackageContents("deviceid.html")))
+	template.Must(tt.New("configdb").Funcs(funcMapHtml).Parse(utility.FilePackageContents("configdb.html")))
 	return tt.ExecuteTemplate(w, templateName, data)
 }
 

@@ -12,17 +12,18 @@ type PingSuzInfo struct {
 }
 
 type TrueClient struct {
-	StandGIS  url.URL
-	StandSUZ  url.URL
-	TokenGIS  string
-	TokenSUZ  string
-	AuthTime  time.Time
-	LayoutUTC string
-	HashKey   string
-	DeviceID  string
-	OmsID     string
-	Errors    []string
-	PingSuz   *PingSuzInfo
-	Validates map[string]string
-	MyStore   map[string]string
+	StandGIS    url.URL
+	StandSUZ    url.URL
+	TokenGIS    string
+	TokenSUZ    string
+	AuthTime    time.Time
+	LayoutUTC   string
+	HashKey     string
+	DeviceID    string
+	OmsID       string
+	UseConfigDB bool
+	Errors      []string
+	PingSuz     *PingSuzInfo
+	Validates   map[string]string
+	MyStore     map[string]string
 }

@@ -70,7 +70,7 @@ func (t *page) file(c echo.Context) error {
 		model := t.Reductor().Model()
 		model.Stats.State = 1
 		model.Stats.File = file
-		t.UpdateModel(model)
+		t.UpdateModel(model, "stats.file")
 		if err := t.Render(&buf, "page", &model, c); err != nil {
 			t.Logger().Errorf("%s %s", modError, err.Error())
 			c.NoContent(204)
@@ -91,7 +91,7 @@ func (t *page) search(c echo.Context) error {
 	model.Stats.CisOut = nil
 	model.Stats.Errors = nil
 	model.Stats.State = 2
-	t.UpdateModel(model)
+	t.UpdateModel(model, "stats.search")
 	// model = usecase.New(t).TrueClientSearch(model)
 	t.Search(model)
 	if err := t.Render(&buf, "page", &model, c); err != nil {
@@ -111,7 +111,7 @@ func (t *page) reset(c echo.Context) error {
 	model.Stats.CisOut = nil
 	model.Stats.Errors = nil
 	model.Stats.State = 0
-	t.UpdateModel(model)
+	t.UpdateModel(model, "stats.reset")
 	if err := t.Render(&buf, "page", &model, c); err != nil {
 		t.Logger().Errorf("%s %s", modError, err.Error())
 		c.NoContent(204)

@@ -1,0 +1,9 @@
+<div hx-target="#page" hx-swap="outerHTML">
+  <label class="label cursor-pointer">
+    <span class="label-text">Использовать config.db</span>
+    <input hx-post="/setup/configdb" type="checkbox" 
+           checked="{{if .UseConfigDB}}checked{{end}}" 
+           class="checkbox checkbox-primary" 
+           name="configdb"/>
+  </label>
+</div>

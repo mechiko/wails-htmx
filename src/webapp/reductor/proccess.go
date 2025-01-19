@@ -24,7 +24,7 @@ func (rdc *reductor) proccessMessage(msg domain.Message) {
 	case "trueclient":
 		// set model to reductor
 		mdl := *msg.Model
-		rdc.model = &mdl
+		rdc.model.TrueClient = mdl.TrueClient
 	case "startup":
 		mdl := *msg.Model
 		rdc.model = &mdl

@@ -19,5 +19,11 @@ func (u *usecase) InitModel(model domain.Model) domain.Model {
 	// if len(model.Error) != 0 {
 	// 	u.SetActivePage("setup")
 	// }
+	// меняем настройку использовать config.db если эта бд не доступна
+	if u.Configuration().ConfigDB {
+		if !u.Repo().IsConfig() {
+			_ = u.Config().Set("configdb", false, true)
+		}
+	}
 	return model
 }

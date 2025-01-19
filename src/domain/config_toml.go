@@ -9,6 +9,7 @@ utmhost = "localhost"
 utmport = "8088"
 browser = ""
 output = "output"
+configdb = true
 
 [mssql]
 driver = "mssql"
@@ -64,6 +65,7 @@ type Configuration struct {
 	UtmHost     string `json:"utmhost"`
 	UtmPort     string `json:"utmport"`
 	SaveConfig  bool   `json:"saveconfig"` // сохранять конфиг при запуске приложения если его нет отключено!
+	ConfigDB    bool   `json:"configdb"`   // не использовать config.db при его наличии в каталоге
 	Output      string
 	Export      string
 	Browser     string              `json:"browser"`

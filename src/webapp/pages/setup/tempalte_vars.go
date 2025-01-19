@@ -21,3 +21,6 @@ var omsIdTmpl string
 
 //go:embed templates\deviceid.html
 var deviceIdTmpl string
+
+//go:embed templates\configdb.html
+var configDbTmpl string
