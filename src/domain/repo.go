@@ -11,6 +11,7 @@ type Repo interface {
 	DbLite() DbLite
 	DbZnak() DbZnak
 	DbA3() DbAlcohelp3
+	DbConfig() DbConfig
 	Dbs() Dbs
 	IsA3() bool
 	IsZnak() bool

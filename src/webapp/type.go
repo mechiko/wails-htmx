@@ -3,7 +3,6 @@ package webapp
 import (
 	"context"
 	"firstwails/domain"
-	"firstwails/usecase"
 	"firstwails/utility"
 	"firstwails/webapp/effects"
 	"firstwails/webapp/footer"
@@ -86,11 +85,11 @@ func NewWebApp(logger *zap.SugaredLogger, e *echo.Echo, pwd string) *webapp {
 	// сначала эффекты они прописываются в редукторе
 	sc.effects = effects.New(sc)
 	// здесь первый раз происходит попытка авторизации trueclient
-	model := usecase.New(sc).TrueClientConfig(domain.InitModel)
-	if len(model.Error) != 0 {
-		sc.activePage = "setup"
-	}
-	// model := domain.InitModel
+	// model := usecase.New(sc).TrueClientConfig(domain.InitModel)
+	// if len(model.Error) != 0 {
+	// 	sc.activePage = "setup"
+	// }
+	model := domain.InitModel
 	sc.reductor = reductor.New(sc, sc.effects, &model)
 	sc.Route()
 	sc.initDateMn()

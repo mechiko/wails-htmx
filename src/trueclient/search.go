@@ -12,12 +12,12 @@ import (
 func (t *trueClient) SearchGis(target interface{}) error {
 	var u = t.urlGIS
 	u.Path = `/api/v4/true-api/cises/search`
-	t.Logger().Debugf("url:%s", u.String())
+	t.IApp.Logger().Debugf("url:%s", u.String())
 	body, err := t.filterSearchJson()
 	if err != nil {
 		return fmt.Errorf("%s %w", modError, err)
 	}
-	t.Logger().Debugf("body: %s", body)
+	t.IApp.Logger().Debugf("body: %s", body)
 	signBody, err := cmdsign.New(t.hash).Sign(string(body))
 	if err != nil {
 		return fmt.Errorf("%s %w", modError, err)
@@ -39,7 +39,7 @@ func (t *trueClient) SearchGis(target interface{}) error {
 	}
 	defer resp.Body.Close()
 	buf, _ := io.ReadAll(resp.Body)
-	t.Logger().Debugf("ping Body:%s", buf)
+	t.IApp.Logger().Debugf("ping Body:%s", buf)
 	// потоковый Unmarshal
 	return json.NewDecoder(bytes.NewBuffer(buf)).Decode(target)
 }

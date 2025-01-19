@@ -19,21 +19,21 @@ const modError = "trueclient"
 // 	Configuration() *domain.Configuration
 // }
 
-type TrueClient interface {
-	PingSuz() (info *domain.PingSuzInfo, err error)
-	PingSuzSilent() bool
-	AuthGisSuz() error
-	Balance(interface{}, int64) error
-	SearchGis(target interface{}) error
-	CisesList(target interface{}, cises []string) error
-	CisesListPost(target interface{}, cises []string) error
-	TokenGIS() string
-	TokenSUZ() string
-	AuthTime() time.Time
-	Save()
-	Errors() []string
-	PingSuzInfo() *domain.PingSuzInfo
-}
+// type TrueClient interface {
+// 	PingSuz() (info *domain.PingSuzInfo, err error)
+// 	PingSuzSilent() bool
+// 	AuthGisSuz() error
+// 	Balance(interface{}, int64) error
+// 	SearchGis(target interface{}) error
+// 	CisesList(target interface{}, cises []string) error
+// 	CisesListPost(target interface{}, cises []string) error
+// 	TokenGIS() string
+// 	TokenSUZ() string
+// 	AuthTime() time.Time
+// 	Save()
+// 	Errors() []string
+// 	PingSuzInfo() *domain.PingSuzInfo
+// }
 
 type trueClient struct {
 	domain.IApp
@@ -54,7 +54,7 @@ type trueClient struct {
 }
 
 // создаем пустышку для проверки всех методов интерфейса
-var _ TrueClient = &trueClient{}
+var _ domain.ITrueClient = &trueClient{}
 
 // клиент http по умолчанию
 // var trueClientDefault = &http.Client{Timeout: 20 * time.Second}
@@ -67,7 +67,7 @@ var _ TrueClient = &trueClient{}
 // инициализируем структурой с полями
 // проверка необходимиости авторизации и ее выполнение
 // паника если ошибки авторизации
-func New(a domain.IApp, model domain.TrueClient) TrueClient {
+func New(a domain.IApp, model domain.TrueClient) *trueClient {
 	var netTransport = &http.Transport{
 		Dial: (&net.Dialer{
 			Timeout: 10 * time.Second,

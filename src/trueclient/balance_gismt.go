@@ -26,7 +26,7 @@ func (t *trueClient) Balance(target interface{}, productId int64) error {
 	} else {
 		// query = u.Path
 	}
-	t.Logger().Debugf("url:%s", u.String())
+	t.IApp.Logger().Debugf("url:%s", u.String())
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
 		return fmt.Errorf("%s %w", modError, err)
@@ -46,7 +46,7 @@ func (t *trueClient) Balance(target interface{}, productId int64) error {
 	}
 	defer resp.Body.Close()
 	buf, _ := io.ReadAll(resp.Body)
-	t.Logger().Debugf("balance Body:%s", buf)
+	t.IApp.Logger().Debugf("balance Body:%s", buf)
 	if resp.StatusCode != 200 {
 		return fmt.Errorf("%s %s", modError, buf)
 	}

@@ -2,7 +2,6 @@ package stats
 
 import (
 	"firstwails/domain"
-	"firstwails/trueclient"
 	"firstwails/utility"
 	"fmt"
 	"sync/atomic"
@@ -31,7 +30,8 @@ func (t *page) Search(model domain.Model) {
 		}
 		// создаем клиента и если надо авторизуемся
 		// там же сохраняется в конфиг если происходит обновление токенов
-		tc := trueclient.New(t, model.TrueClient)
+		tc := t.StartTrueClientGis(model)
+		// tc := trueclient.New(t, model.TrueClient)
 		if len(tc.Errors()) > 0 {
 			model.Stats.Errors = append(model.Stats.Errors, tc.Errors()...)
 			t.Logger().Debugf("%s trueclient authorised errors %d", modError, len(tc.Errors()))

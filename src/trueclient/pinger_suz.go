@@ -23,7 +23,7 @@ func (t *trueClient) PingSuzSilent() bool {
 		Path:     `/api/v3/ping`,
 		RawQuery: v.Encode(),
 	}
-	t.Logger().Debugf("url:%s", u.String())
+	t.IApp.Logger().Debugf("url:%s", u.String())
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
 		return false
@@ -40,7 +40,7 @@ func (t *trueClient) PingSuzSilent() bool {
 	}
 	defer resp.Body.Close()
 	buf, _ := io.ReadAll(resp.Body)
-	t.Logger().Debugf("ping Body:%s", buf)
+	t.IApp.Logger().Debugf("ping Body:%s", buf)
 	// потоковый Unmarshal
 	pingJSON := domain.PingSuzInfo{}
 	if err := json.NewDecoder(bytes.NewBuffer(buf)).Decode(&pingJSON); err != nil {
@@ -61,7 +61,7 @@ func (t *trueClient) PingSuz() (info *domain.PingSuzInfo, err error) {
 		Path:     `/api/v3/ping`,
 		RawQuery: v.Encode(),
 	}
-	t.Logger().Debugf("url:%s", u.String())
+	t.IApp.Logger().Debugf("url:%s", u.String())
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
 		return info, fmt.Errorf("%s %w", modError, err)
@@ -78,7 +78,7 @@ func (t *trueClient) PingSuz() (info *domain.PingSuzInfo, err error) {
 	}
 	defer resp.Body.Close()
 	buf, _ := io.ReadAll(resp.Body)
-	t.Logger().Debugf("ping Body:%s", buf)
+	t.IApp.Logger().Debugf("ping Body:%s", buf)
 	if resp.StatusCode != 200 {
 		return info, fmt.Errorf("%s %s", modError, buf)
 	}
