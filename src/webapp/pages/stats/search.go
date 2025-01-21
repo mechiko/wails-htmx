@@ -31,7 +31,6 @@ func (t *page) Search(model domain.Model) {
 		// создаем клиента и если надо авторизуемся
 		// там же сохраняется в конфиг если происходит обновление токенов
 		tc := t.StartTrueClient(model)
-		// tc := trueclient.New(t, model.TrueClient)
 		if len(tc.Errors()) > 0 {
 			model.Stats.Errors = append(model.Stats.Errors, tc.Errors()...)
 			t.Logger().Debugf("%s trueclient authorised errors %d", modError, len(tc.Errors()))

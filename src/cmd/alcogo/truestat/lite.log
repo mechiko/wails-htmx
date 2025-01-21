@@ -1,27 +1,8 @@
-2025-01-19 21:06:04	debug	alcogo/main.go:61	zaplog started
-2025-01-19 21:06:04	info	alcogo/main.go:62	mode = development
-2025-01-19 21:06:04	info	repo/types.go:63	pkg:repo отсутствует БД А3 [драйвер sqlite]
-2025-01-19 21:06:04	info	repo/types.go:88	pkg:repo отсутствует БД 4z драйвер sqlite
-2025-01-19 21:06:04	error	webapp/trueclient_start.go:107	webapp trueclient authorised errors 1
-2025-01-19 21:06:04	error	alcogo/main.go:123	ошибок trueclient 1 первая trueclient panic trueclient cmdsign.New cmdexec E:\branches\CSP_5_0r3t\branches\CSP_5_0r3t_0\CSP\samples\csptest\tmain.c:1541:CertFindCertificateInStore
-Error 0x80092004: ��ꥪ� ��� ᢮��⢮ �� �������. 
-E:\branches\CSP_5_0r3t\branches\CSP_5_0r3t_0\CSP\samples\csptest\tmain.c:2137:read_cert_from_store
-Error 0x80092004: ��ꥪ� ��� ᢮��⢮ �� �������. 
-E:\branches\CSP_5_0r3t\branches\CSP_5_0r3t_0\CSP\samples\csptest\signtsf.c:363:Cannot find User certificate: c7c176735cc65a3803bd6ac0691de951a452fa3c
-Error 0x80092004: ��ꥪ� ��� ᢮��⢮ �� �������. 
-Total: SYS: 0,016 sec USR: 0,000 sec UTC: 0,011 sec
-[ErrorCode: 0x00000001]
- Sign() exit status 1
-2025-01-19 21:06:04	info	alcogo/main.go:133	http port 51882
-2025-01-19 21:06:04	debug	webapp/startup.go:26	StartUp HTTP!
-2025-01-19 21:06:04	debug	webapp/reductor.go:39	webapp ReductorUpdaterHttp [readyDOM:false]
-2025-01-19 21:06:22	error	webapp/run.go:29	ping not present app shutdown!
-2025-01-19 21:06:23	error	webapp/run.go:29	ping not present app shutdown!
-2025-01-19 21:06:24	error	webapp/run.go:29	ping not present app shutdown!
-2025-01-19 21:06:25	error	webapp/run.go:29	ping not present app shutdown!
-2025-01-19 21:06:26	error	webapp/run.go:29	ping not present app shutdown!
-2025-01-19 21:06:27	error	webapp/run.go:29	ping not present app shutdown!
-2025-01-19 21:06:28	error	webapp/run.go:29	ping not present app shutdown!
-2025-01-19 21:06:29	error	webapp/run.go:29	ping not present app shutdown!
-2025-01-19 21:06:30	error	webapp/run.go:29	ping not present app shutdown!
-2025-01-19 21:06:31	error	webapp/run.go:29	ping not present app shutdown!
+2025-01-21 11:26:23	debug	alcogo/main.go:61	zaplog started
+2025-01-21 11:26:23	info	alcogo/main.go:62	mode = development
+2025-01-21 11:26:23	info	repo/types.go:63	pkg:repo отсутствует БД А3 [драйвер sqlite]
+2025-01-21 11:26:23	info	repo/types.go:88	pkg:repo отсутствует БД 4z драйвер sqlite
+2025-01-21 11:26:30	info	alcogo/main.go:130	http port 51882
+2025-01-21 11:26:33	debug	webapp/reductor.go:39	webapp ReductorUpdaterHttp [readyDOM:true]
+2025-01-21 11:28:55	debug	trueclient/pinger_suz.go:64	url:https://suzgrid.crpt.ru/api/v3/ping?omsId=32ffcd04-f054-478e-90f7-b22cc27f97ed
+2025-01-21 11:28:56	debug	trueclient/pinger_suz.go:81	ping Body:{"omsId":"32ffcd04-f054-478e-90f7-b22cc27f97ed","omsVersion":"STABLE_RELEASE_4.46-dab080e","apiVersion":"3.0.15"}

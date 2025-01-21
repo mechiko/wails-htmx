@@ -14,9 +14,11 @@ func (rdc *effects) proccessMessage(msgIn domain.Message) {
 	switch msgIn.Cmd {
 	case "stats":
 		// usecase делает обновление редуктора по завершению запроса
+		// выполняется как подзадача потому модель обновляется там в ней
 		_ = usecase.New(rdc).StatsModel(rdc.Reductor().Model())
 	case "setup":
 		// usecase делает обновление редуктора по завершению запроса
+		// выполняется как подзадача потому модель обновляется там в ней
 		_ = usecase.New(rdc).SetupModel(rdc.Reductor().Model())
 	case "dbinfo":
 		msg.Cmd = "dbinfo"
@@ -25,10 +27,10 @@ func (rdc *effects) proccessMessage(msgIn domain.Message) {
 		msg.Model = &mm
 		rdc.Reductor().ChanIn() <- msg
 	case "startup":
+		// событие из webapp.StartUp
 		msg.Cmd = "startup"
 		msg.Sender = "effects.startup"
-		mm := usecase.New(rdc).InitModel(rdc.Reductor().Model())
-		msg.Model = &mm
+		msg.Model = msgIn.Model
 		rdc.Reductor().ChanIn() <- msg
 	default:
 		rdc.Logger().Errorf("%s cmd %s not found", modError, msgIn.Cmd)

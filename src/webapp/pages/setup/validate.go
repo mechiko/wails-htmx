@@ -47,20 +47,7 @@ func (t *page) ValidateDeviceID(c echo.Context) error {
 }
 
 func (t *page) ValidateConfigDB(c echo.Context) error {
-	deviceID := c.FormValue("configdb")
-	model := &domain.TrueClient{
-		Errors:   make([]string, 0),
-		DeviceID: deviceID,
-	}
-	if err := uuid.Validate(model.DeviceID); err != nil {
-		model.Errors = append(model.Errors, err.Error())
-	}
-	var buf bytes.Buffer
-	if err := t.Render(&buf, "page", &model, c); err != nil {
-		t.Logger().Errorf("%s %s", modError, err.Error())
-		c.NoContent(204)
-		return nil
-	}
-	c.HTML(200, buf.String())
+	// configDb := c.FormValue("configdb")
+	c.NoContent(204)
 	return nil
 }

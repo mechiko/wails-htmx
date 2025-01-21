@@ -114,14 +114,11 @@ func main() {
 		// app.MessageBox("Ошибка Checks", err.Error())
 		cancel()
 	}
-	// пробуем соединиться по trueclient будет попытка обновить модель труеклиент как пройдет не понятно
-	// делаем до http сервера всяко модель проскочит
-	// nil неможет быть всегда объект
-	tc := webApp.StartTrueClientSuz(webApp.Reductor().Model())
-	if len(tc.Errors()) > 0 {
-		webApp.SetActivePage("setup")
-		loger.Errorf("ошибок trueclient %d первая %s", len(tc.Errors()), tc.Errors()[0])
-	}
+
+	// тут в основном процессе инициализируем модель целиком
+	// и дальше вызывается effects.startup
+	// который просто модель кидает в редуктор.startup
+	webApp.StartUp()
 
 	port := webApp.Configuration().HostPort
 	if port == "" || port == "auto" {

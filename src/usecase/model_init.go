@@ -25,5 +25,7 @@ func (u *usecase) InitModel(model domain.Model) domain.Model {
 			_ = u.Config().Set("configdb", false, true)
 		}
 	}
+	trueModel := u.InitTrueClient(model.TrueClient)
+	model.TrueClient = trueModel
 	return model
 }

@@ -10,8 +10,6 @@ func (rdc *effects) Run(ctx context.Context) error {
 			rdc.proccessMessage(s)
 		}
 	}()
-	// инициализация приложения в режиме HTTP
-	rdc.StartUp()
 
 	<-ctx.Done()
 	rdc.logger.Infof("%s done", modError)

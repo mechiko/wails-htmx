@@ -119,18 +119,3 @@ func (a *webapp) StartTrueClient(model domain.Model) domain.ITrueClient {
 
 	return tc
 }
-
-// делаем StartTrueClient и пинг суз
-func (a *webapp) StartTrueClientSuz(model domain.Model) domain.ITrueClient {
-	tc := a.StartTrueClient(model)
-	if len(tc.Errors()) == 0 {
-		// если нет ошибок сделаем пинг суз
-		if info, err := tc.PingSuz(); err != nil {
-			model.Error = append(model.Error, err.Error())
-		} else {
-			model.TrueClient.PingSuz = info
-		}
-	}
-	a.UpdateTrueClientModel(model.TrueClient, "webapp.starttrueclient")
-	return tc
-}

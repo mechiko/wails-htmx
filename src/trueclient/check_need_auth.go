@@ -3,6 +3,7 @@ package trueclient
 import "time"
 
 // возвращает true если авторизация необходима
+// проверяется пингом СУЗ
 func (t *trueClient) CheckNeedAuth() bool {
 	if t.tokenGis == "" {
 		return true

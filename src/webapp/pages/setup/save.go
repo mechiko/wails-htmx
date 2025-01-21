@@ -30,7 +30,8 @@ func (t *page) Save(c echo.Context) error {
 		tc.Errors = append(tc.Errors, err.Error())
 		tc.Validates["omsid"] = err.Error()
 	}
-	newModel := t.StartTrueClientSuz(t.Reductor().Model())
+	_ = t.StartTrueClient(t.Reductor().Model())
+	newModel := t.Reductor().Model()
 	var buf bytes.Buffer
 	if err := t.Render(&buf, "pagesave", &newModel, c); err != nil {
 		t.Logger().Errorf("%s %s", modError, err.Error())

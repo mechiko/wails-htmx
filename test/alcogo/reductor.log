@@ -1,7 +1,0 @@
-2025-01-16 07:11:17	debug	effects/proccess.go:12	pkg:effects proccess startup from webapp.StartUp len chain 0
-2025-01-16 07:11:17	debug	reductor/proccess.go:14	pkg:reductor proccess model from usecase.MenuModel len chain 1
-2025-01-16 07:11:17	debug	reductor/proccess.go:14	pkg:reductor proccess startup from effects.startup len chain 0
-2025-01-16 07:11:17	debug	effects/proccess.go:12	pkg:effects proccess setup from reductor.StartUp len chain 0
-2025-01-16 07:11:17	debug	reductor/proccess.go:14	pkg:reductor proccess setup from usecase.SetupModel len chain 0
-2025-01-16 07:14:34	info	reductor/run.go:14	pkg:reductor done
-2025-01-16 07:14:34	info	effects/run.go:17	pkg:effects done

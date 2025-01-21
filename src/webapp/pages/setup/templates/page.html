@@ -6,12 +6,6 @@
     {{if .TokenSUZ}}<span class="text-primary">Токен СУЗ:</span><span class="">{{printf "%.40s" .TokenSUZ}}</span><br>{{end}}
     {{if not .AuthTime.IsZero }}<span class="text-primary">Время получения:</span><span class="">{{printf "%.19s" .AuthTime}}</span><br>{{end}}
   </div>
-{{if .PingSuz}}
-  <div class="ml-2">
-    <span class="text-primary">API Version:</span><span>{{.PingSuz.ApiVersion}}</span><br>
-    <span class="text-primary">SUZ Version:</span><span>{{.PingSuz.OmsVersion}}</span><br>
-  </div>
-{{end}}
   <form hx-post="/setup/save" hx-target="#page" hx-swap="outerHTML">
       {{ template "configdb" . }}
       {{ template "omsid" . }}
@@ -19,6 +13,7 @@
       <div class="pl-4 flex items-center gap-2">
           <span class="text-primary">КЭП:</span>
           <select class="w-2/3 select select-bordered" name="hashkey">
+            <option value="empty" selected>-- выберите сертификат --</option>
   {{ range $j, $row := $.MyStore }}
   {{if eq $.HashKey $j}}
             <option value="{{$j}}" selected>{{$row}}</option>
@@ -29,7 +24,15 @@
           </select>
       </div>
     <div class="m-4">
-        <button class="btn btn-outline btn-primary">Сохранить</button>
+      {{if not .UseConfigDB}}<input type="submit" value="Сохранить" class="btn btn-outline btn-primary"/>{{end}}
+      <button class="btn btn-outline btn-primary" hx-get="/setup/ping" hx-target="#page" hx-swap="outerHTML">Ping SUZ</button>
     </div>
   </form>
+
+{{if .PingSuz}}
+  <div class="ml-2">
+    <span class="text-primary">API Version:</span><span>{{.PingSuz.ApiVersion}}</span><br>
+    <span class="text-primary">SUZ Version:</span><span>{{.PingSuz.OmsVersion}}</span><br>
+  </div>
+{{end}}
 </div>

@@ -3,13 +3,13 @@ package webapp
 import (
 	"context"
 	"firstwails/domain"
+	"firstwails/usecase"
 )
 
 // startup is called at application startup WAILS
 func (a *webapp) Startup(ctx context.Context) {
 	// Perform your setup here
 	a.ctx = ctx
-	a.logger.Debug("Startup!")
 	mdl := a.Reductor().Model()
 	msg := domain.Message{
 		Sender: "webapp.StartUp",
@@ -23,12 +23,11 @@ func (a *webapp) Startup(ctx context.Context) {
 // HTTP
 func (a *webapp) StartUp() {
 	// Perform your setup here
-	a.logger.Debug("StartUp HTTP!")
-	mdl := a.Reductor().Model()
+	mm := usecase.New(a).InitModel(a.Reductor().Model())
 	msg := domain.Message{
 		Sender: "webapp.StartUp",
 		Cmd:    "startup",
-		Model:  &mdl,
+		Model:  &mm,
 	}
 	a.Effects().ChanIn() <- msg
 }

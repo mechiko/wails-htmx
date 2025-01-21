@@ -15,11 +15,5 @@ func (u *usecase) MenuModel(model domain.Model) domain.Model {
 		}
 		model.Menu.Items = append(model.Menu.Items, menuItem)
 	}
-	msg := domain.Message{
-		Cmd:    "model",
-		Sender: "usecase.MenuModel",
-		Model:  &model,
-	}
-	u.Reductor().ChanIn() <- msg
 	return model
 }

@@ -1,6 +1,7 @@
 browser = ''
+configdb = true
 hostname = '127.0.0.1'
-hostport = '55427'
+hostport = '51220'
 name = ''
 output = 'output'
 saveconfig = false
@@ -10,7 +11,7 @@ utmport = '8088'
 [alcogo4]
 dbname = ''
 driver = 'sqlite'
-file = 'alcogo\lite.db'
+file = 'truestat\lite.db'
 
 [alcohelp3]
 dbname = ''
@@ -44,14 +45,14 @@ driver = 'mssql'
 driver = 'sqlite'
 
 [trueclient]
-deviceid = ''
-hashkey = ''
+deviceid = 'ae81d813-91dc-4af5-b503-d90a79fef2e8'
+hashkey = 'bf99fa930ac4efa91766e8dbd42029974dcf1954'
 layoututc = '2006-01-02T15:04:05'
-omsid = ''
+omsid = '32ffcd04-f054-478e-90f7-b22cc27f97ed'
 standgis = 'markirovka.crpt.ru'
 standsuz = 'suzgrid.crpt.ru'
 
 [trueznak]
 dbname = ''
 driver = 'sqlite'
-file = ''
+file = '32ffcd04-f054-478e-90f7-b22cc27f97ed.db'

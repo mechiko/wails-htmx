@@ -77,9 +77,9 @@ func New(a domain.IApp, model domain.TrueClient) (s *trueClient) {
 
 	var netTransport = &http.Transport{
 		Dial: (&net.Dialer{
-			Timeout: 10 * time.Second,
+			Timeout: 5 * time.Second,
 		}).Dial,
-		TLSHandshakeTimeout: 10 * time.Second,
+		TLSHandshakeTimeout: 5 * time.Second,
 	}
 	var netClient = &http.Client{
 		Timeout:   time.Second * 120,
@@ -111,6 +111,7 @@ func New(a domain.IApp, model domain.TrueClient) (s *trueClient) {
 	if (s.hash) == "" {
 		panic(fmt.Sprintf("%s %s", modError, "нужна настройка конфигурации"))
 	}
+	// проверяем необходимость авторизации пингом СУЗ
 	if s.CheckNeedAuth() {
 		if err := s.AuthGisSuz(); err != nil {
 			panic(fmt.Sprintf("%s %s", modError, err.Error()))
