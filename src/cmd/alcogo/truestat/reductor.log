@@ -1,3 +1,12 @@
-2025-01-22 14:16:56	debug	effects/proccess.go:12	pkg:effects proccess startup from webapp.StartUp len chain 0
-2025-01-22 14:16:56	debug	reductor/proccess.go:14	pkg:reductor proccess startup from effects.startup len chain 0
-2025-01-22 14:16:56	debug	reductor/proccess.go:15	pkg:reductor trueclient tokenSUZ 
+2025-01-22 22:00:45	debug	effects/proccess.go:12	pkg:effects proccess startup from webapp.StartUp len chain 0
+2025-01-22 22:00:45	debug	reductor/proccess.go:14	pkg:reductor proccess startup from effects.startup len chain 0
+2025-01-22 22:00:45	debug	reductor/proccess.go:15	pkg:reductor trueclient tokenSUZ 
+2025-01-22 22:00:53	debug	effects/proccess.go:12	pkg:effects proccess stats from header.pager len chain 0
+2025-01-22 22:00:53	debug	reductor/proccess.go:14	pkg:reductor proccess stats from usecase.StatsModel len chain 0
+2025-01-22 22:00:53	debug	reductor/proccess.go:15	pkg:reductor trueclient tokenSUZ b76b30cb-b7f5-4855-b6b5-d3a5e070837a
+2025-01-22 22:00:55	debug	effects/proccess.go:12	pkg:effects proccess setup from header.pager len chain 0
+2025-01-22 22:00:55	debug	reductor/proccess.go:14	pkg:reductor proccess setup from usecase.SetupModel len chain 0
+2025-01-22 22:00:55	debug	reductor/proccess.go:15	pkg:reductor trueclient tokenSUZ b76b30cb-b7f5-4855-b6b5-d3a5e070837a
+2025-01-22 22:00:59	debug	effects/proccess.go:12	pkg:effects proccess dbinfo from header.pager len chain 0
+2025-01-22 22:00:59	debug	reductor/proccess.go:14	pkg:reductor proccess dbinfo from effects.dbinfo len chain 0
+2025-01-22 22:00:59	debug	reductor/proccess.go:15	pkg:reductor trueclient tokenSUZ b76b30cb-b7f5-4855-b6b5-d3a5e070837a

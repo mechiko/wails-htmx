@@ -1,22 +1,8 @@
-2025-01-22 14:16:56	debug	alcogo/main.go:61	zaplog started
-2025-01-22 14:16:56	info	alcogo/main.go:62	mode = development
-2025-01-22 14:16:56	info	repo/types.go:63	pkg:repo отсутствует БД А3 [драйвер sqlite]
-2025-01-22 14:16:56	info	repo/types.go:88	pkg:repo отсутствует БД 4z драйвер sqlite
-2025-01-22 14:16:56	info	alcogo/main.go:130	http port 51882
-2025-01-22 14:17:09	debug	webapp/run.go:28	ping timeout duration 5.185876
-2025-01-22 14:17:10	debug	webapp/run.go:28	ping timeout duration 6.1864042
-2025-01-22 14:17:11	debug	webapp/run.go:28	ping timeout duration 7.1864567
-2025-01-22 14:17:12	debug	webapp/run.go:28	ping timeout duration 8.186613
-2025-01-22 14:17:13	debug	webapp/run.go:28	ping timeout duration 9.1860731
-2025-01-22 14:17:14	debug	webapp/run.go:28	ping timeout duration 10.1864368
-2025-01-22 14:17:15	debug	webapp/run.go:28	ping timeout duration 11.1863829
-2025-01-22 14:17:16	debug	webapp/run.go:28	ping timeout duration 12.1859001
-2025-01-22 14:17:17	debug	webapp/run.go:28	ping timeout duration 13.1868779
-2025-01-22 14:17:18	debug	webapp/run.go:28	ping timeout duration 14.1859482
-2025-01-22 14:17:19	debug	webapp/run.go:28	ping timeout duration 15.1861506
-2025-01-22 14:17:20	debug	webapp/run.go:28	ping timeout duration 16.1859393
-2025-01-22 14:17:21	debug	webapp/run.go:28	ping timeout duration 17.1859606
-2025-01-22 14:17:22	debug	webapp/run.go:28	ping timeout duration 18.1867742
-2025-01-22 14:17:23	debug	webapp/run.go:28	ping timeout duration 19.1859295
-2025-01-22 14:17:24	debug	webapp/run.go:28	ping timeout duration 20.1865995
-2025-01-22 14:17:25	debug	webapp/run.go:28	ping timeout duration 21.1867644
+2025-01-22 22:00:44	debug	alcogo/main.go:61	zaplog started
+2025-01-22 22:00:44	info	alcogo/main.go:62	mode = development
+2025-01-22 22:00:44	info	repo/types.go:63	pkg:repo отсутствует БД А3 [драйвер sqlite]
+2025-01-22 22:00:44	info	repo/types.go:88	pkg:repo отсутствует БД 4z драйвер sqlite
+2025-01-22 22:00:44	info	alcogo/main.go:130	http port 51882
+2025-01-22 22:00:53	debug	webapp/reductor.go:39	webapp ReductorUpdaterHttp [readyDOM:true]
+2025-01-22 22:00:55	debug	webapp/reductor.go:39	webapp ReductorUpdaterHttp [readyDOM:true]
+2025-01-22 22:00:59	debug	webapp/reductor.go:39	webapp ReductorUpdaterHttp [readyDOM:true]

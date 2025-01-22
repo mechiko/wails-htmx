@@ -43,19 +43,13 @@
 
   <div class="min-h-[100dvh] grid grid-rows-[auto_1fr_auto] h-full">
       <header>
-          {{block "header" .}}
           <div id="header" hx-get="/header" hx-trigger="load" hx-target="#header" hx-swap="outerHTML"></div>
-          {{end}}
       </header>
       <main class="h-full bg-slate-50">
-          {{block "main" .}}
           <div id="app" hx-get="/page" hx-trigger="load" hx-target="#app" hx-swap="outerHTML"></div>
-          {{end}}
       </main>
       <footer>
-          {{block "footer" .}}
           <div id="footer" hx-get="/footer" hx-trigger="load" hx-target="#footer" hx-swap="outerHTML"></div>
-          {{end}}
       </footer>
   </div>
 

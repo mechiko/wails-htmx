@@ -4,7 +4,6 @@ import (
 	"firstwails/domain"
 	"fmt"
 	"io"
-	"net/http"
 
 	"github.com/labstack/echo/v4"
 )
@@ -24,7 +23,6 @@ type Pages struct {
 	domain.IApp
 	registered     map[string]domain.RenderHandler
 	echo           *echo.Echo
-	handler        http.Handler
 	infoRegistered domain.ArrPageInfo
 }
 
