@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
+	"net/http"
 	"os"
 	"time"
 
@@ -32,6 +33,7 @@ type webapp struct {
 	pages         *pages.Pages
 	activePage    string
 	echo          *echo.Echo
+	handler       http.Handler
 	config        domain.IConfig
 	logger        *zap.SugaredLogger
 	configuration *domain.Configuration
@@ -55,7 +57,7 @@ const modError = "webapp"
 var _ domain.IApp = &webapp{}
 
 // func NewWebApp(logger *zap.SugaredLogger, e *echo.Echo, sse *sse.Server, pwd string) *webapp {
-func NewWebApp(logger *zap.SugaredLogger, e *echo.Echo, pwd string) *webapp {
+func NewWebApp(logger *zap.SugaredLogger, e http.Handler, pwd string) *webapp {
 	sc := &webapp{}
 	sc.pwd = pwd
 	sc.logger = logger
@@ -76,8 +78,9 @@ func NewWebApp(logger *zap.SugaredLogger, e *echo.Echo, pwd string) *webapp {
 		}
 	}
 
-	sc.echo = e
-	e.HTTPErrorHandler = sc.customHTTPErrorHandler
+	// sc.echo = e
+	sc.handler = e
+	// e.HTTPErrorHandler = sc.customHTTPErrorHandler
 	// sc.sse = sse
 	if err := sc.pages.InitPages(); err != nil {
 		panic(fmt.Sprintf("%s NewWebApp() %s", modError, err.Error()))

@@ -1,10 +1,3 @@
-2025-01-21 11:26:30	debug	effects/proccess.go:12	pkg:effects proccess startup from webapp.StartUp len chain 0
-2025-01-21 11:26:30	debug	reductor/proccess.go:14	pkg:reductor proccess startup from effects.startup len chain 0
-2025-01-21 11:26:30	debug	reductor/proccess.go:15	pkg:reductor trueclient tokenSUZ 
-2025-01-21 11:26:33	debug	effects/proccess.go:12	pkg:effects proccess setup from header.pager len chain 0
-2025-01-21 11:26:33	debug	reductor/proccess.go:14	pkg:reductor proccess setup from usecase.SetupModel len chain 0
-2025-01-21 11:26:33	debug	reductor/proccess.go:15	pkg:reductor trueclient tokenSUZ b76b30cb-b7f5-4855-b6b5-d3a5e070837a
-2025-01-21 11:28:55	debug	reductor/proccess.go:14	pkg:reductor proccess model from webapp.UpdateModel trueclient.save len chain 0
-2025-01-21 11:28:55	debug	reductor/proccess.go:15	pkg:reductor trueclient tokenSUZ b76b30cb-b7f5-4855-b6b5-d3a5e070837a
-2025-01-21 11:28:56	debug	reductor/proccess.go:14	pkg:reductor proccess model from webapp.UpdateModel webapp.starttrueclient len chain 0
-2025-01-21 11:28:56	debug	reductor/proccess.go:15	pkg:reductor trueclient tokenSUZ b76b30cb-b7f5-4855-b6b5-d3a5e070837a
+2025-01-22 14:16:56	debug	effects/proccess.go:12	pkg:effects proccess startup from webapp.StartUp len chain 0
+2025-01-22 14:16:56	debug	reductor/proccess.go:14	pkg:reductor proccess startup from effects.startup len chain 0
+2025-01-22 14:16:56	debug	reductor/proccess.go:15	pkg:reductor trueclient tokenSUZ 

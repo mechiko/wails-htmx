@@ -1,6 +1,8 @@
 package domain
 
 import (
+	"net/http"
+
 	"go.uber.org/zap"
 )
 
@@ -29,4 +31,6 @@ type IApp interface {
 	EndDateString() string
 	SetFsrarID(string)
 	FsrarID() string
+	ServerError(w http.ResponseWriter, r *http.Request, err error)
+	ClientError(w http.ResponseWriter, r *http.Request, status int, err error)
 }
