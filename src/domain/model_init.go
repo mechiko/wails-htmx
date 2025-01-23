@@ -23,6 +23,8 @@ var InitModel Model = Model{
 	Menu: menu{
 		Items: make(MenuItemSlice, 0),
 	},
-	Stats:      stats{},
+	Stats: stats{
+		ExcelChunkSize: 30000,
+	},
 	TrueClient: TrueClient{},
 }

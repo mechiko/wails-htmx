@@ -1,49 +1,53 @@
 <!-- Здесь выводятся компоненты по роутингу если нет глобальной ошибки -->
-{{if eq $.Stats.State 0}}
+{{if (len $.Stats.Errors)}}
+<div id="modal" class="flex flex-col items-center" 
+  _="on closeModal add .closing then wait for animationend then remove me">
+	<div class="modal-underlay" _="on click trigger closeModal"></div>
+	<div class="modal-content w-2/3 mt-20 min-h-60">
+        Ошибки:
+        {{ range $j, $row := $.Stats.Errors }}
+        <div class="text-red-300">{{$row}}</div>
+        {{ end }}
+  </div>
+</div>
+{{end}}
+
 <div class="m-2">
   <span class="text-primary">Коды CIS для анализа:</span>
-  <button class="btn btn-outline btn-default"
-          hx-get="/stats/file" hx-trigger="click" hx-target="#page" hx-swap="innerHTML">
-    Выберите файл
-  </button>
+  <form hx-encoding='multipart/form-data' hx-post='/stats/upload' hx-target="#page" hx-swap="innerHTML">
+    <input type='file' name='file'
+           _="on change toggle @disabled on #sbmt">
+    <input id="sbmt" type="submit" disabled value="Загрузить" class="btn btn-outline btn-primary"/>  
+  </form>
 </div>
-{{end}}
+{{if (len $.Stats.CisIn) }}
+<div class="m-2">
+  <p class="p-1 text-primary">Загружено КМ:</p>
+  <table class="table-auto border border-slate-400 border-separate border-spacing-0.5">
+    <tr>
+      <td class="m-1 border">{{$.Stats.File}}</td>
+      <td class="m-1 border">{{ len $.Stats.CisIn }}</td>
+    </tr>
+  </table> 
+</div>
 {{if eq $.Stats.State 1}}
-  <div>
-    <span class="p-1 text-primary">Выбран файл:</span>
-    <span>{{ $.Stats.File }}</span>
-  </div>
-  <div class="m-2">
-    <button class="btn btn-outline btn-default"
-            hx-get="/stats/search" hx-trigger="click" hx-target="#page" hx-swap="innerHTML" hx-indicator="#di-1">
-      Обработка
-    </button>
-    <button class="btn btn-outline btn-default"
-            hx-get="/stats/reset" hx-trigger="click" hx-target="#page" hx-swap="innerHTML">
-      Сброс
-    </button>
-
-  </div>
+<div class="" hx-get="/stats/progress" hx-trigger="every 300ms" hx-target="this" hx-swap="innerHTML"></div>
 {{end}}
-{{if eq $.Stats.State 2}}
-  <div>
-    <span class="p-1 text-primary">Выбран файл:</span>
-    <span >{{ $.Stats.File }}</span>
-  </div>
-<div hx-get="/stats/progress" hx-trigger="every 300ms" hx-target="this" hx-swap="innerHTML"></div>
 <div class="m-2">
   <button class="btn btn-outline btn-default"
+          hx-get="/stats/search" hx-trigger="click" hx-target="#page" hx-swap="innerHTML"
+          >
+    Обработка
+  </button>
+  <button class="btn btn-outline btn-default"
           hx-get="/stats/reset" hx-trigger="click" hx-target="#page" hx-swap="innerHTML">
     Сброс
   </button>
 </div>
 {{end}}
-{{if eq $.Stats.State 3}}
+{{if $.Stats.CisStatus}}
+  {{ template "chunk" . }}
   <div class="w-full mb-2">
-  <button class="btn btn-outline btn-default"
-          hx-get="/stats/reset" hx-trigger="click" hx-target="#page" hx-swap="innerHTML">
-    Сброс
-  </button>
   <table class="w-1/2 ml-1 border border-collapse">
     <caption>Статусы КМ</caption>
     <col style="width:20%">

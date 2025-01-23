@@ -1,6 +1,7 @@
 build/bin
 node_modules
 frontend/dist
+dist
 bun*
 # If you prefer the allow list template instead of the deny list, see community template:
 # https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
@@ -21,5 +22,10 @@ bun*
 # Dependency directories (remove the comment below to include it)
 # vendor/
 
+
 # Go workspace file
 go.work
+
+*.log
+*.db
+*.toml

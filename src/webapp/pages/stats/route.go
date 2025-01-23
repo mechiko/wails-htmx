@@ -5,6 +5,7 @@ import (
 	"firstwails/utility"
 	"firstwails/webapp/htmxutil"
 	"fmt"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 )
@@ -18,6 +19,8 @@ func (t *page) Route(e *echo.Echo) error {
 	e.GET("/stats/reset", t.reset)
 	e.GET("/stats/progress", t.progress)
 	e.GET("/stats/excel/:status", t.excel)
+	e.POST("/stats/upload", t.upload)
+	e.POST("/stats/chunk", t.chunk)
 	return nil
 }
 
@@ -90,7 +93,7 @@ func (t *page) search(c echo.Context) error {
 	model := t.Reductor().Model()
 	model.Stats.CisOut = nil
 	model.Stats.Errors = nil
-	model.Stats.State = 2
+	model.Stats.State = 1
 	t.UpdateModel(model, "stats.search")
 	// model = usecase.New(t).TrueClientSearch(model)
 	t.Search(model)
@@ -108,6 +111,7 @@ func (t *page) reset(c echo.Context) error {
 	// обновляем модель Stats
 	model := t.Reductor().Model()
 	model.Stats.File = ""
+	model.Stats.CisIn = nil
 	model.Stats.CisOut = nil
 	model.Stats.Errors = nil
 	model.Stats.State = 0
@@ -125,7 +129,7 @@ func (t *page) progress(c echo.Context) error {
 	var buf bytes.Buffer
 	// обновляем модель Stats
 	model := t.Reductor().Model().Stats
-	if model.State == 2 {
+	if model.State == 1 {
 		if err := t.Render(&buf, "progress", &model, c); err != nil {
 			t.Logger().Errorf("%s %s", modError, err.Error())
 			c.NoContent(204)
@@ -148,7 +152,11 @@ func (t *page) excel(c echo.Context) error {
 			arrStatus = append(arrStatus, cis.Cis)
 		}
 	}
-	if err := t.ToExcel(arrStatus, file); err != nil {
+	size := t.Reductor().Model().Stats.ExcelChunkSize
+	if size <= 0 {
+		size = 30000
+	}
+	if err := t.ToExcel(arrStatus, file, size); err != nil {
 		return c.String(200, err.Error())
 	}
 	t.Logger().Debugf("stats file selected: %s", file)
@@ -156,5 +164,20 @@ func (t *page) excel(c echo.Context) error {
 	out := fmt.Sprintf("записано %d кодов маркировки", len(arrStatus))
 	c.String(200, out)
 	// c.NoContent(204)
+	return nil
+}
+
+func (t *page) chunk(c echo.Context) error {
+	chunkSize := c.FormValue("chunk")
+	model := t.Reductor().Model()
+	model.Stats.ExcelChunkSize, _ = strconv.Atoi(chunkSize)
+	t.UpdateModel(model, "stats.chunk")
+	var buf bytes.Buffer
+	if err := t.Render(&buf, "chunk", &model, c); err != nil {
+		t.Logger().Errorf("%s %s", modError, err.Error())
+		c.NoContent(204)
+		return nil
+	}
+	c.HTML(200, buf.String())
 	return nil
 }

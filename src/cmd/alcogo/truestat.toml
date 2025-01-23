@@ -24,7 +24,7 @@ dbtype = 'sqlite'
 fsrarid = ''
 license = 'f7bc886d-bbcd-4ce9-845f-1209d87d406d'
 scantimer = 30
-startpage = 'dbinfo'
+startpage = 'stats'
 
 [config]
 dbname = ''
@@ -45,12 +45,12 @@ driver = 'mssql'
 driver = 'sqlite'
 
 [trueclient]
-deviceid = 'ae81d813-91dc-4af5-b503-d90a79fef2e8'
-hashkey = 'bf99fa930ac4efa91766e8dbd42029974dcf1954'
+deviceid = '5c4cfe79-1439-465a-b376-3339b36ced07'
+hashkey = 'c05850bd845b9dd6683f11635f50f73ef3a83130'
 layoututc = '2006-01-02T15:04:05'
-omsid = '32ffcd04-f054-478e-90f7-b22cc27f97ed'
-standgis = 'markirovka.crpt.ru'
-standsuz = 'suzgrid.crpt.ru'
+omsid = '32539e31-c671-4462-8443-3d92b038b0f9'
+standgis = 'markirovka.sandbox.crptech.ru'
+standsuz = 'suz.sandbox.crptech.ru'
 
 [trueznak]
 dbname = ''

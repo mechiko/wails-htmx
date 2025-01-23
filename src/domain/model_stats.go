@@ -13,6 +13,7 @@ type stats struct {
 	Chunks              int      // куски
 	CisOut              CisSlice // список CIS полученных
 	CisStatus           map[string]int
+	ExcelChunkSize      int      // размер куска для выгрузки в файл ексель
 	IsConnectedTrueZnak bool     // есть подключение к ЧЗ
 	IsTrueZnakA3        bool     // подключена БД ЧЗ А3
 	OrderId             int      // номер заказа в ЧЗ А3

@@ -18,3 +18,6 @@ var footerTmpl string
 
 //go:embed templates\progress.html
 var progressTmpl string
+
+//go:embed templates\chunk.html
+var chunkTmpl string

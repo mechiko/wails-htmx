@@ -31,7 +31,7 @@ console = false
 fsrarid = ""
 dbtype = "sqlite"
 scantimer = 30
-startpage = "dbinfo"
+startpage = "stats"
 
 # конфигурации для баз данных
 # пустые имена файлов означают попытку поиска бд

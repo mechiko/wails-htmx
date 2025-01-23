@@ -51,7 +51,7 @@ func (u *usecase) InitTrueClient(model domain.TrueClient) (out domain.TrueClient
 				if auTime, err := time.Parse(layout, timeLast); err != nil {
 					u.Logger().Errorf("%s %s", modError, err.Error())
 				} else {
-					authTime = auTime
+					authTime = auTime.Add(-10 * time.Hour)
 				}
 			}
 			if hash, err := u.Repo().DbConfig().Key("certificate_thumbprint"); err != nil {

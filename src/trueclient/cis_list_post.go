@@ -37,7 +37,7 @@ func (t *trueClient) CisesListPost(target interface{}, cises []string) error {
 	defer resp.Body.Close()
 	buf, _ := io.ReadAll(resp.Body)
 	if resp.StatusCode != 200 {
-		return fmt.Errorf("status %d %s", resp.StatusCode, buf)
+		return fmt.Errorf("status %d", resp.StatusCode)
 	}
 	// потоковый Unmarshal
 	// t.Logger().Debugf("body:%s", buf)

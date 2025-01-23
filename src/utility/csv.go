@@ -3,6 +3,7 @@ package utility
 import (
 	"bufio"
 	"encoding/csv"
+	"io"
 	"log"
 	"os"
 )
@@ -33,6 +34,18 @@ func ReadTextStringArray(filePath string) []string {
 
 	arr := make([]string, 0)
 	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		arr = append(arr, scanner.Text())
+	}
+	if err := scanner.Err(); err != nil {
+		log.Fatal(err)
+	}
+	return arr
+}
+
+func ReadTextStringArrayReader(file io.Reader) []string {
+	arr := make([]string, 0)
+	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		arr = append(arr, scanner.Text())
 	}

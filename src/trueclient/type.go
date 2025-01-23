@@ -77,6 +77,61 @@ func New(a domain.IApp, model domain.TrueClient) (s *trueClient) {
 
 	var netTransport = &http.Transport{
 		Dial: (&net.Dialer{
+			// Timeout: 20 * time.Second,
+		}).Dial,
+		// TLSHandshakeTimeout: 20 * time.Second,
+	}
+	var netClient = &http.Client{
+		Timeout:   time.Second * 120,
+		Transport: netTransport,
+	}
+	s = &trueClient{
+		IApp:       a,
+		httpClient: netClient,
+		layout:     model.LayoutUTC,
+		// logger:     a.Logger(),
+		logger:   zaplog.TrueSugar,
+		urlSUZ:   model.StandSUZ,
+		urlGIS:   model.StandGIS,
+		tokenGis: model.TokenGIS,
+		tokenSuz: model.TokenSUZ,
+		hash:     model.HashKey,
+		deviсeId: model.DeviceID,
+		omsId:    model.OmsID,
+		authTime: model.AuthTime,
+		errors:   make([]string, 0),
+	}
+	s.Save(model)
+	if (s.deviсeId) == "" {
+		panic(fmt.Sprintf("%s %s", modError, "нужна настройка конфигурации"))
+	}
+	if (s.omsId) == "" {
+		panic(fmt.Sprintf("%s %s", modError, "нужна настройка конфигурации"))
+	}
+	if (s.hash) == "" {
+		panic(fmt.Sprintf("%s %s", modError, "нужна настройка конфигурации"))
+	}
+	// проверяем необходимость авторизации пингом СУЗ
+	if s.CheckNeedAuth() {
+		if err := s.AuthGisSuz(); err != nil {
+			panic(fmt.Sprintf("%s %s", modError, err.Error()))
+		}
+		// сохраняем конфиг после авторизации
+		s.Save(model)
+	}
+	return s
+}
+
+func NewPing(a domain.IApp, model domain.TrueClient) (s *trueClient) {
+	defer func() {
+		if r := recover(); r != nil {
+			errStr := fmt.Sprintf("%s panic %v", modError, r)
+			s.errors = append(s.errors, errStr)
+		}
+	}()
+
+	var netTransport = &http.Transport{
+		Dial: (&net.Dialer{
 			Timeout: 5 * time.Second,
 		}).Dial,
 		TLSHandshakeTimeout: 5 * time.Second,
@@ -112,7 +167,7 @@ func New(a domain.IApp, model domain.TrueClient) (s *trueClient) {
 		panic(fmt.Sprintf("%s %s", modError, "нужна настройка конфигурации"))
 	}
 	// проверяем необходимость авторизации пингом СУЗ
-	if s.CheckNeedAuth() {
+	if s.CheckNeedAuthPing() {
 		if err := s.AuthGisSuz(); err != nil {
 			panic(fmt.Sprintf("%s %s", modError, err.Error()))
 		}

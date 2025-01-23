@@ -40,9 +40,8 @@ func (t *page) Search(model domain.Model) {
 		// после авторизации обновляем модель
 
 		chunkSize := 1000
-		allCises := utility.ReadTextStringArray(model.Stats.File)
-		chunks := utility.SplitStringSlice2Chunks(allCises, chunkSize)
-		t.Logger().Debugf("%s len allCises %d chunks %d", modError, len(allCises), len(chunks))
+		chunks := utility.SplitStringSlice2Chunks(model.Stats.CisIn, chunkSize)
+		t.Logger().Debugf("%s len allCises %d chunks %d", modError, len(model.Stats.CisIn), len(chunks))
 		if err := t.Repo().DbLite().CisRequestDeleteAll(); err != nil {
 			model.Stats.Errors = append(model.Stats.Errors, tc.Errors()...)
 			t.Logger().Debugf("%s trueclient authorised errors %d", modError, len(tc.Errors()))
@@ -86,7 +85,7 @@ func (t *page) Search(model domain.Model) {
 		t.Logger().Debugf("%s CisList %d", modError, len(model.Stats.CisOut))
 		model.Stats.CisOut = cisOut
 		model.Stats.CisStatus = cisStatus
-		model.Stats.State = 3
+		model.Stats.State = 0
 		t.UpdatePage(model, "stats", "stats.search")
 	}()
 }

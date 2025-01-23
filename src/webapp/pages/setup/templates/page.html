@@ -1,11 +1,33 @@
-<!-- Здесь выводятся компоненты по роутингу если нет глобальной ошибки -->
 <!-- domain.TrueClient -->
+{{if (len $.Errors)}}
+<div id="modal" class="flex flex-col items-center" 
+  _="on closeModal add .closing then wait for animationend then remove me">
+	<div class="modal-underlay" _="on click trigger closeModal"></div>
+	<div class="modal-content w-2/3 mt-20 min-h-60">
+        Ошибки:
+        {{ range $j, $row := $.Errors }}
+        <div class="text-red-300">{{$row}}</div>
+        {{ end }}
+  </div>
+</div>
+{{end}}
 <div id="page">
   <div class="ml-2">
     {{if .TokenGIS}}<span class="text-primary">Токен ГИС:</span><span class="">{{printf "%.40s" .TokenGIS}}...</span><br>{{end}}
     {{if .TokenSUZ}}<span class="text-primary">Токен СУЗ:</span><span class="">{{printf "%.40s" .TokenSUZ}}</span><br>{{end}}
     {{if not .AuthTime.IsZero }}<span class="text-primary">Время получения:</span><span class="">{{printf "%.19s" .AuthTime}}</span><br>{{end}}
   </div>
+{{if .UseConfigDB}}
+<div class="m-2">
+{{ template "configdb" . }}
+<span class="text-primary">OMS ID:</span><span class="">{{.OmsID}}...</span><br>
+<span class="text-primary">Устройство:</span><span class="">{{.DeviceID}}...</span><br>
+<span class="text-primary">Сертификат:</span><span class="">{{$.HashKey}}...</span><br>
+<div class="m-4">
+  <button class="btn btn-outline btn-primary" hx-get="/setup/ping" hx-target="#page" hx-swap="outerHTML">Ping SUZ</button>
+</div>
+</div>
+{{else}}
   <form hx-post="/setup/save" hx-target="#page" hx-swap="outerHTML">
       {{ template "configdb" . }}
       {{ template "omsid" . }}
@@ -28,6 +50,7 @@
       <button class="btn btn-outline btn-primary" hx-get="/setup/ping" hx-target="#page" hx-swap="outerHTML">Ping SUZ</button>
     </div>
   </form>
+{{end}}
 
 {{if .PingSuz}}
   <div class="ml-2">

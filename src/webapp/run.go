@@ -25,7 +25,7 @@ func (a *webapp) Run(ctx context.Context, cancel context.CancelFunc) error {
 		for range ticker.C {
 			dur := time.Since(a.readyPingLastTime).Seconds()
 			if dur > durationTimePingOut {
-				a.Logger().Debugf("ping timeout duration %v", dur)
+				// a.Logger().Debugf("ping timeout duration %v", dur)
 				if domain.Mode != "development" {
 					a.Logger().Errorf("ping not present app shutdown!")
 					cancel()
