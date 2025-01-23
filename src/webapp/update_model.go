@@ -14,7 +14,7 @@ func (w *webapp) UpdateModel(m domain.Model, src string) {
 // редуктор так обновляет только модель у себя
 func (w *webapp) UpdateTrueClientModel(m domain.TrueClient, src string) {
 	msg := domain.Message{}
-	msg.Cmd = "model"
+	msg.Cmd = "trueclient"
 	msg.Sender = "webapp.UpdateModel " + src
 	msg.Model = &domain.Model{}
 	msg.Model.TrueClient = m

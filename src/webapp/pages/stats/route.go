@@ -170,7 +170,11 @@ func (t *page) excel(c echo.Context) error {
 func (t *page) chunk(c echo.Context) error {
 	chunkSize := c.FormValue("chunk")
 	model := t.Reductor().Model()
-	model.Stats.ExcelChunkSize, _ = strconv.Atoi(chunkSize)
+	if size, err := strconv.Atoi(chunkSize); err != nil {
+		model.Stats.ExcelChunkSize = 30000
+	} else {
+		model.Stats.ExcelChunkSize = size
+	}
 	t.UpdateModel(model, "stats.chunk")
 	var buf bytes.Buffer
 	if err := t.Render(&buf, "chunk", &model, c); err != nil {

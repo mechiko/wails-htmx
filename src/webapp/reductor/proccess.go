@@ -12,7 +12,7 @@ func (rdc *reductor) proccessMessage(msg domain.Message) {
 	defer rdc.mutex.Unlock()
 
 	rdc.logger.Debugf("%s proccess %s from %s len chain %d", modError, msg.Cmd, msg.Sender, len(rdc.in))
-	rdc.logger.Debugf("%s trueclient tokenSUZ %s", modError, rdc.model.TrueClient.TokenSUZ)
+	rdc.logger.Debugf("%s excel chunk size %s", modError, rdc.model.Stats.ExcelChunkSize)
 	// если в сообщении модель nil берем текущую
 	if msg.Model == nil {
 		msg.Model = rdc.model
@@ -23,18 +23,12 @@ func (rdc *reductor) proccessMessage(msg domain.Message) {
 		mdl := *msg.Model
 		rdc.model = &mdl
 	case "trueclient":
-		// set model to reductor
+		// set model to reductor only trueclient struct
 		mdl := *msg.Model
 		rdc.model.TrueClient = mdl.TrueClient
 	case "startup":
 		mdl := *msg.Model
 		rdc.model = &mdl
-		// msg2 := domain.Message{
-		// 	Sender: "reductor.StartUp",
-		// 	Cmd:    rdc.ActivePage(),
-		// 	Model:  msg.Model,
-		// }
-		// rdc.Effects().ChanIn() <- msg2
 	case "dbinfo":
 		mdl := *msg.Model
 		_, newModel := rdc.UpdaterGUI("dbinfo", mdl)
