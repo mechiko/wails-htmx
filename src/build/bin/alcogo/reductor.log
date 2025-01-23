@@ -1,6 +1,0 @@
-2024-12-27 10:43:04	debug	effects/proccess.go:12	pkg:effects proccess startup from webapp.Startup len chain 0
-2024-12-27 10:43:04	debug	reductor/proccess.go:14	pkg:reductor proccess startup from effects.startup len chain 0
-2024-12-27 10:43:04	debug	effects/proccess.go:12	pkg:effects proccess home from reductor.Startup len chain 0
-2024-12-27 10:43:04	debug	reductor/proccess.go:14	pkg:reductor proccess home from effects.home len chain 0
-2024-12-27 10:43:09	debug	effects/proccess.go:12	pkg:effects proccess stats from webapp.SetActivePage len chain 0
-2024-12-27 10:43:09	debug	reductor/proccess.go:14	pkg:reductor proccess stats from effects.stats len chain 0
