@@ -29,3 +29,4 @@ go.work
 *.log
 *.db
 *.toml
+*.json
