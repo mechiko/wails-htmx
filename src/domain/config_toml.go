@@ -4,7 +4,6 @@ var TomlConfig = []byte(`
 # This is a TOML document.
 name=""
 hostname = "127.0.0.1"
-saveconfig = false
 utmhost = "localhost"
 utmport = "8088"
 browser = ""
@@ -64,8 +63,7 @@ type Configuration struct {
 	HostPort    string `json:"hostport"`
 	UtmHost     string `json:"utmhost"`
 	UtmPort     string `json:"utmport"`
-	SaveConfig  bool   `json:"saveconfig"` // сохранять конфиг при запуске приложения если его нет отключено!
-	ConfigDB    bool   `json:"configdb"`   // не использовать config.db при его наличии в каталоге
+	ConfigDB    bool   `json:"configdb"` // не использовать config.db при его наличии в каталоге
 	Output      string
 	Export      string
 	Browser     string              `json:"browser"`

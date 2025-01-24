@@ -82,7 +82,7 @@ func New(a domain.IApp, model domain.TrueClient) (s *trueClient) {
 		// TLSHandshakeTimeout: 20 * time.Second,
 	}
 	var netClient = &http.Client{
-		Timeout:   time.Second * 120,
+		// Timeout:   time.Second * 120,
 		Transport: netTransport,
 	}
 	s = &trueClient{

@@ -5,6 +5,7 @@ import (
 	"crypto/sha1"
 	"crypto/x509"
 	"fmt"
+	"strings"
 	"syscall"
 	"unsafe"
 
@@ -57,5 +58,5 @@ func fing(c *x509.Certificate) string {
 	for _, f := range fingerprint {
 		fmt.Fprintf(&buf, "%02X", f)
 	}
-	return buf.String()
+	return strings.ToLower(buf.String())
 }

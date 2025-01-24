@@ -35,7 +35,7 @@
       <div class="pl-4 flex items-center gap-2">
           <span class="text-primary">КЭП:</span>
           <select class="w-2/3 select select-bordered" name="hashkey">
-            <option value="empty" selected>-- выберите сертификат --</option>
+            <option value="empty">-- выберите сертификат --</option>
   {{ range $j, $row := $.MyStore }}
   {{if eq $.HashKey $j}}
             <option value="{{$j}}" selected>{{$row}}</option>
