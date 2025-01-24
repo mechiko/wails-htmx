@@ -13,7 +13,7 @@ type ITrueClient interface {
 	TokenGIS() string
 	TokenSUZ() string
 	AuthTime() time.Time
-	Save(TrueClient)
+	Save(*TrueClient)
 	Errors() []string
 	PingSuzInfo() *PingSuzInfo
 }

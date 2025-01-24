@@ -9,7 +9,7 @@ import (
 
 // перед созданием труеклиента
 // берем данные из config.db если настроено (потому что они там обновляются в любое время)
-func (a *webapp) StartTrueClient(model domain.Model) domain.ITrueClient {
+func (a *webapp) StartTrueClient(model *domain.Model) domain.ITrueClient {
 	defer func() {
 		if r := recover(); r != nil {
 			errStr := fmt.Sprintf("%s panic %v", modError, r)
@@ -17,24 +17,17 @@ func (a *webapp) StartTrueClient(model domain.Model) domain.ITrueClient {
 		}
 	}()
 	// получаем обновляем модель для trueclient
+	// всегда инициализируем вдруг изменились конфиг.дб алкохелпа
 	model.TrueClient = usecase.New(a).InitTrueClient(model.TrueClient)
 	// создаем клиента и если надо авторизуемся
-	// там же сохраняется в конфиг если происходит обновление токенов
-	tc := trueclient.New(a, model.TrueClient)
+	// состояние модели обновляется автоматически
+	tc := trueclient.New(a, &model.TrueClient)
 	if len(tc.Errors()) > 0 {
 		model.Error = append(model.Error, tc.Errors()...)
 		a.Logger().Errorf("%s trueclient authorised errors %d", modError, len(tc.Errors()))
 	}
 	// после авторизации обновляем модель токенами и временем
-	model.TrueClient.TokenGIS = tc.TokenGIS()
-	model.TrueClient.TokenSUZ = tc.TokenSUZ()
-	model.TrueClient.AuthTime = tc.AuthTime()
-	a.UpdateTrueClientModel(model.TrueClient, "webapp.starttrueclient")
-
-	// сохраняем в конфиге идентификаторы и ключ
-	_ = a.Config().Set("trueclient.deviceid", model.TrueClient.DeviceID, true)
-	_ = a.Config().Set("trueclient.omsid", model.TrueClient.OmsID, true)
-	_ = a.Config().Set("trueclient.hashkey", model.TrueClient.HashKey, true)
+	a.UpdateTrueClientModel(model.TrueClient, "webapp.startTrueClient")
 
 	return tc
 }

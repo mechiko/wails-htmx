@@ -11,7 +11,7 @@ func (t *page) Route(e *echo.Echo) error {
 	e.POST("/setup/configdb", t.ValidateConfigDB)
 	e.POST("/setup/save", t.Save)
 	e.GET("/setup/ready", t.Ready)
-	e.GET("/setup/ping", t.Ping)
+	e.POST("/setup/ping", t.Ping)
 	return nil
 }
 

@@ -47,7 +47,8 @@
       </div>
     <div class="m-4">
       {{if not .UseConfigDB}}<input type="submit" value="Сохранить" class="btn btn-outline btn-primary"/>{{end}}
-      <button class="btn btn-outline btn-primary" hx-get="/setup/ping" hx-target="#page" hx-swap="outerHTML">Ping SUZ</button>
+      <!-- <input value="Пинг СУЗ" class="btn btn-outline btn-primary"/> -->
+      <button class="btn btn-outline btn-primary" hx-post="/setup/ping" hx-target="#page" hx-swap="outerHTML">Ping SUZ</button>
     </div>
   </form>
 {{end}}

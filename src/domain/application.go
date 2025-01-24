@@ -25,7 +25,7 @@ type IApp interface {
 	UpdatePage(Model, string, string)
 	Pwd() string
 	Output() string
-	StartTrueClient(model Model) ITrueClient
+	StartTrueClient(*Model) ITrueClient
 	// Render(w io.Writer, name string, data interface{}, c echo.Context) error
 	StartDateString() string
 	EndDateString() string

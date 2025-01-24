@@ -67,7 +67,9 @@ var _ domain.ITrueClient = &trueClient{}
 // инициализируем структурой с полями
 // проверка необходимиости авторизации и ее выполнение
 // паника если ошибки авторизации
-func New(a domain.IApp, model domain.TrueClient) (s *trueClient) {
+// model указатель и изменяется авторизацией
+// не отправляется в редуктор
+func New(a domain.IApp, model *domain.TrueClient) (s *trueClient) {
 	defer func() {
 		if r := recover(); r != nil {
 			errStr := fmt.Sprintf("%s panic %v", modError, r)
@@ -132,12 +134,12 @@ func NewPing(a domain.IApp, model domain.TrueClient) (s *trueClient) {
 
 	var netTransport = &http.Transport{
 		Dial: (&net.Dialer{
-			Timeout: 5 * time.Second,
+			// Timeout: 5 * time.Second,
 		}).Dial,
-		TLSHandshakeTimeout: 5 * time.Second,
+		// TLSHandshakeTimeout: 5 * time.Second,
 	}
 	var netClient = &http.Client{
-		Timeout:   time.Second * 120,
+		// Timeout:   time.Second * 120,
 		Transport: netTransport,
 	}
 	s = &trueClient{
@@ -156,7 +158,6 @@ func NewPing(a domain.IApp, model domain.TrueClient) (s *trueClient) {
 		authTime: model.AuthTime,
 		errors:   make([]string, 0),
 	}
-	s.Save(model)
 	if (s.deviсeId) == "" {
 		panic(fmt.Sprintf("%s %s", modError, "нужна настройка конфигурации"))
 	}
@@ -172,7 +173,7 @@ func NewPing(a domain.IApp, model domain.TrueClient) (s *trueClient) {
 			panic(fmt.Sprintf("%s %s", modError, err.Error()))
 		}
 		// сохраняем конфиг после авторизации
-		s.Save(model)
+		s.Save(&model)
 	}
 	return s
 }

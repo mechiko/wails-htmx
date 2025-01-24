@@ -11,15 +11,16 @@ import (
 // для страницы Setup router() Save()
 func (u *usecase) InitTrueClient(model domain.TrueClient) (out domain.TrueClient) {
 	var layout = "2006-01-02 15:04:05.000000"
-	// model := u.reductor.Model()
-	// проверяем базу config.db
-	tokenGIS := ""
-	tokenSUZ := ""
-	authTime := time.Time{}
-	hashKey := ""
-	deviceId := ""
-	omsId := ""
-	useConfiDB := false
+	// берем основу переданную модель
+	// пустая модель будет изначальной или еще нужен сброс
+	tokenGIS := model.TokenGIS
+	tokenSUZ := model.TokenSUZ
+	authTime := model.AuthTime
+	hashKey := model.HashKey
+	deviceId := model.DeviceID
+	omsId := model.OmsID
+	useConfiDB := model.UseConfigDB
+	model.PingSuz = nil
 	//  берем из конфига программы дальше поменяется если настроено
 	if u.Configuration().TrueClient.HashKey != "" {
 		hashKey = u.Configuration().TrueClient.HashKey
