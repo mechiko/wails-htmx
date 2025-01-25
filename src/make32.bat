@@ -4,8 +4,7 @@ setlocal
   SET GOOS=windows
   SET CGO_ENABLED=1
 
-  copy /y go.mod.32 go.mod
-  go mod tidy
+  go mod tidy -go 1.20 -v
 
   DEL /Q ..\dist\stats32.exe ..\dist\stats_32.exe
 

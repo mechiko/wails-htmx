@@ -1,7 +1,7 @@
 <div hx-target="this" hx-swap="outerHTML">
   <label class="input input-bordered flex items-center gap-2">
     <span class="text-primary">Устройство</span>
-    <input name="deviceid" class="grow" hx-post="/setup/deviceid" value="{{.DeviceID}}">
+    <input id="deviceid" name="deviceid" class="grow" hx-post="/setup/deviceid" value="{{.DeviceID}}">
     {{if (index .Validates "deviceid")}}
     <div class="grow text-red-300">{{index .Validates "deviceid"}}</div> 
     {{end}}

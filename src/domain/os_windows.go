@@ -2,9 +2,9 @@
 
 package domain
 
-const RootPathTemplateDebug = `E:\src\goproj\!!firstwails\src`
+// const RootPathTemplateDebug = `E:\src\goproj\!!firstwails\src`
 
-// const RootPathTemplateDebug = `C:\!src\wails-htmx\src`
+const RootPathTemplateDebug = `C:\!src\!wails-htmx\src`
 
 var (
 	ConfigPath       = "./truestat"

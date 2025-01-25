@@ -20,15 +20,19 @@
 {{if .UseConfigDB}}
 <div class="m-2">
 {{ template "configdb" . }}
+<form id="form1">
+  <input type="hidden" id="omsid" name="omsid" class="grow" value="{{.OmsID}}">
+  <input type="hidden" id="deviceid" name="deviceid" class="grow" value="{{.DeviceID}}">
+</form>
 <span class="text-primary">OMS ID:</span><span class="">{{.OmsID}}...</span><br>
 <span class="text-primary">Устройство:</span><span class="">{{.DeviceID}}...</span><br>
 <span class="text-primary">Сертификат:</span><span class="">{{$.HashKey}}...</span><br>
 <div class="m-4">
-  <button class="btn btn-outline btn-primary" hx-get="/setup/ping" hx-target="#page" hx-swap="outerHTML">Ping SUZ</button>
+  <button class="btn btn-outline btn-primary" hx-post="/setup/ping" hx-target="#page" hx-swap="outerHTML" hx-include="#form1">Ping SUZ</button>
 </div>
 </div>
 {{else}}
-  <form hx-post="/setup/save" hx-target="#page" hx-swap="outerHTML">
+  <form id="form1" hx-post="/setup/save" hx-target="#page" hx-swap="outerHTML">
       {{ template "configdb" . }}
       {{ template "omsid" . }}
       {{ template "deviceid" . }}
@@ -48,10 +52,12 @@
     <div class="m-4">
       {{if not .UseConfigDB}}<input type="submit" value="Сохранить" class="btn btn-outline btn-primary"/>{{end}}
       <!-- <input value="Пинг СУЗ" class="btn btn-outline btn-primary"/> -->
-      <button class="btn btn-outline btn-primary" hx-post="/setup/ping" hx-target="#page" hx-swap="outerHTML">Ping SUZ</button>
+      <button class="btn btn-outline btn-primary" 
+      hx-post="/setup/ping" hx-target="#page" hx-swap="outerHTML"
+      hx-include="#form1" >Ping SUZ</button>
     </div>
   </form>
-{{end}}
+  {{end}}
 
 {{if .PingSuz}}
   <div class="ml-2">

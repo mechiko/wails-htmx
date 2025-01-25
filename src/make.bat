@@ -7,7 +7,7 @@ setlocal
   rem   copy /y app64\resource.syso_64 app64\resource.syso
   DEL /Q ..\dist\stats.exe ..\dist\stats_64.exe
 
-  go mod tidy
+  go mod tidy -go 1.23 -v
 
   go build -ldflags="-s -w -X 'firstwails/domain.Mode=production'" -o ../dist/stats_64.exe ./cmd/alcogo
   upx --force-overwrite -o ../dist/stats.exe ../dist/stats_64.exe
