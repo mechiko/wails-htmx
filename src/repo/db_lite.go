@@ -1,9 +1,11 @@
 package repo
 
 import (
+	"database/sql"
+	"firstwails/migrations"
 	"fmt"
 
-	"firstwails/repo/lite/version"
+	"github.com/pressly/goose/v3"
 )
 
 // при инициализации приложения этот метод вызывается однажды и прописывает объект доступа
@@ -14,5 +16,27 @@ func (r *repository) lite() (err error) {
 			err = fmt.Errorf("repo:lite panic %v", r)
 		}
 	}()
-	return version.CheckVersionDb(r)
+	// return version.CheckVersionDb(r)
+	if r.dbs.Lite().Absent() {
+		return fmt.Errorf("database lite.db absent")
+	}
+	if db, err := r.dbs.LiteSvc().Db(); err != nil {
+		return fmt.Errorf("%s %w", modError, err)
+	} else {
+		if err := makeMigrations(db); err != nil {
+			return fmt.Errorf("%s %w", modError, err)
+		}
+	}
+	return nil
+}
+
+func makeMigrations(DB *sql.DB) error {
+	goose.SetBaseFS(migrations.MigrationFiles)
+	if err := goose.SetDialect("sqlite3"); err != nil {
+		return err
+	}
+	if err := goose.Up(DB, "."); err != nil {
+		return err
+	}
+	return nil
 }

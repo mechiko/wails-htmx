@@ -4,9 +4,9 @@
 package liteboil
 
 var TableNames = struct {
-	CisRequest string
-	Dboptions  string
+	CisRequest     string
+	GooseDBVersion string
 }{
-	CisRequest: "cis_request",
-	Dboptions:  "dboptions",
+	CisRequest:     "cis_request",
+	GooseDBVersion: "goose_db_version",
 }

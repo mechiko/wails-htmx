@@ -16,6 +16,7 @@ func NewDbInfoLite(cfg *domain.Configuration, config string, scan bool) (di *dbI
 	defer func() {
 		if r := recover(); r != nil {
 			di.file = ""
+			di.absent = true
 			panic(r)
 		}
 	}()

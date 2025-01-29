@@ -15,6 +15,7 @@ func NewDbInfoA3(cfg *domain.Configuration, dbType string) (di *dbInfo) {
 	defer func() {
 		if r := recover(); r != nil {
 			di.file = ""
+			di.absent = true
 			panic(r)
 		}
 	}()

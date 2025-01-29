@@ -2,12 +2,53 @@
 # set positional-arguments
 shebang := 'pwsh.exe'
 # Variables
-db_path := "db.sqlite"
-migrations_dir := "migrations"
+db_path := "./migrations/lite.db"
+boil_db_path := "../boiler/lite.db"
+boil_path := "../boiler"
+boil_module_dst := "E:/src/goproj/!!firstwails/src/repo/lite/liteboil"
+boil_module_src := "E:/src/goproj/!!firstwails/Boiler/liteboil"
+boil_config_toml := "sqlboiler.toml"
+migrations_dir := "./migrations"
 css_input := "tailwind.css"
 css_output := "embeded/root/assets/css/tailwind.css"
-dev_port := "4000"
-browser_sync_port := "4001"
+# dev_port := "4000"
+# browser_sync_port := "4001"
+
+default:
+  just --list
+
+# Build production CSS
+build:
+    tailwindcss -i {{css_input}} -o {{css_output}} --minify
+
+# Run database migrations
+migrate cmnd="up":
+    #!{{shebang}}
+    Remove-Item {{db_path}}
+    sqlite3 {{db_path}} ""
+    goose sqlite3 {{db_path}} {{cmnd}} --dir={{migrations_dir}}
+
+boilup cmnd="up": 
+    #!{{shebang}}
+    if (Test-Path {{boil_db_path}}) {
+      Remove-Item {{boil_db_path}}
+    }
+    sqlite3 {{boil_db_path}} ""
+    goose sqlite3 {{boil_db_path}} {{cmnd}} --dir={{migrations_dir}}
+    Set-Location {{boil_path}}
+    if (Test-Path {{boil_module_src}}) {
+      Remove-Item -Recurse -Force {{boil_module_src}}
+    }
+    sqlboiler -c {{boil_config_toml}} --wipe --no-tests sqlite3
+    if(-Not $?) { exit }
+    Remove-Item -Recurse -Force {{boil_module_dst}}
+    Copy-Item {{boil_module_src}} -Filter *.* -Destination {{boil_module_dst}} -Recurse
+
+# Create new migration
+makemigrations name:
+    # goose sqlite3 {{db_path}} create {{name}} sql --dir={{migrations_dir}}
+    # goose -s create {{name}} sql --dir={{migrations_dir}}
+    goose create {{name}} sql --dir={{migrations_dir}}
 
 win32:
     #!{{shebang}}
@@ -19,7 +60,7 @@ win32:
     Set-Content -Path go.mod -Value (get-content -Path go.mod | Select-String -Pattern 'toolchain' -NotMatch)
     go mod tidy -go 1.20 -v
     if(-Not $?) { exit }
-    rm ..\dist\stats32.exe, ..\dist\stats_32.exe 2>$null
+    Remove-Item ..\dist\stats32.exe, ..\dist\stats_32.exe 2>$null
     go build -ldflags="-s -w -X 'firstwails/domain.Mode=production'" -o ../dist/stats_32.exe ./cmd/alcogo
     if(-Not $?) { exit }
     upx --force-overwrite -o ../dist/stats32.exe ../dist/stats_32.exe
@@ -32,7 +73,7 @@ win64:
     $env:CGO_ENABLED = 1
     go mod tidy -go 1.23 -v
     if(-Not $?) { exit }
-    rm ..\dist\stats.exe, ..\dist\stats_64.exe 2>$null
+    Remove-Item ..\dist\stats.exe, ..\dist\stats_64.exe 2>$null
     go build -ldflags="-s -w -X 'firstwails/domain.Mode=production'" -o ../dist/stats_64.exe ./cmd/alcogo
     if(-Not $?) { exit }
     upx --force-overwrite -o ../dist/stats.exe ../dist/stats_64.exe

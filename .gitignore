@@ -1,23 +1,111 @@
-build/bin
-node_modules
-frontend/dist
-dist
-bun*
-# If you prefer the allow list template instead of the deny list, see community template:
-# https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
-#
-# Binaries for programs and plugins
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
+.*
+
+!.gitignore
+!.*.gitignore
+
+!.keep
+!.*.keep
+
+!.example
+!.examples
+
+!.example[-_.]*
+!.examples[-_.]*
+
+!.*[-_.]example
+!.*[-_.]examples
+
+!.*[-_.]example[-_.]*
+!.*[-_.]examples[-_.]*
+
+!.*[-_.]argon2
+!.*[-_.]aes
+!.*[-_.]gpg
+!.*[-_.]pgp
+
+.env
+.env[-_.]*
+
+env
+env[-_.]*
+
+.envs
+.envs[-_.]*
+
+envs
+envs[-_.]*
+
+!.env[-_.]example
+!.env[-_.]examples
+
+!.env[-_.]example[-_.]*
+!.env[-_.]examples[-_.]*
+
+!env[-_.]example
+!env[-_.]examples
+
+!env[-_.]example[-_.]*
+!env[-_.]examples[-_.]*
+
+!.env.argon2
+!.env.aes
+!.env.gpg
+!.env.pgp
+
+!.env[-_.]*.argon2
+!.env[-_.]*.aes
+!.env[-_.]*.gpg
+!.env[-_.]*.pgp
+
+!env.argon2
+!env.aes
+!env.gpg
+!env.pgp
+
+!env[-_.]*.argon2
+!env[-_.]*.aes
+!env[-_.]*.gpg
+!env[-_.]*.pgp
+
+backup
+backups
+
+*[-_.]*backup
+*[-_.]*backups
+
+backup[-_.]**
+backups[-_.]**
+
+tmp
+temp
+
+*[-_.]*tmp
+*[-_.]*temp
+
+tmp[-_.]**
+temp[-_.]**
+
+log
+logs
+
+*[-_.]*log
+*[-_.]*logs
+
+log[-_.]**
+logs[-_.]**
+
+cache
+caches
+
+*[-_.]*cache
+*[-_.]*caches
+
+cache[-_.]**
+caches[-_.]**
+
 
 # Test binary, built with `go test -c`
 *.test
-
-# Output of the go coverage tool, specifically when used with LiteIDE
-*.out
 
 # Dependency directories (remove the comment below to include it)
 vendor/
@@ -26,7 +114,5 @@ vendor/
 # Go workspace file
 go.work
 
-*.log
 *.db
 *.toml
-# *.json

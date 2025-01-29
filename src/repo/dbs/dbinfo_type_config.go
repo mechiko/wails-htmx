@@ -14,6 +14,7 @@ func NewDbInfoConfig(cfg *domain.Configuration) (di *dbInfo) {
 	defer func() {
 		if r := recover(); r != nil {
 			di.file = ""
+			di.absent = true
 			panic(r)
 		}
 	}()

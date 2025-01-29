@@ -13,6 +13,7 @@ func NewDbInfo4z(cfg *domain.Configuration, name string, dbType string) (di *dbI
 	defer func() {
 		if r := recover(); r != nil {
 			di.file = ""
+			di.absent = true
 			panic(r)
 		}
 	}()
