@@ -1,0 +1,13 @@
+<!-- если необходима перезагрузка весь элемент прилетит с сервера и заменится -->
+<div hx-get="/gtins/ready" hx-trigger="every 300ms" hx-target="this" hx-swap="outerHTML"
+  _="init log 'set title' then set title of document to '{{$.Gtins.Title}}'">
+  <div class="flex w-screen no-print">
+    {{ template "navbar" }}
+  </div>
+  <div id="page">
+    {{ template "page" . }}
+  </div>
+  <div class="flex w-screen no-print">
+    {{ template "footer" }}
+  </div>
+</div>

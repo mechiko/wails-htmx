@@ -63,6 +63,16 @@ func (a *webapp) ActivePage() string {
 	return a.activePage
 }
 
+func (a *webapp) ActivePageTitle() string {
+	if a.pages == nil {
+		return ""
+	}
+	if info := a.pages.Info(a.activePage); info != nil {
+		return info.MenuTitle
+	}
+	return ""
+}
+
 func (a *webapp) SetReloadActivePage(b bool) {
 	a.reloadActivePage = b
 }

@@ -9,6 +9,7 @@ type Model struct {
 	// page models
 	DbInfo     dbInfo
 	Stats      stats
+	Gtins      gtins
 	TrueClient TrueClient
 }
 

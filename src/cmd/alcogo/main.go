@@ -124,7 +124,8 @@ func main() {
 	if port == "" || port == "auto" {
 		if portFree, err := utility.GetFreePort(); err == nil {
 			port = fmt.Sprintf("%d", portFree)
-			webApp.Config().Set("hostport", port, true)
+			// порт не записываем в файл конфигурации остается только в модели приложения
+			webApp.Config().Set("hostport", port, false)
 		}
 	}
 	loger.Infof("http port %s", port)

@@ -1,4 +1,4 @@
-package stats
+package gtins
 
 import (
 	"firstwails/domain"

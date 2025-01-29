@@ -16,6 +16,9 @@ func (a *webapp) Route() {
 // хэндлер для обработки запроса GET отображения текущей страницы s.activePage
 func (s *webapp) CurrentPageIndex(c echo.Context) error {
 	model := s.reductor.Model()
+	// jsonStr := `{"setTitle":"` + s.ActivePageTitle() + `"}`
+	// c.Response().Header().Set("Content-Type", "text/html; charset=utf-8")
+	// c.Response().Header().Set("HX-Trigger", jsonStr)
 	return c.Render(http.StatusOK, s.activePage, &model)
 }
 

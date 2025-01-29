@@ -16,6 +16,10 @@ func (rdc *effects) proccessMessage(msgIn domain.Message) {
 		// usecase делает обновление редуктора по завершению запроса
 		// выполняется как подзадача потому модель обновляется там в ней
 		_ = usecase.New(rdc).StatsModel(rdc.Reductor().Model())
+	case "gtins":
+		// usecase делает обновление редуктора по завершению запроса
+		// выполняется как подзадача потому модель обновляется там в ней
+		_ = usecase.New(rdc).GtinsModel(rdc.Reductor().Model())
 	case "setup":
 		// usecase делает обновление редуктора по завершению запроса
 		// выполняется как подзадача потому модель обновляется там в ней

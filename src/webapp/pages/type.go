@@ -59,3 +59,12 @@ func (pgs *Pages) RenderPage(w io.Writer, name string, data interface{}, c echo.
 func (pgs *Pages) Infos() domain.ArrPageInfo {
 	return pgs.infoRegistered
 }
+
+func (pgs *Pages) Info(page string) *domain.PageInfo {
+	for i, info := range pgs.infoRegistered {
+		if info.Name == page {
+			return pgs.infoRegistered[i]
+		}
+	}
+	return nil
+}

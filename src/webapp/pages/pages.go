@@ -3,6 +3,7 @@ package pages
 import (
 	"firstwails/domain"
 	"firstwails/webapp/pages/dbinfo"
+	"firstwails/webapp/pages/gtins"
 	"firstwails/webapp/pages/setup"
 	"firstwails/webapp/pages/stats"
 	"fmt"
@@ -26,6 +27,7 @@ func (pgs *Pages) InitPages() error {
 		Svg:       dbInfoPage.Svg(),
 	}
 	pgs.AddPage(infoDbInfoPage, dbInfoPage.Render)
+
 	statPage := stats.New(pgs)
 	if err := statPage.Route(pgs.echo); err != nil {
 		return fmt.Errorf("%s InitPages %w", modError, err)
@@ -54,5 +56,17 @@ func (pgs *Pages) InitPages() error {
 	}
 	pgs.AddPage(infoSetupPage, setupPage.Render)
 
+	gtinsPage := gtins.New(pgs)
+	if err := gtinsPage.Route(pgs.echo); err != nil {
+		return fmt.Errorf("%s InitPages %w", modError, err)
+	}
+	infoGtinsPage := &domain.PageInfo{
+		Name:      "gtins",
+		Url:       "gtins",
+		MenuTitle: "Справочник GTIN",
+		Desc:      "информация по GTIN",
+		Svg:       gtinsPage.Svg(),
+	}
+	pgs.AddPage(infoGtinsPage, gtinsPage.Render)
 	return nil
 }

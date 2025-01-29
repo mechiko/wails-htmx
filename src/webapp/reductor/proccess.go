@@ -37,6 +37,10 @@ func (rdc *reductor) proccessMessage(msg domain.Message) {
 		mdl := *msg.Model
 		_, newModel := rdc.UpdaterGUI("stats", mdl)
 		rdc.model = &newModel
+	case "gtins":
+		mdl := *msg.Model
+		_, newModel := rdc.UpdaterGUI("gtins", mdl)
+		rdc.model = &newModel
 	case "setup":
 		mdl := *msg.Model
 		_, newModel := rdc.UpdaterGUI("setup", mdl)

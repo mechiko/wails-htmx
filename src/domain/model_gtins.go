@@ -3,14 +3,15 @@ package domain
 // State
 // 0 начальное
 // 1 завершена обработка
-type stats struct {
+type gtins struct {
 	State               int
 	Title               string
 	File                string
-	CisIn               []string // список CIS для запроса
-	Chunks              int      // куски
-	CisOut              CisSlice // список CIS полученных
-	CisStatus           map[string]int
+	GtinIn              []string // список GTIN для запроса
+	A3Gtins             []string
+	Chunks              int           // куски
+	GtinOut             GtinInfoSlice // список GTIN полученных
+	GtinStatus          map[string]int
 	ExcelChunkSize      int      // размер куска для выгрузки в файл ексель
 	IsConnectedTrueZnak bool     // есть подключение к ЧЗ
 	IsTrueZnakA3        bool     // подключена БД ЧЗ А3
@@ -21,9 +22,9 @@ type stats struct {
 
 }
 
-type Cis struct {
-	Cis    string
-	Status string
+type GtinInfo struct {
+	Gtin string
+	Info string
 }
 
-type CisSlice []*Cis
+type GtinInfoSlice []*GtinInfo

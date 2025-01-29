@@ -14,6 +14,7 @@ type IApp interface {
 	Effects() Effects
 	Repo() Repo
 	SetActivePage(string)
+	ActivePageTitle() string
 	DomReadyHttp()
 	ReloadActivePage() bool
 	SetReloadActivePage(bool)

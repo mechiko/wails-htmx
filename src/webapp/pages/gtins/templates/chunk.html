@@ -1,0 +1,7 @@
+<div hx-target="this" hx-swap="outerHTML">
+  <label class="input input-bordered flex items-center gap-2">
+    <span class="text-primary">Макс. размер части:</span>
+    <input name="chunk" class="grow" hx-post="/gtins/chunk" hx-trigger="keyup changed delay:500ms"
+           value="{{$.Stats.ExcelChunkSize}}">
+  </label>
+</div>

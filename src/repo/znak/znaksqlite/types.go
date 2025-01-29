@@ -26,7 +26,7 @@ type IRepo interface {
 }
 
 // вызывается каждый раз когда требуется доступ к БД конфиг
-func New(r IRepo) domain.DbZnak {
+func New(r IRepo) *dbZnak {
 	rc := &dbZnak{
 		IRepo: r,
 	}
