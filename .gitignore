@@ -16,6 +16,11 @@ bun*
 # Test binary, built with `go test -c`
 *.test
 
+# 
+*.rar
+*.zip
+*.gz
+
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
