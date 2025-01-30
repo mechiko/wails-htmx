@@ -1,0 +1,1 @@
+sqlboiler -c sqlboiler_4z.toml --wipe --no-tests sqlite3

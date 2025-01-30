@@ -1,5 +1,6 @@
 <!-- если необходима перезагрузка весь элемент прилетит с сервера и заменится -->
-<div hx-get="/dbinfo/ready" hx-trigger="every 300ms" hx-target="this" hx-swap="outerHTML">
+<div hx-get="/dbinfo/ready" hx-trigger="every 300ms" hx-target="this" hx-swap="outerHTML"
+     _="init log 'set title' then set title of document to '{{$.DbInfo.Title}}'">
     <div class="flex h-6 w-screen no-print">
     {{ template "navbar" }}
     </div>

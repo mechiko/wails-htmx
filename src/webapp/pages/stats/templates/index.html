@@ -1,5 +1,6 @@
 <!-- если необходима перезагрузка весь элемент прилетит с сервера и заменится -->
-<div hx-get="/stats/ready" hx-trigger="every 300ms" hx-target="this" hx-swap="outerHTML">
+<div hx-get="/stats/ready" hx-trigger="every 300ms" hx-target="this" hx-swap="outerHTML"
+  _="init log 'set title' then set title of document to '{{$.Stats.Title}}'">
     <div class="flex w-screen no-print">
     {{ template "navbar" }}
     </div>

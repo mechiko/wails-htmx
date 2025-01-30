@@ -16,6 +16,7 @@ var InitModel Model = Model{
 		},
 	},
 	DbInfo: dbInfo{
+		Title:   "Информация о БД",
 		Export:  "export",
 		Browser: "",
 		Output:  "output",
@@ -24,7 +25,14 @@ var InitModel Model = Model{
 		Items: make(MenuItemSlice, 0),
 	},
 	Stats: stats{
+		Title:          "Статус КМ",
 		ExcelChunkSize: 30000,
+		MapCisTypes:    CisTypes,
 	},
-	TrueClient: TrueClient{},
+	TrueClient: TrueClient{
+		Title: "Настройка",
+	},
+	Gtins: gtins{
+		Title: "Нац каталог",
+	},
 }

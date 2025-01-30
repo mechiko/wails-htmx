@@ -1,6 +1,7 @@
 package domain
 
 type dbInfo struct {
+	Title       string
 	Export      string
 	Browser     string
 	BrowserList []string

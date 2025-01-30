@@ -2,6 +2,7 @@ package stats
 
 import (
 	"firstwails/domain"
+	"firstwails/usecase"
 	"firstwails/utility"
 	"fmt"
 	"html/template"
@@ -52,6 +53,10 @@ func (t *page) Production() {
 
 // такой вариант парсит при создании
 func (t *page) Render(w io.Writer, templateName string, data interface{}, c echo.Context) error {
+	if modelData, ok := data.(*domain.Model); ok {
+		model := usecase.New(t).StatsModel(*modelData)
+		data = &model
+	}
 	if templateName == "" {
 		templateName = defaultTemplateName
 	}

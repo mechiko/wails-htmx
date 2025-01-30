@@ -18,7 +18,7 @@ type stats struct {
 	UtilisationId       int      // номер отчета нанесения в ЧЗ А3
 	Progress            int      // прогресс опроса
 	Errors              []string // массив ошибок
-
+	MapCisTypes         map[string]string
 }
 
 type Cis struct {

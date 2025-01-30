@@ -19,7 +19,7 @@
               ]
           }'
       />
-      <title>ТТН</title>
+      <title></title>
 			<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png"/>
 			<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"/>
 			<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"/>
@@ -40,7 +40,7 @@
 <body class="antialiased h-full bg-slate-50" _="on htmx:responseError log 'A error occurred'
                       on keydown if the event's key is 'Escape' log 'ESC pressed' then if modal is not null remove modal end end
                       on setTitle log event then set title of document to value of detail of event ">
-  <!-- <div style="display: flex; width: 0px;" hx-get="/ready" hx-trigger="every 1s" hx-target="this" hx-swap="none"></div> -->
+  <div style="display: flex; width: 0px;" hx-get="/ready" hx-trigger="every 1s" hx-target="this" hx-swap="none"></div>
 
   <div class="min-h-[100dvh] grid grid-rows-[auto_1fr_auto] h-full">
       <header>

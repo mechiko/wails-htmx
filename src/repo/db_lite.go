@@ -20,12 +20,16 @@ func (r *repository) lite() (err error) {
 	if r.dbs.Lite().Absent() {
 		return fmt.Errorf("database lite.db absent")
 	}
-	if db, err := r.dbs.LiteSvc().Db(); err != nil {
+	db, err := r.dbs.LiteSvc().Db()
+	defer func() {
+		db.Close()
+		r.dbs.LiteSvc().Close()
+	}()
+	if err != nil {
 		return fmt.Errorf("%s %w", modError, err)
-	} else {
-		if err := makeMigrations(db); err != nil {
-			return fmt.Errorf("%s %w", modError, err)
-		}
+	}
+	if err := makeMigrations(db); err != nil {
+		return fmt.Errorf("%s %w", modError, err)
 	}
 	return nil
 }

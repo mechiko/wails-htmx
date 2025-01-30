@@ -4,6 +4,7 @@ import (
 	"firstwails/domain"
 	"firstwails/utility"
 	"fmt"
+	"strings"
 	"sync/atomic"
 	"time"
 )
@@ -44,7 +45,7 @@ func (t *page) Search(model domain.Model) {
 		t.Logger().Debugf("%s len allCises %d chunks %d", modError, len(model.Stats.CisIn), len(chunks))
 		if err := t.Repo().DbLite().CisRequestDeleteAll(); err != nil {
 			model.Stats.Errors = append(model.Stats.Errors, tc.Errors()...)
-			t.Logger().Debugf("%s trueclient authorised errors %d", modError, len(tc.Errors()))
+			t.Logger().Debugf("%s trueclient CisRequestDeleteAll errors %d", modError, len(tc.Errors()))
 		}
 		// model.Stats.CisStatus = make(map[string]int)
 		// model.Stats.CisOut = make(domain.CisSlice, 0)
@@ -69,12 +70,13 @@ func (t *page) Search(model domain.Model) {
 				}
 			}
 			// вставка данных в бд
-			// if err := t.Repo().DbLite().InsertCisRequestPost(cisResponce); err != nil {
-			// 	model.Stats.Errors = append(model.Stats.Errors, tc.Errors()...)
-			// 	t.Logger().Debugf("%s InsertCisRequest %s", modError, err.Error())
-			// }
+			if err := t.Repo().DbLite().InsertCisRequestPost(cisResponce); err != nil {
+				model.Stats.Errors = append(model.Stats.Errors, tc.Errors()...)
+				t.Logger().Debugf("%s InsertCisRequest %s", modError, err.Error())
+			}
 			for _, cisItem := range cisResponce {
-				status := domain.DictCisTypes(cisItem.Result.Status)
+				// status := domain.DictCisTypes(cisItem.Result.Status)
+				status := strings.ToLower(cisItem.Result.Status)
 				if count, ok := cisStatus[status]; !ok {
 					cisStatus[status] = 1
 				} else {

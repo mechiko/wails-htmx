@@ -31,7 +31,7 @@ func (u *usecase) GtinsModel(model domain.Model) domain.Model {
 				model.Gtins.A3Gtins = gtins
 			}
 		}
-		model.Gtins.Title = "Коды GTIN"
+		// model.Gtins.Title = "Коды GTIN"
 		msg := domain.Message{}
 		msg.Cmd = "gtins"
 		msg.Sender = "usecase.GtinsModel"

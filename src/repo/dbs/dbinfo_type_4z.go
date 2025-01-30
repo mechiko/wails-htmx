@@ -19,7 +19,7 @@ func NewDbInfo4z(cfg *domain.Configuration, name string, dbType string) (di *dbI
 	}()
 	di = &dbInfo{
 		connection: "",
-		mode:       domain.RoMode,
+		mode:       domain.RwMode,
 		checkMode:  domain.NoMatter,
 		driver:     cfg.TrueZnak.Driver,
 		file:       cfg.TrueZnak.File,

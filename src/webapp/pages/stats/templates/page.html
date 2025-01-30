@@ -56,10 +56,11 @@
     <tbody>
     {{range $ci, $cisCount := $.Stats.CisStatus }}
     <tr class="text-base">
-      <td class="pl-1 border">{{$ci}}</td>
+      <td class="pl-1 border">{{if (index $.Stats.MapCisTypes $ci)}}{{index $.Stats.MapCisTypes $ci}}{{else}}$ci{{end}}</td>
       <td class="text-base pl-1 border">{{$cisCount}}</td>
       <td class="text-base pl-1 border">
-        <button hx-get="/stats/excel/{{$ci}}" hx-trigger="click" hx-target="#excel-result" hx-swap="innerHTML">Выгрузить</button>
+        <button class="btn btn-outline btn-default" hx-get="/stats/excel/{{$ci}}" hx-trigger="click" hx-target="#excel-result" hx-swap="innerHTML">Выгрузить</button>
+        {{if $.Stats.IsTrueZnakA3}}<button class="btn btn-outline btn-default" hx-get="/stats/order/{{$ci}}" hx-trigger="click" hx-target="#excel-result" hx-swap="innerHTML">Создать заказ</button>{{end}}
       </td>
     </tr>
     {{end}}

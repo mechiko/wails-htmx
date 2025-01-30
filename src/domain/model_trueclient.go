@@ -12,6 +12,7 @@ type PingSuzInfo struct {
 }
 
 type TrueClient struct {
+	Title       string
 	StandGIS    url.URL
 	StandSUZ    url.URL
 	TokenGIS    string

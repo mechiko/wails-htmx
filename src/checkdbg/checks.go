@@ -25,7 +25,10 @@ func (c *Checks) Run() (err error) {
 		}
 	}()
 
-	// if err := c.A3ApTtn(); err != nil {
+	// if err := c.AttachLite(); err != nil {
+	// 	return err
+	// }
+	// if err := c.GuideGtins(); err != nil {
 	// 	return err
 	// }
 	return nil

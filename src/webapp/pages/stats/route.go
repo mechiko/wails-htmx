@@ -19,6 +19,7 @@ func (t *page) Route(e *echo.Echo) error {
 	e.GET("/stats/reset", t.reset)
 	e.GET("/stats/progress", t.progress)
 	e.GET("/stats/excel/:status", t.excel)
+	e.GET("/stats/order/:status", t.order)
 	e.POST("/stats/upload", t.upload)
 	e.POST("/stats/chunk", t.chunk)
 	return nil
@@ -115,6 +116,7 @@ func (t *page) reset(c echo.Context) error {
 	model.Stats.CisOut = nil
 	model.Stats.Errors = nil
 	model.Stats.State = 0
+	model.Stats.CisStatus = nil
 	t.UpdateModel(model, "stats.reset")
 	if err := t.Render(&buf, "page", &model, c); err != nil {
 		t.Logger().Errorf("%s %s", modError, err.Error())
@@ -184,4 +186,28 @@ func (t *page) chunk(c echo.Context) error {
 	}
 	c.HTML(200, buf.String())
 	return nil
+}
+
+func (t *page) order(c echo.Context) error {
+	status := c.Param("status")
+	allcis := t.Reductor().Model().Stats.CisOut
+	arrStatus := make([]string, 0)
+	for _, cis := range allcis {
+		if cis.Status == status {
+			arrStatus = append(arrStatus, cis.Cis)
+		}
+	}
+	if len(arrStatus) < 1 {
+		out := "с данным статусом кодов нет"
+		return c.String(200, out)
+	}
+	cis := arrStatus[0]
+	dbFile := t.Repo().Dbs().Lite().File()
+	if id, err := t.Repo().DbZnak().AttachLite(dbFile, status, cis); err != nil {
+		out := "ошибка " + err.Error()
+		return c.String(200, out)
+	} else {
+		out := fmt.Sprintf("создан заказ в АлкоХелп 3 №%d", id)
+		return c.String(200, out)
+	}
 }
