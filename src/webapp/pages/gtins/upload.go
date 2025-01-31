@@ -2,7 +2,6 @@ package gtins
 
 import (
 	"bytes"
-	"firstwails/utility"
 	"fmt"
 	"io"
 
@@ -13,15 +12,15 @@ func (t *page) upload(c echo.Context) (errOut error) {
 	var buf bytes.Buffer
 
 	model := t.Reductor().Model()
-	model.Stats.Errors = nil
-	// model.Stats.CisIn = nil
-	model.Stats.File = ""
-	model.Stats.CisStatus = make(map[string]int)
-	model.Stats.State = 0
+	model.Gtins.Errors = nil
+	// model.Gtins.CisIn = nil
+	model.Gtins.File = ""
+	// model.Gtins.CisStatus = make(map[string]int)
+	model.Gtins.State = 0
 	if file, err := c.FormFile("file"); err != nil {
 		errOut = fmt.Errorf("ошибка файла %s", err.Error())
 	} else {
-		model.Stats.File = file.Filename
+		model.Gtins.File = file.Filename
 		src, err := file.Open()
 		if err != nil {
 			errOut = fmt.Errorf("ошибка файла %s", err.Error())
@@ -33,8 +32,8 @@ func (t *page) upload(c echo.Context) (errOut error) {
 		}
 	}
 	if errOut != nil {
-		model.Stats.Errors = append(model.Stats.Errors, errOut.Error())
-		t.UpdateModel(model, "stats.upload.error")
+		model.Gtins.Errors = append(model.Gtins.Errors, errOut.Error())
+		t.UpdateModel(model, "gtins.upload.error")
 		if err := t.Render(&buf, "page", &model, c); err != nil {
 			t.Logger().Errorf("%s %s", modError, err.Error())
 			c.NoContent(204)
@@ -42,10 +41,7 @@ func (t *page) upload(c echo.Context) (errOut error) {
 		}
 		c.HTML(200, buf.String())
 	} else {
-		cisIn := model.Stats.CisIn
-		cisIn = append(cisIn, utility.ReadTextStringArrayReader(&buf)...)
-		model.Stats.CisIn = utility.UniqueSliceElements(cisIn)
-		t.UpdateModel(model, "stats.upload")
+		t.UpdateModel(model, "gtins.upload")
 		if err := t.Render(&buf, "page", &model, c); err != nil {
 			t.Logger().Errorf("%s %s", modError, err.Error())
 			c.NoContent(204)

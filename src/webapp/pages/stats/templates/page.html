@@ -60,7 +60,7 @@
       <td class="text-base pl-1 border">{{$cisCount}}</td>
       <td class="text-base pl-1 border">
         <button class="btn btn-outline btn-default" hx-get="/stats/excel/{{$ci}}" hx-trigger="click" hx-target="#excel-result" hx-swap="innerHTML">Выгрузить</button>
-        {{if $.Stats.IsTrueZnakA3}}<button class="btn btn-outline btn-default" hx-get="/stats/order/{{$ci}}" hx-trigger="click" hx-target="#excel-result" hx-swap="innerHTML">Создать заказ</button>{{end}}
+        {{if $.IsZnak}}<button class="btn btn-outline btn-default" hx-get="/stats/order/{{$ci}}" hx-trigger="click" hx-target="#excel-result" hx-swap="innerHTML">Создать заказ</button>{{end}}
       </td>
     </tr>
     {{end}}

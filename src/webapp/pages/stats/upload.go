@@ -10,7 +10,8 @@ import (
 )
 
 func (t *page) upload(c echo.Context) (errOut error) {
-	var buf bytes.Buffer
+	var bufFile bytes.Buffer
+	var bufRender bytes.Buffer
 
 	model := t.Reductor().Model()
 	model.Stats.Errors = nil
@@ -27,7 +28,7 @@ func (t *page) upload(c echo.Context) (errOut error) {
 			errOut = fmt.Errorf("ошибка файла %s", err.Error())
 		} else {
 			defer src.Close()
-			if _, err = io.Copy(&buf, src); err != nil {
+			if _, err = io.Copy(&bufFile, src); err != nil {
 				errOut = fmt.Errorf("ошибка файла %s", err.Error())
 			}
 		}
@@ -35,23 +36,23 @@ func (t *page) upload(c echo.Context) (errOut error) {
 	if errOut != nil {
 		model.Stats.Errors = append(model.Stats.Errors, errOut.Error())
 		t.UpdateModel(model, "stats.upload.error")
-		if err := t.Render(&buf, "page", &model, c); err != nil {
+		if err := t.Render(&bufRender, "page", &model, c); err != nil {
 			t.Logger().Errorf("%s %s", modError, err.Error())
 			c.NoContent(204)
 			return nil
 		}
-		c.HTML(200, buf.String())
+		c.HTML(200, bufRender.String())
 	} else {
 		cisIn := model.Stats.CisIn
-		cisIn = append(cisIn, utility.ReadTextStringArrayReader(&buf)...)
+		cisIn = append(cisIn, utility.ReadTextStringArrayReader(&bufFile)...)
 		model.Stats.CisIn = utility.UniqueSliceElements(cisIn)
 		t.UpdateModel(model, "stats.upload")
-		if err := t.Render(&buf, "page", &model, c); err != nil {
+		if err := t.Render(&bufRender, "page", &model, c); err != nil {
 			t.Logger().Errorf("%s %s", modError, err.Error())
 			c.NoContent(204)
 			return nil
 		}
-		c.HTML(200, buf.String())
+		c.HTML(200, bufRender.String())
 	}
 	return nil
 }

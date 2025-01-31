@@ -35,4 +35,7 @@ var InitModel Model = Model{
 	Gtins: gtins{
 		Title: "Нац каталог",
 	},
+	Finder: finder{
+		Title: "Поиск КМ",
+	},
 }

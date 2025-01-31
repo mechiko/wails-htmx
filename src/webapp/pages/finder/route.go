@@ -1,4 +1,4 @@
-package gtins
+package finder
 
 import (
 	"bytes"
@@ -8,16 +8,16 @@ import (
 )
 
 func (t *page) Route(e *echo.Echo) error {
-	e.GET("/gtins/title", t.Title)
-	e.GET("/gtins/ready", t.Ready)
-	e.GET("/gtins/modal", t.modal)
-	e.POST("/gtins/upload", t.upload)
-	e.GET("/stats/progress", t.progress)
+	e.GET("/finder/title", t.Title)
+	e.GET("/finder/ready", t.Ready)
+	e.GET("/finder/modal", t.modal)
+	e.POST("/finder/upload", t.upload)
+	e.GET("/finder/progress", t.progress)
 	return nil
 }
 
 func (t *page) Title(c echo.Context) error {
-	c.String(200, "GTINS")
+	c.String(200, "Finder")
 	return nil
 }
 
@@ -60,7 +60,7 @@ func (t *page) reset(c echo.Context) error {
 	var buf bytes.Buffer
 	// обновляем модель Stats
 	model := t.Reductor().Model()
-	t.UpdateModel(model, "gtins.reset")
+	t.UpdateModel(model, "finder.reset")
 	if err := t.Render(&buf, "page", &model, c); err != nil {
 		t.Logger().Errorf("%s %s", modError, err.Error())
 		c.NoContent(204)

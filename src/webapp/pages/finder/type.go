@@ -1,4 +1,4 @@
-package stats
+package finder
 
 import (
 	"firstwails/domain"

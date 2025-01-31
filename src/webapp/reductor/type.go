@@ -4,6 +4,7 @@ import (
 	"sync"
 
 	"firstwails/domain"
+	"firstwails/usecase"
 	"firstwails/zaplog"
 
 	"go.uber.org/zap"
@@ -49,6 +50,7 @@ func (rdc *reductor) Model() domain.Model {
 	defer rdc.mutex.Unlock()
 	// разыменовываем ссылку получаем копию объекта и возвращаем
 	mdl := *rdc.model
+	mdl = usecase.New(rdc).EveryModel(mdl)
 	return mdl
 }
 

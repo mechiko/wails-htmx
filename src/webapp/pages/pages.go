@@ -3,6 +3,7 @@ package pages
 import (
 	"firstwails/domain"
 	"firstwails/webapp/pages/dbinfo"
+	"firstwails/webapp/pages/finder"
 	"firstwails/webapp/pages/gtins"
 	"firstwails/webapp/pages/setup"
 	"firstwails/webapp/pages/stats"
@@ -68,5 +69,19 @@ func (pgs *Pages) InitPages() error {
 		Svg:       gtinsPage.Svg(),
 	}
 	pgs.AddPage(infoGtinsPage, gtinsPage.Render)
+
+	finderPage := finder.New(pgs)
+	if err := finderPage.Route(pgs.echo); err != nil {
+		return fmt.Errorf("%s InitPages %w", modError, err)
+	}
+	infoFinderPage := &domain.PageInfo{
+		Name:      "finder",
+		Url:       "finder",
+		MenuTitle: "Поиск КМ",
+		Desc:      "поиск КМ в базе А3",
+		Svg:       finderPage.Svg(),
+	}
+	pgs.AddPage(infoFinderPage, finderPage.Render)
+
 	return nil
 }
