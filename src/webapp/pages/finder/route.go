@@ -13,9 +13,11 @@ func (t *page) Route(e *echo.Echo) error {
 	e.GET("/finder/ready", t.Ready)
 	e.GET("/finder/modal", t.modal)
 	e.POST("/finder/upload", t.upload)
+	e.POST("/finder/find", t.find)
 	e.GET("/finder/progress", t.progress)
 	e.GET("/finder/datamatrix", t.datamatrix)
 	e.GET("/finder/datamatrixlist", t.datamatrixList)
+	e.GET("/finder/reset", t.reset)
 	return nil
 }
 
@@ -63,8 +65,13 @@ func (t *page) reset(c echo.Context) error {
 	var buf bytes.Buffer
 	// обновляем модель Stats
 	model := t.Reductor().Model()
+	model.Finder.FormInput = ""
+	model.Finder.Errors = nil
+	model.Finder.File = ""
+	model.Finder.State = 0
+	model.Finder.CisFindInfoIn = nil
 	t.UpdateModel(model, "finder.reset")
-	if err := t.Render(&buf, "page", &model, c); err != nil {
+	if err := t.Render(&buf, "page", &model.Finder, c); err != nil {
 		t.Logger().Errorf("%s %s", modError, err.Error())
 		c.NoContent(204)
 		return nil

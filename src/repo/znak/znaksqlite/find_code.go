@@ -3,6 +3,7 @@ package znaksqlite
 import (
 	"context"
 	"firstwails/domain"
+	"firstwails/utility"
 	"fmt"
 )
 
@@ -15,7 +16,7 @@ func (a *dbZnak) FindCis(cis string) (out *domain.OrderMarkCodesSerialNumber, er
 	}()
 	ctx := context.Background()
 	out = &domain.OrderMarkCodesSerialNumber{}
-	likeCis := fmt.Sprintf("%s%%", cis[:24])
+	likeCis := fmt.Sprintf("%s%%", utility.TruncateString(cis, 25))
 	sql := `select * from order_mark_codes_serial_numbers where code like ? AND status NOT in ('Отправлено');`
 	if err = a.db.GetContext(ctx, out, sql, likeCis); err != nil {
 		return out, fmt.Errorf("%s %w", modError, err)

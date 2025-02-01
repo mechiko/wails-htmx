@@ -13,12 +13,26 @@
 {{end}}
 
 <div class="m-2">
+  <span class="text-primary">Введите код для поиска:</span>
+  <form hx-post='/finder/find' hx-target="#page" hx-swap="innerHTML">
+    <input value="{{$.FormInput}}" class="input input-bordered w-full max-w-xs" type="text" placeholder="введите КМ" name='cisfield'/>
+    <input id="sbmt2" type="submit" value="Найти" class="btn btn-outline btn-primary"/>
+    <button class="btn btn-outline btn-default" hx-get="/finder/reset" hx-trigger="click" hx-target="#page" hx-swap="innerHTML">
+    Сброс
+    </button>
+  </form>
+  <div id="finded"></div>
+</div>
+
+
+<div class="m-2">
   <span class="text-primary">Коды CIS для поиска:</span>
   <form hx-encoding='multipart/form-data' hx-post='/finder/upload' hx-target="#page" hx-swap="innerHTML">
     <input type='file' name='file' _="on change toggle @disabled on #sbmt">
     <input id="sbmt" type="submit" disabled value="Загрузить" class="btn btn-outline btn-primary"/>  
   </form>
 </div>
+
 {{if $.CisFindInfoIn}}
 <div class="m-2">
   <table class="w-1/2 ml-1 border border-collapse">
@@ -59,12 +73,3 @@
   </table>
 </div>
 {{end}}
-<div class="m-2">
-  <span class="text-primary">Введите код для поиска:</span>
-  <form hx-post='/finder/find' hx-target="#finded" hx-swap="innerHTML">
-    <input value="{{$.FormInput}}" class="input input-bordered w-full max-w-xs" type="text" placeholder="введите КМ" name='cisfield' _="on change toggle @disabled on #sbmt"/>
-    <input id="sbmt" type="submit" disabled value="Найти" class="btn btn-outline btn-primary"/>  
-  </form>
-  <div id="finded"></div>
-</div>
-

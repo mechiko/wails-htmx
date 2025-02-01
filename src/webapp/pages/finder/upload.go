@@ -18,6 +18,7 @@ func (t *page) upload(c echo.Context) (errOut error) {
 	model.Finder.Errors = nil
 	model.Finder.File = ""
 	model.Finder.State = 0
+	model.Finder.CisFindInfoIn = nil
 	if file, err := c.FormFile("file"); err != nil {
 		errOut = fmt.Errorf("ошибка файла %s", err.Error())
 	} else {
@@ -64,11 +65,13 @@ func (t *page) upload(c echo.Context) (errOut error) {
 			if len(info.Cis) < 25 {
 				err := fmt.Sprintf("%s строка %d [%s] поиск ошибка КМ меньше 25", modError, i, line)
 				t.Logger().Errorf("%s %s", modError, err)
+				info.Code = "строка меньше 25"
 			}
 			if serial, err := t.Repo().DbZnak().FindCis(info.Cis); err != nil {
-				err := fmt.Sprintf("%s строка %d [%s] поиск ошибка %s", modError, i, line, err.Error())
-				t.Logger().Errorf("%s %s", modError, err)
-				model.Finder.Errors = append(model.Finder.Errors, err)
+				errStr := fmt.Sprintf("%s строка %d [%s] поиск ошибка %s", modError, i, line, err.Error())
+				t.Logger().Errorf("%s %s", modError, errStr)
+				model.Finder.Errors = append(model.Finder.Errors, errStr)
+				info.Code = err.Error()
 			} else {
 				info.Code = serial.Code
 				info.Order = serial.IDOrderMarkCodes
