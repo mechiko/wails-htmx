@@ -55,28 +55,33 @@ func (t *page) upload(c echo.Context) (errOut error) {
 				continue
 			}
 			info := domain.CisFindInfo{
-				Root: s[0],
-				Dir:  s[1],
-				Name: s[2],
-				Cis:  s[3],
+				Root:   s[0],
+				Dir:    s[1],
+				Name:   s[2],
+				CisSrc: s[3],
+				Cis:    utility.TruncateString(s[3], 25),
 			}
 			if len(info.Cis) < 25 {
 				err := fmt.Sprintf("%s строка %d [%s] поиск ошибка КМ меньше 25", modError, i, line)
 				t.Logger().Errorf("%s %s", modError, err)
 			}
-			cis := utility.TruncateString(info.Cis, 26)
-			if serial, err := t.Repo().DbZnak().FindCis(cis); err != nil {
+			if serial, err := t.Repo().DbZnak().FindCis(info.Cis); err != nil {
 				err := fmt.Sprintf("%s строка %d [%s] поиск ошибка %s", modError, i, line, err.Error())
 				t.Logger().Errorf("%s %s", modError, err)
 				model.Finder.Errors = append(model.Finder.Errors, err)
 			} else {
 				info.Code = serial.Code
 				info.Order = serial.IDOrderMarkCodes
+				// var b byte = 232
+				// b = 235 + (232-128)
+				// info.CodeFNS = "\f"
+				info.CodeFNS += serial.Code
+				// t.Logger().Debugf("FNS [%s] %d", info.CodeFNS, len(info.CodeFNS))
 			}
 			model.Finder.CisFindInfoIn = append(model.Finder.CisFindInfoIn, &info)
 		}
 		t.UpdateModel(model, "finder.upload")
-		if err := t.Render(&bufRender, "page", &model, c); err != nil {
+		if err := t.Render(&bufRender, "page", &model.Finder, c); err != nil {
 			t.Logger().Errorf("%s %s", modError, err.Error())
 			c.NoContent(204)
 			return nil

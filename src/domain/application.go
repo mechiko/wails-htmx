@@ -34,4 +34,5 @@ type IApp interface {
 	FsrarID() string
 	ServerError(w http.ResponseWriter, r *http.Request, err error)
 	ClientError(w http.ResponseWriter, r *http.Request, status int, err error)
+	Open(url string)
 }

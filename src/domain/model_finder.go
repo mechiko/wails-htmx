@@ -14,12 +14,14 @@ type finder struct {
 }
 
 type CisFindInfo struct {
-	Cis   string
-	Code  string
-	Name  string
-	Root  string
-	Dir   string
-	Order int64
+	Cis     string
+	CisSrc  string
+	Code    string
+	CodeFNS string
+	Name    string
+	Root    string
+	Dir     string
+	Order   int64
 }
 
 type CisFindInfoSlice []*CisFindInfo

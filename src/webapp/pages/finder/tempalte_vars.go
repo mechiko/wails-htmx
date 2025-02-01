@@ -21,3 +21,6 @@ var progressTmpl string
 
 //go:embed templates\chunk.html
 var chunkTmpl string
+
+//go:embed templates\datamatrixlist.html
+var datamatrixListTmpl string

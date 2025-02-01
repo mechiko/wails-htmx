@@ -3,6 +3,7 @@ package finder
 import (
 	"bytes"
 	"firstwails/webapp/htmxutil"
+	"fmt"
 
 	"github.com/labstack/echo/v4"
 )
@@ -13,6 +14,8 @@ func (t *page) Route(e *echo.Echo) error {
 	e.GET("/finder/modal", t.modal)
 	e.POST("/finder/upload", t.upload)
 	e.GET("/finder/progress", t.progress)
+	e.GET("/finder/datamatrix", t.datamatrix)
+	e.GET("/finder/datamatrixlist", t.datamatrixList)
 	return nil
 }
 
@@ -83,5 +86,27 @@ func (t *page) progress(c echo.Context) error {
 		c.String(200, buf.String())
 	}
 	c.String(200, "")
+	return nil
+}
+
+func (t *page) datamatrix(c echo.Context) error {
+	port := t.Configuration().HostPort
+	host := t.Configuration().Hostname
+	proto := `http://`
+	url := fmt.Sprintf("%s%s:%s/finder/datamatrixlist", proto, host, port)
+	t.Open(url)
+	c.NoContent(204)
+	return nil
+}
+
+func (t *page) datamatrixList(c echo.Context) error {
+	var buf bytes.Buffer
+	model := t.Reductor().Model()
+	if err := t.Render(&buf, "datamatrixlist", &model.Finder, c); err != nil {
+		t.Logger().Errorf("%s %s", modError, err.Error())
+		c.String(500, err.Error())
+		return nil
+	}
+	c.HTML(200, buf.String())
 	return nil
 }

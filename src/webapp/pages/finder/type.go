@@ -47,6 +47,7 @@ func (t *page) Production() {
 	template.Must(tt.New("footer").Funcs(funcMapHtml).Parse(footerTmpl))
 	template.Must(tt.New("progress").Funcs(funcMapHtml).Parse(progressTmpl))
 	template.Must(tt.New("chunk").Funcs(funcMapHtml).Parse(chunkTmpl))
+	template.Must(tt.New("datamatrixlist").Funcs(funcMapHtml).Parse(datamatrixListTmpl))
 	t.template = tt
 }
 
@@ -85,5 +86,6 @@ func (t *page) DoRender(w io.Writer, templateName string, data interface{}, c ec
 	template.Must(tt.New("footer").Funcs(funcMapHtml).Parse(utility.FilePackageContents("footer.html")))
 	template.Must(tt.New("progress").Funcs(funcMapHtml).Parse(utility.FilePackageContents("progress.html")))
 	template.Must(tt.New("chunk").Funcs(funcMapHtml).Parse(utility.FilePackageContents("chunk.html")))
+	template.Must(tt.New("datamatrixlist").Funcs(funcMapHtml).Parse(utility.FilePackageContents("datamatrixlist.html")))
 	return tt.ExecuteTemplate(w, templateName, data)
 }
