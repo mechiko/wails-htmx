@@ -1,8 +1,14 @@
+.*
+!.vscode
+!.gitignore
+
+
 # Dependency directories (remove the comment below to include it)
 vendor/
 
 
 # Go workspace file
+go.mod
 go.work
 
 *.db
