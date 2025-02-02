@@ -24,3 +24,6 @@ var chunkTmpl string
 
 //go:embed templates\datamatrixlist.html
 var datamatrixListTmpl string
+
+//go:embed templates\datamatrixlistsmall.html
+var datamatrixListSmallTmpl string

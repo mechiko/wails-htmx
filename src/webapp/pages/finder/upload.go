@@ -2,6 +2,8 @@ package finder
 
 import (
 	"bytes"
+	"database/sql"
+	"errors"
 	"firstwails/domain"
 	"firstwails/utility"
 	"fmt"
@@ -19,6 +21,7 @@ func (t *page) upload(c echo.Context) (errOut error) {
 	model.Finder.File = ""
 	model.Finder.State = 0
 	model.Finder.CisFindInfoIn = nil
+	model.Finder.FormInput = ""
 	if file, err := c.FormFile("file"); err != nil {
 		errOut = fmt.Errorf("ошибка файла %s", err.Error())
 	} else {
@@ -35,8 +38,8 @@ func (t *page) upload(c echo.Context) (errOut error) {
 	}
 	if errOut != nil {
 		model.Finder.Errors = append(model.Finder.Errors, errOut.Error())
-		t.UpdateModel(model, "gtins.upload.error")
-		if err := t.Render(&bufRender, "page", &model, c); err != nil {
+		t.UpdateModel(model, "finder.upload.error")
+		if err := t.Render(&bufRender, "page", &model.Finder, c); err != nil {
 			t.Logger().Errorf("%s %s", modError, err.Error())
 			c.NoContent(204)
 			return nil
@@ -68,10 +71,14 @@ func (t *page) upload(c echo.Context) (errOut error) {
 				info.Code = "строка меньше 25"
 			}
 			if serial, err := t.Repo().DbZnak().FindCis(info.Cis); err != nil {
-				errStr := fmt.Sprintf("%s строка %d [%s] поиск ошибка %s", modError, i, line, err.Error())
-				t.Logger().Errorf("%s %s", modError, errStr)
-				model.Finder.Errors = append(model.Finder.Errors, errStr)
-				info.Code = err.Error()
+				if errors.Is(err, sql.ErrNoRows) {
+					info.Code = "код КМ не найден"
+				} else {
+					errStr := fmt.Sprintf("%s строка %d [%s] поиск ошибка %s", modError, i, line, err.Error())
+					t.Logger().Errorf("%s %s", modError, errStr)
+					// model.Finder.Errors = append(model.Finder.Errors, errStr)
+					info.Code = err.Error()
+				}
 			} else {
 				info.Code = serial.Code
 				info.Order = serial.IDOrderMarkCodes

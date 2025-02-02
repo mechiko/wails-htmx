@@ -5,8 +5,8 @@
           {{range $ci, $cis := $.CisFindInfoIn }}
           {{if $cis.CodeFNS}}
               <div class="w-1/4 border flex flex-row">
-                <div class="" 
-                  _="on load put DATAMatrix({ msg:'{{$cis.CodeFNS}}',dim:100,rct:0,pad:2,pal:['#000000','#ffffff'],vrb:0}) into me">
+                <div class="" style="width: 76px; height: 76px;"  
+                  _="on load put DATAMatrix({ msg:'{{$cis.CodeFNS}}',dim:76,rct:0,pad:2,pal:['#000000','#ffffff'],vrb:0}) into me">
                 </div>
                 <div>
                     <span>{{$cis.Root}}</span><br>

@@ -2,6 +2,8 @@ package finder
 
 import (
 	"bytes"
+	"database/sql"
+	"errors"
 	"firstwails/domain"
 	"firstwails/utility"
 	"fmt"
@@ -28,10 +30,15 @@ func (t *page) find(c echo.Context) (errOut error) {
 	// 	info.Code = "строка меньше 25"
 	// }
 	if serial, err := t.Repo().DbZnak().FindCis(info.Cis); err != nil {
-		errStr := fmt.Sprintf("%s поиск ошибка %s", modError, err.Error())
-		t.Logger().Errorf("%s %s", modError, errStr)
-		model.Finder.Errors = append(model.Finder.Errors, errStr)
-		info.Code = err.Error()
+		if errors.Is(err, sql.ErrNoRows) {
+			info.Code = "код КМ не найден"
+			model.Finder.Errors = append(model.Finder.Errors, info.Code)
+		} else {
+			errStr := fmt.Sprintf("%s поиск ошибка %s", modError, err.Error())
+			t.Logger().Errorf("%s %s", modError, errStr)
+			model.Finder.Errors = append(model.Finder.Errors, errStr)
+			info.Code = err.Error()
+		}
 	} else {
 		info.Code = serial.Code
 		info.Order = serial.IDOrderMarkCodes

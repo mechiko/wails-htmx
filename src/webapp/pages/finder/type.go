@@ -10,7 +10,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-const modError = "home"
+const modError = "page.finder"
 
 // путь к файлам шаблонов модуля для локальной отладки только
 // для пути используется в utility этого пакета
@@ -48,6 +48,7 @@ func (t *page) Production() {
 	template.Must(tt.New("progress").Funcs(funcMapHtml).Parse(progressTmpl))
 	template.Must(tt.New("chunk").Funcs(funcMapHtml).Parse(chunkTmpl))
 	template.Must(tt.New("datamatrixlist").Funcs(funcMapHtml).Parse(datamatrixListTmpl))
+	template.Must(tt.New("datamatrixlistsmall").Funcs(funcMapHtml).Parse(datamatrixListSmallTmpl))
 	t.template = tt
 }
 
@@ -87,5 +88,6 @@ func (t *page) DoRender(w io.Writer, templateName string, data interface{}, c ec
 	template.Must(tt.New("progress").Funcs(funcMapHtml).Parse(utility.FilePackageContents("progress.html")))
 	template.Must(tt.New("chunk").Funcs(funcMapHtml).Parse(utility.FilePackageContents("chunk.html")))
 	template.Must(tt.New("datamatrixlist").Funcs(funcMapHtml).Parse(utility.FilePackageContents("datamatrixlist.html")))
+	template.Must(tt.New("datamatrixlistsmall").Funcs(funcMapHtml).Parse(utility.FilePackageContents("datamatrixlistsmall.html")))
 	return tt.ExecuteTemplate(w, templateName, data)
 }
