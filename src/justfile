@@ -57,6 +57,9 @@ win32:
     $env:GOOS = "windows"
     $env:CGO_ENABLED = 1
     go version
+    if (-Not (Test-Path go.mod)) {
+      go mod init firstwails
+    }
     Set-Content -Path go.mod -Value (get-content -Path go.mod | Select-String -Pattern 'toolchain' -NotMatch)
     go mod tidy -go 1.20 -v
     if(-Not $?) { exit }
@@ -71,6 +74,9 @@ win64:
     $env:GOARCH = "amd64"
     $env:GOOS = "windows"
     $env:CGO_ENABLED = 1
+    if (-Not (Test-Path go.mod)) {
+      go mod init firstwails
+    }
     go mod tidy -go 1.23 -v
     if(-Not $?) { exit }
     Remove-Item ..\dist\stats.exe, ..\dist\stats_64.exe 2>$null

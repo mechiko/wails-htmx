@@ -8,7 +8,7 @@ vendor/
 
 
 # Go workspace file
-go.mod
+# go.mod
 go.work
 
 *.db
