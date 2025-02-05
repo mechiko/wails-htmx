@@ -6,4 +6,4 @@ vendor/
 go.work
 
 *.db
-*.toml
+# *.toml

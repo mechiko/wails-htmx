@@ -1,0 +1,19 @@
+# Directory in which the generated static code is to be kept.
+output = "znakboil" 
+
+# Each time new code is generated, completely wipe out the old one.
+wipe = true
+
+# The `go` package name used in the generated code.
+pkgname = "znakboil"
+
+# Adds global variant of the generated functions, more on this later.
+add-global-variants = true
+
+# Generates code for enum types as well.
+add-enum-types = true
+
+# This is the postgres config, which should be self explanatory.
+[sqlite3]
+dbname = "4z_379.db"
+blacklist = ["fixtures_cis_type", "fixtures_create_method_type", "fixtures_exporter_country", "fixtures_release_method_type", "fixtures_serial_number_type", "fixtures_template_id", "parameters"]

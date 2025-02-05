@@ -63,8 +63,8 @@ func (a *dbZnak) AttachLite(liteDbName string, status string, cis string) (out i
 	lenCis := len(cis)
 	sql = `INSERT INTO order_mark_codes_serial_numbers (id_order_mark_codes, gtin, serial_number, code, block_id, status) 
   SELECT ?, gtin, serial_number, code, block_id, status  from order_mark_codes_serial_numbers omcsn where 
-  SUBSTR(omcsn.code,1,?) in (select cis from litedb.cis_request);`
-	_, err = a.db.Exec(sql, markOrder.ID, lenCis)
+  SUBSTR(omcsn.code,1,?) in (select cis from litedb.cis_request where status = ?);`
+	_, err = a.db.Exec(sql, markOrder.ID, lenCis, status)
 	if err != nil {
 		return out, fmt.Errorf("%s attach db %w", modError, err)
 	}

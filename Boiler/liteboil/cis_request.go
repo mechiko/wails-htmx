@@ -27,6 +27,8 @@ type CisRequest struct {
 	Cis      string     `boil:"cis" json:"cis" toml:"cis" yaml:"cis"`
 	Status   string     `boil:"status" json:"status" toml:"status" yaml:"status"`
 	Responce null.Bytes `boil:"responce" json:"responce,omitempty" toml:"responce" yaml:"responce,omitempty"`
+	Produced string     `boil:"produced" json:"produced" toml:"produced" yaml:"produced"`
+	Expired  string     `boil:"expired" json:"expired" toml:"expired" yaml:"expired"`
 
 	R *cisRequestR `boil:"-" json:"-" toml:"-" yaml:"-"`
 	L cisRequestL  `boil:"-" json:"-" toml:"-" yaml:"-"`
@@ -36,20 +38,28 @@ var CisRequestColumns = struct {
 	Cis      string
 	Status   string
 	Responce string
+	Produced string
+	Expired  string
 }{
 	Cis:      "cis",
 	Status:   "status",
 	Responce: "responce",
+	Produced: "produced",
+	Expired:  "expired",
 }
 
 var CisRequestTableColumns = struct {
 	Cis      string
 	Status   string
 	Responce string
+	Produced string
+	Expired  string
 }{
 	Cis:      "cis_request.cis",
 	Status:   "cis_request.status",
 	Responce: "cis_request.responce",
+	Produced: "cis_request.produced",
+	Expired:  "cis_request.expired",
 }
 
 // Generated where
@@ -107,10 +117,14 @@ var CisRequestWhere = struct {
 	Cis      whereHelperstring
 	Status   whereHelperstring
 	Responce whereHelpernull_Bytes
+	Produced whereHelperstring
+	Expired  whereHelperstring
 }{
 	Cis:      whereHelperstring{field: "\"cis_request\".\"cis\""},
 	Status:   whereHelperstring{field: "\"cis_request\".\"status\""},
 	Responce: whereHelpernull_Bytes{field: "\"cis_request\".\"responce\""},
+	Produced: whereHelperstring{field: "\"cis_request\".\"produced\""},
+	Expired:  whereHelperstring{field: "\"cis_request\".\"expired\""},
 }
 
 // CisRequestRels is where relationship names are stored.
@@ -130,9 +144,9 @@ func (*cisRequestR) NewStruct() *cisRequestR {
 type cisRequestL struct{}
 
 var (
-	cisRequestAllColumns            = []string{"cis", "status", "responce"}
+	cisRequestAllColumns            = []string{"cis", "status", "responce", "produced", "expired"}
 	cisRequestColumnsWithoutDefault = []string{}
-	cisRequestColumnsWithDefault    = []string{"cis", "status", "responce"}
+	cisRequestColumnsWithDefault    = []string{"cis", "status", "responce", "produced", "expired"}
 	cisRequestPrimaryKeyColumns     = []string{"cis"}
 	cisRequestGeneratedColumns      = []string{}
 )

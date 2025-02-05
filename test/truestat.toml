@@ -1,0 +1,58 @@
+browser = ''
+configdb = true
+hostname = '127.0.0.1'
+hostport = '51220'
+name = ''
+output = 'output'
+saveconfig = false
+utmhost = 'localhost'
+utmport = '8088'
+
+[alcogo4]
+dbname = ''
+driver = 'sqlite'
+file = 'truestat\lite.db'
+
+[alcohelp3]
+dbname = ''
+driver = 'sqlite'
+file = ''
+
+[application]
+console = false
+dbtype = 'sqlite'
+fsrarid = ''
+license = 'f7bc886d-bbcd-4ce9-845f-1209d87d406d'
+scantimer = 30
+startpage = 'dbinfo'
+
+[config]
+dbname = ''
+driver = 'sqlite'
+file = 'config.db'
+
+[layouts]
+timelayout = '2006-01-02T15:04:05-0700'
+timelayoutclear = '2006.01.02 15:04:05'
+timelayoutday = '2006.01.02'
+timelayoututc = '2006-01-02T15:04:05'
+
+[mssql]
+connection = 'server=localhost;encrypt=disable;user id=;port=1433'
+driver = 'mssql'
+
+[sqlite]
+driver = 'sqlite'
+
+[trueclient]
+deviceid = 'ae81d813-91dc-4af5-b503-d90a79fef2e8'
+hashkey = 'bf99fa930ac4efa91766e8dbd42029974dcf1954'
+layoututc = '2006-01-02T15:04:05'
+omsid = '32ffcd04-f054-478e-90f7-b22cc27f97ed'
+standgis = 'markirovka.crpt.ru'
+standsuz = 'suzgrid.crpt.ru'
+
+[trueznak]
+dbname = ''
+driver = 'sqlite'
+file = '32ffcd04-f054-478e-90f7-b22cc27f97ed.db'

@@ -70,7 +70,7 @@ win32:
 
 win64:
     #!{{shebang}}
-    $env:Path = "C:\Go\go.1235\bin;C:\go\gcc\mingw64\bin;" + $env:Path
+    $env:Path = "C:\Go\go.123\bin;C:\go\gcc\mingw64\bin;" + $env:Path
     $env:GOARCH = "amd64"
     $env:GOOS = "windows"
     $env:CGO_ENABLED = 1

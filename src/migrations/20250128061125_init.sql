@@ -8,6 +8,8 @@ CREATE TABLE if not exists cis_request (
 	cis TEXT NOT NULL DEFAULT '',
   status TEXT NOT NULL DEFAULT '',
   responce BLOB,
+  produced text NOT NULL DEFAULT '',
+  expired  text NOT NULL DEFAULT '',
 	PRIMARY KEY (cis)
 );
 
