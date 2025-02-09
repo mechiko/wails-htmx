@@ -127,3 +127,4 @@ go.work
 
 *.db
 *.toml
+*.csv
