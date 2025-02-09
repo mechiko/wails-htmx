@@ -1,0 +1,22 @@
+fSys := os.Dir("my-files")
+
+// Want to read my-files/list.txt?
+contents, err := fs.ReadFile(fSys, "list.txt")
+
+// Read the directory?
+items, err := fs.ReadDir(fSys, ".")
+if err != nil {
+    // handle the error...
+}
+for _, item := range items {
+    fmt.Println(item.Name())
+}
+
+// Go Globbing for files?
+matches, err := fs.Glob(fSys, "*.txt")
+if err != nil {
+    // guess we would bail here
+}
+for _, path := range matches {
+    fmt.Println(path)
+}

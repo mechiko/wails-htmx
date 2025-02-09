@@ -7,10 +7,10 @@ import (
 )
 
 //go:embed root
-var root embed.FS
+var Root embed.FS
 
 func GetFileSystem() http.FileSystem {
-	fsys, err := fs.Sub(root, "root")
+	fsys, err := fs.Sub(Root, "root")
 	if err != nil {
 		panic(err)
 	}

@@ -3,6 +3,7 @@ package domain
 import (
 	"net/http"
 
+	"github.com/alexedwards/scs/v2"
 	"go.uber.org/zap"
 )
 
@@ -35,4 +36,5 @@ type IApp interface {
 	ServerError(w http.ResponseWriter, r *http.Request, err error)
 	ClientError(w http.ResponseWriter, r *http.Request, status int, err error)
 	Open(url string)
+	SessionManager() *scs.SessionManager
 }

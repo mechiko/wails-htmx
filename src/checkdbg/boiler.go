@@ -1,5 +1,7 @@
 package checkdbg
 
+import "firstwails/ginserver/templates"
+
 func (c *Checks) GuideGtins() error {
 	if ss, err := c.app.Repo().DbZnak().GtinAll(); err != nil {
 		return err
@@ -17,4 +19,10 @@ func (c *Checks) AttachLite() error {
 		c.app.Logger().Debugf("заказ ид %d", id)
 	}
 	return nil
+}
+
+func (c *Checks) GinTemplates() (err error) {
+	t := templates.New(c.app)
+	err = t.LoadTemplates(true)
+	return err
 }

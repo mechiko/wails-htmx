@@ -96,7 +96,7 @@ func New(e *echo.Echo, opts ...Option) *Server {
 func (s *Server) Start() {
 	go func() {
 		s.notify <- s.server.ListenAndServe()
-		close(s.notify)
+		// close(s.notify)
 	}()
 }
 

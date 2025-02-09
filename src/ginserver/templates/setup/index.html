@@ -1,0 +1,4 @@
+<div hx-get="/setup/ready" hx-trigger="every 300ms" hx-target="this" hx-swap="outerHTML"
+  _="init log 'set title' then set title of document to '{{$.TrueClient.Title}}'">
+  {{ template "page" .TrueClient }}
+</div>

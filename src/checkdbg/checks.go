@@ -24,7 +24,9 @@ func (c *Checks) Run() (err error) {
 			err = fmt.Errorf("%s Run panic %v", modError, r)
 		}
 	}()
-
+	if err := c.GinTemplates(); err != nil {
+		return err
+	}
 	// if err := c.AttachLite(); err != nil {
 	// 	return err
 	// }

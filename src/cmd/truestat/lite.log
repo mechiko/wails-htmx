@@ -1,0 +1,100 @@
+2025-02-09 14:03:46	debug	cmd/main.go:61	zaplog started
+2025-02-09 14:03:46	info	cmd/main.go:62	mode = development
+2025-02-09 14:03:46	info	repo/types.go:63	pkg:repo отсутствует БД А3 [драйвер sqlite]
+2025-02-09 14:03:46	debug	templates/load.go:31	page 0 dbinfo true
+2025-02-09 14:03:46	debug	templates/load.go:63	parse dbinfo error.html false
+2025-02-09 14:03:46	debug	templates/load.go:66	file dbinfo/error.html
+2025-02-09 14:03:52	debug	templates/load.go:73	file read bytes error dbinfo/error.html 66
+2025-02-09 14:03:52	debug	templates/load.go:63	parse dbinfo footer.html false
+2025-02-09 14:03:52	debug	templates/load.go:66	file dbinfo/footer.html
+2025-02-09 14:03:53	debug	templates/load.go:73	file read bytes footer dbinfo/footer.html 40
+2025-02-09 14:03:53	debug	templates/load.go:63	parse dbinfo index.html false
+2025-02-09 14:03:53	debug	templates/load.go:66	file dbinfo/index.html
+2025-02-09 14:03:54	debug	templates/load.go:73	file read bytes index dbinfo/index.html 560
+2025-02-09 14:03:54	debug	templates/load.go:63	parse dbinfo indexerror.html false
+2025-02-09 14:03:54	debug	templates/load.go:66	file dbinfo/indexerror.html
+2025-02-09 14:03:54	debug	templates/load.go:73	file read bytes indexerror dbinfo/indexerror.html 743
+2025-02-09 14:03:54	debug	templates/load.go:63	parse dbinfo navbar.html false
+2025-02-09 14:03:54	debug	templates/load.go:66	file dbinfo/navbar.html
+2025-02-09 14:03:55	debug	templates/load.go:73	file read bytes navbar dbinfo/navbar.html 12
+2025-02-09 14:03:55	debug	templates/load.go:63	parse dbinfo page.html false
+2025-02-09 14:03:55	debug	templates/load.go:66	file dbinfo/page.html
+2025-02-09 14:03:56	debug	templates/load.go:73	file read bytes page dbinfo/page.html 1274
+2025-02-09 14:03:56	debug	templates/load.go:63	parse dbinfo style.html false
+2025-02-09 14:03:56	debug	templates/load.go:66	file dbinfo/style.html
+2025-02-09 14:03:56	debug	templates/load.go:73	file read bytes style dbinfo/style.html 1574
+2025-02-09 14:03:56	debug	templates/load.go:31	page 1 embeded.go false
+2025-02-09 14:03:56	debug	templates/load.go:31	page 2 finder true
+2025-02-09 14:03:56	debug	templates/load.go:63	parse finder chunk.html false
+2025-02-09 14:03:56	debug	templates/load.go:66	file finder/chunk.html
+2025-02-09 14:03:57	debug	templates/load.go:73	file read bytes chunk finder/chunk.html 351
+2025-02-09 14:03:57	debug	templates/load.go:63	parse finder datamatrixlist.html false
+2025-02-09 14:03:57	debug	templates/load.go:66	file finder/datamatrixlist.html
+2025-02-09 14:03:57	debug	templates/load.go:73	file read bytes datamatrixlist finder/datamatrixlist.html 3264
+2025-02-09 14:03:57	debug	templates/load.go:63	parse finder datamatrixlistsmall.html false
+2025-02-09 14:03:57	debug	templates/load.go:66	file finder/datamatrixlistsmall.html
+2025-02-09 14:03:58	debug	templates/load.go:73	file read bytes datamatrixlistsmall finder/datamatrixlistsmall.html 2180
+2025-02-09 14:03:58	debug	templates/load.go:63	parse finder footer.html false
+2025-02-09 14:03:58	debug	templates/load.go:66	file finder/footer.html
+2025-02-09 14:03:59	debug	templates/load.go:73	file read bytes footer finder/footer.html 0
+2025-02-09 14:03:59	debug	templates/load.go:63	parse finder index.html false
+2025-02-09 14:03:59	debug	templates/load.go:66	file finder/index.html
+2025-02-09 14:04:01	debug	templates/load.go:73	file read bytes index finder/index.html 546
+2025-02-09 14:04:01	debug	templates/load.go:63	parse finder navbar.html false
+2025-02-09 14:04:01	debug	templates/load.go:66	file finder/navbar.html
+2025-02-09 14:04:03	debug	templates/load.go:73	file read bytes navbar finder/navbar.html 0
+2025-02-09 14:04:03	debug	templates/load.go:63	parse finder page.html false
+2025-02-09 14:04:03	debug	templates/load.go:66	file finder/page.html
+2025-02-09 14:04:10	debug	templates/load.go:73	file read bytes page finder/page.html 3280
+2025-02-09 14:04:10	debug	templates/load.go:63	parse finder progress.html false
+2025-02-09 14:04:10	debug	templates/load.go:66	file finder/progress.html
+2025-02-09 14:04:11	debug	templates/load.go:73	file read bytes progress finder/progress.html 96
+2025-02-09 14:04:11	debug	templates/load.go:31	page 3 funcs.go false
+2025-02-09 14:04:11	debug	templates/load.go:31	page 4 help.txt false
+2025-02-09 14:04:11	debug	templates/load.go:31	page 5 index true
+2025-02-09 14:04:11	debug	templates/load.go:63	parse index index.html false
+2025-02-09 14:04:11	debug	templates/load.go:66	file index/index.html
+2025-02-09 14:04:12	debug	templates/load.go:73	file read bytes index index/index.html 3633
+2025-02-09 14:04:12	debug	templates/load.go:31	page 6 load.go false
+2025-02-09 14:04:12	debug	templates/load.go:31	page 7 setup true
+2025-02-09 14:04:12	debug	templates/load.go:63	parse setup configdb.html false
+2025-02-09 14:04:12	debug	templates/load.go:66	file setup/configdb.html
+2025-02-09 14:04:13	debug	templates/load.go:73	file read bytes configdb setup/configdb.html 452
+2025-02-09 14:04:13	debug	templates/load.go:63	parse setup deviceid.html false
+2025-02-09 14:04:13	debug	templates/load.go:66	file setup/deviceid.html
+2025-02-09 14:04:13	debug	templates/load.go:73	file read bytes deviceid setup/deviceid.html 420
+2025-02-09 14:04:13	debug	templates/load.go:63	parse setup index.html false
+2025-02-09 14:04:13	debug	templates/load.go:66	file setup/index.html
+2025-02-09 14:04:15	debug	templates/load.go:73	file read bytes index setup/index.html 219
+2025-02-09 14:04:15	debug	templates/load.go:63	parse setup modal.html false
+2025-02-09 14:04:15	debug	templates/load.go:66	file setup/modal.html
+2025-02-09 14:04:15	debug	templates/load.go:73	file read bytes modal setup/modal.html 392
+2025-02-09 14:04:15	debug	templates/load.go:63	parse setup omsid.html false
+2025-02-09 14:04:15	debug	templates/load.go:66	file setup/omsid.html
+2025-02-09 14:04:16	debug	templates/load.go:73	file read bytes omsid setup/omsid.html 390
+2025-02-09 14:04:16	debug	templates/load.go:63	parse setup page.html false
+2025-02-09 14:04:16	debug	templates/load.go:66	file setup/page.html
+2025-02-09 14:04:16	debug	templates/load.go:73	file read bytes page setup/page.html 3068
+2025-02-09 14:04:16	debug	templates/load.go:63	parse setup pagesave.html false
+2025-02-09 14:04:16	debug	templates/load.go:66	file setup/pagesave.html
+2025-02-09 14:04:17	debug	templates/load.go:73	file read bytes pagesave setup/pagesave.html 1903
+2025-02-09 14:04:17	debug	templates/load.go:31	page 8 stats true
+2025-02-09 14:04:17	debug	templates/load.go:63	parse stats chunk.html false
+2025-02-09 14:04:17	debug	templates/load.go:66	file stats/chunk.html
+2025-02-09 14:04:18	debug	templates/load.go:73	file read bytes chunk stats/chunk.html 350
+2025-02-09 14:04:18	debug	templates/load.go:63	parse stats footer.html false
+2025-02-09 14:04:18	debug	templates/load.go:66	file stats/footer.html
+2025-02-09 14:04:19	debug	templates/load.go:73	file read bytes footer stats/footer.html 0
+2025-02-09 14:04:19	debug	templates/load.go:63	parse stats index.html false
+2025-02-09 14:04:19	debug	templates/load.go:66	file stats/index.html
+2025-02-09 14:04:19	debug	templates/load.go:73	file read bytes index stats/index.html 551
+2025-02-09 14:04:19	debug	templates/load.go:63	parse stats navbar.html false
+2025-02-09 14:04:19	debug	templates/load.go:66	file stats/navbar.html
+2025-02-09 14:04:20	debug	templates/load.go:73	file read bytes navbar stats/navbar.html 0
+2025-02-09 14:04:20	debug	templates/load.go:63	parse stats page.html false
+2025-02-09 14:04:20	debug	templates/load.go:66	file stats/page.html
+2025-02-09 14:04:20	debug	templates/load.go:73	file read bytes page stats/page.html 2969
+2025-02-09 14:04:20	debug	templates/load.go:63	parse stats progress.html false
+2025-02-09 14:04:20	debug	templates/load.go:66	file stats/progress.html
+2025-02-09 14:04:21	debug	templates/load.go:73	file read bytes progress stats/progress.html 96
+2025-02-09 14:04:21	debug	templates/load.go:31	page 9 type.go false
