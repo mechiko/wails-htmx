@@ -120,6 +120,9 @@ $RECYCLE.BIN/
 
 # Dependency directories (remove the comment below to include it)
 vendor/
+cmd/truestat
+cmd/output
+cmd/alcogo
 
 # Go workspace file
 # go.mod
