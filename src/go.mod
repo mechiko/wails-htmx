@@ -5,10 +5,13 @@ go 1.23
 toolchain go1.23.5
 
 require (
+	github.com/alexedwards/scs/v2 v2.8.0
 	github.com/denisenkom/go-mssqldb v0.12.3
 	github.com/friendsofgo/errors v0.9.2
 	github.com/google/uuid v1.6.0
 	github.com/jmoiron/sqlx v1.4.0
+	github.com/justinas/alice v1.2.0
+	github.com/justinas/nosurf v1.1.1
 	github.com/karagenc/zap4echo v0.1.1
 	github.com/labstack/echo/v4 v4.13.3
 	github.com/mattn/go-sqlite3 v1.14.24

@@ -1,0 +1,10 @@
+<div hx-target="#page" hx-swap="outerHTML">
+  <label class="label cursor-pointer flex items-start">
+    <span class="pl-1 self-center label-text text-primary">Использовать config.db</span>
+    <input hx-post="/setup/configdb" type="checkbox" 
+           {{if .UseConfigDB}}checked="checked"{{end}}
+           class="m-1 p-1 checkbox checkbox-primary" 
+           name="configdb"/>
+    <span class="grow"></span>
+  </label>
+</div>

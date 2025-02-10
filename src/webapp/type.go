@@ -15,6 +15,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/alexedwards/scs/v2"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
@@ -48,6 +49,8 @@ type webapp struct {
 	header            fragment
 	footer            fragment
 	output            string
+	// SessionManager manages user sessions, providing methods for creating, retrieving, and deleting session data.
+	sessionManager *scs.SessionManager
 }
 
 const modError = "webapp"
@@ -97,6 +100,9 @@ func NewWebApp(logger *zap.SugaredLogger, e *echo.Echo, pwd string) *webapp {
 	sc.header.Route(e)
 	sc.footer = footer.New(sc)
 	sc.footer.Route(e)
+	// Initialize session manager with SQLite3-backed session store
+	sessionManager := scs.New()
+	sessionManager.Lifetime = 12 * time.Hour
 	return sc
 }
 
@@ -217,4 +223,8 @@ func (a *webapp) Repo() domain.Repo {
 
 func (a *webapp) Output() string {
 	return a.output
+}
+
+func (a *webapp) SessionManager() *scs.SessionManager {
+	return a.sessionManager
 }
